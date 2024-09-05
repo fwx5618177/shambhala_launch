@@ -1,19 +1,34 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export const Footer = () => {
-    return (
-      <footer className="bg-black text-white py-8">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div>
-            <p className="text-gray-500">Docs</p>
-            <p className="text-gray-500">Terms & Conditions</p>
-          </div>
-          <div className="flex space-x-4">
-            <a href="#"><img src="/twitter-icon.svg" alt="Twitter" className="h-6 w-6" /></a>
-            <a href="#"><img src="/telegram-icon.svg" alt="Telegram" className="h-6 w-6" /></a>
-            <a href="#"><img src="/discord-icon.svg" alt="Discord" className="h-6 w-6" /></a>
-          </div>
+  return (
+    <footer className="bg-primary text-thirdary w-full h-[188px] flex items-center justify-around">
+      <div>
+        <p className="text-coinMd font-600 mb-[14px]">Docs</p>
+        <p className="text-desc text-[#999999]">Terms & Conditions</p>
+      </div>
+      <div className="flex space-x-4 flex-col items-start">
+        <p className="text-coinMd font-600 mb-[14px]">Community</p>
+        <div className="flex space-x-4">
+          <Link href="https://twitter.com" passHref>
+            <Image src={'/x.svg'} alt="Twitter" width={45} height={45} />
+          </Link>
+          <Link href="https://line.me" passHref>
+            <Image src={'/line.svg'} alt="Twitter" width={45} height={45} />
+          </Link>
+          <Link href="https://telegram.org" passHref>
+            <Image src={'/telegram.svg'} alt="Twitter" width={45} height={45} />
+          </Link>
+          <Link href="https://instagram.com" passHref>
+            <Image src={'/instagram.svg'} alt="Twitter" width={45} height={45} />
+          </Link>
+          <Link href="https://discord.com" passHref>
+            <Image src={'/discord.svg'} alt="Twitter" width={45} height={45} />
+          </Link>
         </div>
-      </footer>
-    );
-  };
+      </div>
+    </footer>
+  );
+};

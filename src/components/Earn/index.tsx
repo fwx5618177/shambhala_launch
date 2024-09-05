@@ -1,25 +1,31 @@
-import React from "react";
+import Image from "next/image";
+import React, { FC } from "react";
 
-const Earn = () => {
+interface EarnProps {
+  col?: boolean;
+}
+
+const Earn: FC<EarnProps> = ({ col }) => {
   return (
-    <section className="py-12 px-8 bg-white">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="w-1/2">
-          <h2 className="text-4xl font-bold mb-4">Earn</h2>
-          <p className="text-lg mb-6">
-            Earn more when you re-stake with ethfi. Stake your ETH or stETH and
-            get ETH+...
+    <section className={`h-[638px] bg-bg-primary text-primary flex items-center`}>
+      <div
+        className={`max-w-7xl mx-auto flex items-center justify-between ${col ? 'flex-col-reverse items-center text-center' : 'flex-row'
+          }`}
+      >
+        <div className={`w-1/2 ${col ? 'mr-0 mt-6' : 'mr-[72px]'}`}>
+          <h2 className="text-xl font-bold mb-4">Earn</h2>
+          <p className="text-desc mt-[21px]">
+            Earn more when you re-stake with ether.fi Stake your ETH or stETH and get eETH - a
+            natively re-staked liquid staking token. Earn staking rewards across popular networks and
+            the DeFi ecosystem. Plus, receive ether.fi loyalty points, EigenLayer points and many
+            more partner rewards with your eETH.
           </p>
-          <button className="bg-black text-white px-6 py-3 rounded-full">
+          <div className="w-[200px] h-[42px] bg-primary text-thirdary rounded-full mt-[52px] flex items-center justify-center button-hover mx-auto">
             Earn Now
-          </button>
+          </div>
         </div>
         <div className="w-1/2">
-          <img
-            src="/earn-screenshot.png"
-            alt="Earn Screenshot"
-            className="rounded-xl shadow-lg"
-          />
+          <Image src="/earn.png" alt="Earn" width={670} height={365} className="rounded-[20px]" />
         </div>
       </div>
     </section>
