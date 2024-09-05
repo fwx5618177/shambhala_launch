@@ -46,6 +46,7 @@ const config: Config = {
       backgroundImage: {
         // 渐变背景
         apy: "linear-gradient(90deg, #6DD0A1 0%, #9EF34C 100%)",
+        manturity: "linear-gradient(90deg, #59FEA5 0%, #FFFFFF 100%)",
       },
       boxShadow: {
         // 投影效果
