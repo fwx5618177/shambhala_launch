@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Logo from "@/components/Logo";
 import SwitchTab from "@/components/SwitchTab";
 import Image from "next/image";
@@ -14,6 +14,13 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ logo, switchTab, type = 'normal', tabType }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev); // 切换菜单显示状态
+  };
+
   return (
     <header
       style={{
@@ -28,9 +35,28 @@ export const Header: FC<HeaderProps> = ({ logo, switchTab, type = 'normal', tabT
         {logo && <Logo size="large" />}
       </div>
       {switchTab && <SwitchTab type={tabType} />}
-      <div className="flex items-center my-[9px]">
+      <div className="relative flex items-center my-[9px]">
         <WalletButton />
-        <Image src={"/union.svg"} width={22} height={22} alt="union" />
+        <Image src={"/union.svg"} width={22} height={22} alt="union" onClick={toggleMenu} />
+
+        {isMenuOpen && (
+          <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10">
+            <ul className="text-sm">
+              <li
+                className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                onClick={toggleMenu}
+              >
+                English
+              </li>
+              <li
+                className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                onClick={toggleMenu}
+              >
+                日语
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );

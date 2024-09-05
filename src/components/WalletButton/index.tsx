@@ -36,8 +36,19 @@ const WalletButton: React.FC = () => {
                     />
 
                     {isMenuOpen && (
-                        <div className="absolute top-full right-0 mt-2 w-[160px] bg-[#454343de] text-thirdary rounded-lg shadow-lg z-10">
+                        <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10">
                             <ul className="text-sm">
+                                <li
+                                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                                    onClick={toggleMenu}
+                                >
+                                    <p className="flex items-center justify-center gap-2">
+                                        <Image src="/user-icon.svg" alt="User" width={24} height={24} />
+                                        <span className="truncate">
+                                            {address?.slice(0, 6)}...{address?.slice(-4)}
+                                        </span>
+                                    </p>
+                                </li>
                                 <li
                                     className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                                     onClick={handleDisconnect}
