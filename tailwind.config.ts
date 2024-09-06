@@ -51,6 +51,7 @@ const config: Config = {
       boxShadow: {
         // 投影效果
         card: "0px 2px 20px rgba(114, 144, 153, 0.5)", // y轴偏移 2px，模糊半径 20px，投影颜色 #729099，透明度 50%
+        tableCard: "0px 1px 8px 0px #72909940",
       },
       borderRadius: {
         card: "8px", // 卡片圆角

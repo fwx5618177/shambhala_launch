@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Limit from '@/components/Limit';
 import InputBalance from '@/components/InputBalance';
 import LineCharts from '@/components/LineCharts';
+import Loading from '@/components/Loading';
 
 const AssetSection = () => {
     const [selectedTab, setSelectedTab] = useState<'info' | 'apy'>('info');
@@ -16,7 +17,14 @@ const AssetSection = () => {
         setStep(1);
     }
 
-    const handleApprove = () => { }
+    const handleApprove = () => {
+        // Mock
+        setIsLoading(true);
+
+        setInterval(() => {
+            setIsLoading(false);
+        }, 5000);
+    }
 
     return (
         <section className="w-full bg-thirdary flex items-start pt-[86px] px-[109px]">
@@ -151,8 +159,8 @@ const AssetSection = () => {
                             </div></>)}
                     </div>
 
-                    {step === 0 && (<div onClick={() => handleInvest()} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
-                        Invest
+                    {step === 0 && (<div onClick={() => handleInvest()} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover capitalize">
+                        {selectedRedeem}
                     </div>)}
 
                     {step === 1 && (
@@ -166,9 +174,11 @@ const AssetSection = () => {
                                     <Image src={'/aave.png'} width={18} height={18} alt='usdc' />
                                 </div>
                             </div>
-                            <div onClick={handleApprove} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
-                                Step 1 of 2 : Approve USDC
-                            </div>
+                            {!isLoading ?
+                                (<div onClick={handleApprove} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
+                                    Step 1 of 2 : Approve USDC
+                                </div>)
+                                : <Loading text={selectedRedeem} type='asset' />}
                         </>
                     )}
                 </div>
