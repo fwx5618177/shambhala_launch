@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Limit from '@/components/Limit';
 import InputBalance from '@/components/InputBalance';
+import LineCharts from '@/components/LineCharts';
 
 const AssetSection = () => {
     const [selectedTab, setSelectedTab] = useState<'info' | 'apy'>('info');
     const [selectedRedeem, setSelectedRedeem] = useState<'invite' | 'redeem'>('invite');
+    const [inputValue, setInputValue] = useState<number>(0.0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [step, setStep] = useState<number>(0);
     const rate = 1;
+
+    const handleInvest = () => {
+        setStep(1);
+    }
+
+    const handleApprove = () => { }
 
     return (
         <section className="w-full bg-thirdary flex items-start pt-[86px] px-[109px]">
@@ -49,44 +59,40 @@ const AssetSection = () => {
                     <div onClick={() => setSelectedTab('apy')} className={`px-[24px] py-[10px] text-primary cursor-pointer ${selectedTab === 'apy' ? 'bg-[#f1f1f1] rounded-[50px]' : ''}`}>APY</div>
                 </div>
 
-                <div className="mt-[20px] mb-[40px]">
+                {selectedTab === 'info' && (<><div className="mt-[20px] mb-[40px]">
                     <h2 className="text-[16px] text-primary font-500 mb-[12px]">About</h2>
                     <p className="text-[12px] font-500 text-[#535353]">
                         We want to build a global, trustless financial ecosystem that enables users to freely manage and trade their assets without relying on traditional financial institutions. Through continuous innovation and improvement, we are committed to providing secure and user-friendly DeFi products that drive the widespread adoption of blockchain technology.
                     </p>
-                </div>
-
-                <div className='w-full h-[1px] bg-[#EBEBEB] mb-[22px]' />
-
-                <div className='flex items-center justify-between gap-[110px] mb-[45px] text-primary text-[18px] font-400'>
-                    <div className='flex flex-col items-start '>
-                        <span className='mb-[17px]'>Earn</span>
-                        <div className="flex items-center gap-[2px]">
-                            <Image src={'/usdc.png'} width={18} height={18} alt='eth' />
-                            <p className="font-500">USDC</p>
+                </div><div className='w-full h-[1px] bg-[#EBEBEB] mb-[22px]' /><div className='flex items-center justify-between gap-[110px] mb-[45px] text-primary text-[18px] font-400'>
+                        <div className='flex flex-col items-start '>
+                            <span className='mb-[17px]'>Earn</span>
+                            <div className="flex items-center gap-[2px]">
+                                <Image src={'/usdc.png'} width={18} height={18} alt='eth' />
+                                <p className="font-500">USDC</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className='flex flex-col items-start '>
-                        <span className='mb-[17px]'>TVL</span>
-                        <p className="font-500">$54.34M</p>
-                    </div>
-                    <div className='flex flex-col items-start '>
-                        <span className='mb-[17px]'>Protocol</span>
-                        <div className="flex items-center gap-[2px]">
-                            <Image src={'/aave.png'} width={18} height={18} alt='aave' />
-                            <p className="font-500 ml-[5px]">Aave V3</p>
+                        <div className='flex flex-col items-start '>
+                            <span className='mb-[17px]'>TVL</span>
+                            <p className="font-500">$54.34M</p>
                         </div>
-                    </div>
-                    <div className='flex flex-col items-start '>
-                        <span className='mb-[17px]'>Network</span>
-                        <div className="flex items-center gap-[5px]">
-                            <Image src={'/eth.svg'} width={18} height={18} alt='eth' />
-                            <p className="font-500">Ethereum</p>
+                        <div className='flex flex-col items-start '>
+                            <span className='mb-[17px]'>Protocol</span>
+                            <div className="flex items-center gap-[2px]">
+                                <Image src={'/aave.png'} width={18} height={18} alt='aave' />
+                                <p className="font-500 ml-[5px]">Aave V3</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div className='flex flex-col items-start '>
+                            <span className='mb-[17px]'>Network</span>
+                            <div className="flex items-center gap-[5px]">
+                                <Image src={'/eth.svg'} width={18} height={18} alt='eth' />
+                                <p className="font-500">Ethereum</p>
+                            </div>
+                        </div>
+                    </div><Limit progress={45 / 94 * 100} current={'$4.5M'} total={'$9.4M'} /></>)}
 
-                <Limit progress={45 / 94 * 100} current={'$4.5M'} total={'$9.4M'} />
+                {selectedTab === 'apy' && (<LineCharts />)}
 
                 {/* FAQ 部分 */}
                 <div className="mb-8 mt-[47px]">
@@ -118,22 +124,53 @@ const AssetSection = () => {
 
                 <div className="w-full bg-thirdary shadow-card rounded-card text-primary px-[28px] py-[33px]">
                     <div className='text-[12px] font-500 text-[#929292] flex items-center justify-end mb-[5px]'>balance: 0</div>
-                    <InputBalance logo={'/usdc.png'} coinName={'USDC'} rate={rate} type='asset' maxValue={100} />
+                    <InputBalance logo={'/usdc.png'} coinName={'USDC'} rate={rate} type='asset' maxValue={100} onChange={value => {
+                        setInputValue(value);
+                    }} />
 
                     <div className='w-full flex flex-col items-center justify-around text-secondary font-500 mt-[14px] mb-[38px]'>
                         <div className='w-full flex items-center justify-between'>
                             <span className='text-[12px]'>Est.daily</span>
-                            <span className='text-[14px] text-primary'>{(rate * 1).toFixed(2)} USDT</span>
+                            <span className='text-[14px] text-primary'>{(rate * inputValue).toFixed(2)} USDT</span>
                         </div>
                         <div className='w-full flex items-center justify-between'>
                             <span className='text-[12px]'>Est.receive</span>
-                            <span className='text-[14px] text-primary'>{(rate * 1).toFixed(2)}</span>
+                            <span className='text-[14px] text-primary'>{(rate * inputValue).toFixed(2)}</span>
                         </div>
+                        <div className='w-full flex items-center justify-between'>
+                            <span className='text-[12px]'>Est.Points reward</span>
+                            <span className='text-[14px] text-primary'>{(rate * inputValue).toFixed(2)}</span>
+                        </div>
+
+                        {step === 1 && (<><div className="w-full h-[1px] bg-[#ededed] mt-[25px]"></div><div className='mt-[12px] w-full flex items-center justify-between'>
+                            <span className='text-[12px]'>Network</span>
+                            <span className='text-[14px] text-primary'>Ethereum</span>
+                        </div><div className='w-full flex items-center justify-between'>
+                                <span className='text-[12px]'>Investment Loss</span>
+                                <span className='text-[14px] text-primary'>{(rate * inputValue).toFixed(2)}</span>
+                            </div></>)}
                     </div>
 
-                    <div className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
+                    {step === 0 && (<div onClick={() => handleInvest()} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
                         Invest
-                    </div>
+                    </div>)}
+
+                    {step === 1 && (
+                        <>
+                            <div className='mt-[15px] mb-[24px] w-full py-[14px] flex items-center justify-center gap-[19px] border border-[#EBEBEB] border-solid'>
+                                <div className='flex items-center text-[12px] font-500 text-primary gap-[5px]'>1. Approve
+                                    <Image src={'/usdc.png'} width={18} height={18} alt='usdc' />
+                                </div>
+                                <Image src={'/right-arrow.svg'} width={20} height={10} alt='arrow' />
+                                <div className='flex items-center text-[12px] font-500 text-primary gap-[5px]'>2. Invest
+                                    <Image src={'/aave.png'} width={18} height={18} alt='usdc' />
+                                </div>
+                            </div>
+                            <div onClick={handleApprove} className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover">
+                                Step 1 of 2 : Approve USDC
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </section >

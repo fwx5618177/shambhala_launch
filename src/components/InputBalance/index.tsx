@@ -7,15 +7,17 @@ interface InputBalanceProps {
     rate: number; // rate 是需要传递的
     maxValue: number; // 最大值
     type?: 'invest' | 'asset';
+    onChange?: (value: number) => void;
 }
 
-const InputBalance: FC<InputBalanceProps> = ({ logo, coinName, rate, maxValue, type }) => {
+const InputBalance: FC<InputBalanceProps> = ({ logo, coinName, rate, maxValue, type, onChange }) => {
     const [inputValue, setInputValue] = useState('0.00'); // 默认输入值
     const [calculatedValue, setCalculatedValue] = useState(0); // 计算后的值
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setInputValue(value);
+        onChange && onChange(Number(value));
 
         // 将输入的值转换为数字并乘以 rate
         const numericValue = parseFloat(value) || 0; // 如果解析失败，则默认为 0
@@ -53,7 +55,7 @@ const InputBalance: FC<InputBalanceProps> = ({ logo, coinName, rate, maxValue, t
                         />
                         <span className="text-[22px] font-500">{coinName}</span>
                     </div>
-                    <div className='mt-[12px] px-[12px] py-[5px] rounded-[20px] text-[14px] bg-primary text-thirdary' onClick={handleMaxClick}>Max</div>
+                    <div className='mt-[12px] px-[12px] py-[5px] rounded-[20px] text-[14px] bg-primary text-thirdary cursor-pointer' onClick={handleMaxClick}>Max</div>
                 </div>) : (
                     <>
                         <div className={`bg-market-card-bg rounded-[10px] w-[142px] h-[50px] mr-[36px] flex items-center justify-between px-[12px]`}>
