@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Referral from "@/components/Referral";
 import { useTranslation } from "react-i18next";
+import Router from "next/router";
 
 type PointsMarketSectionProps = {
   type: "pointsMarket" | "referral" | "myRewards" | "rewardCenter";
@@ -24,7 +25,9 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
     "pointsRecord"
   );
   const { t } = useTranslation("common");
-
+  const goPage = (to: string) => {
+    Router.push(to);
+  };
   const title = () => {
     switch (type) {
       case "pointsMarket":
@@ -49,10 +52,16 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
             {t("hot-activity")}
           </h2>
           <div className="w-full px-[20px] flex justify-center space-x-[39px] text-[24px] font-600 text-thirdary mb-[80px]">
-            <div className="bg-primary w-[560px] h-[210px] rounded-[10px] flex items-center justify-center">
+            <div
+              className="bg-primary w-[560px] h-[210px] rounded-[10px] flex items-center justify-center"
+              onClick={() => goPage("/referral")}
+            >
               <h1 className="text-[32px] font-600">{t("events-1")}</h1>
             </div>
-            <div className="bg-primary w-[560px] h-[210px] rounded-[10px] flex items-center justify-center">
+            <div
+              className="bg-primary w-[560px] h-[210px] rounded-[10px] flex items-center justify-center"
+              onClick={() => goPage("/referral")}
+            >
               <h1 className="text-[32px] font-600">{t("events-2")}</h1>
             </div>
           </div>
@@ -97,7 +106,10 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
           <div className="flex flex-col w-1/2">
             <h2 className="mb-[30px]">{t("reward-detail")}</h2>
             <div className="flex flex-col gap-[15px]">
-              <div className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover">
+              <div
+                className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover"
+                onClick={() => goPage("/level")}
+              >
                 {t("point-reward")}
                 <Image
                   src="/right-arrow.svg"
@@ -106,7 +118,10 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
                   alt="right arrow"
                 />
               </div>
-              <div className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover">
+              <div
+                className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover"
+                onClick={() => goPage("/level")}
+              >
                 {t("direct-referrals")}
                 <Image
                   src="/right-arrow.svg"
@@ -115,7 +130,10 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
                   alt="right arrow"
                 />
               </div>
-              <div className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover">
+              <div
+                className="px-[50px] py-[10px] text-primary rounded-card shadow-tableCard flex items-center justify-between button-hover"
+                onClick={() => goPage("/level")}
+              >
                 {t("related-referrals")}
                 <Image
                   src="/right-arrow.svg"

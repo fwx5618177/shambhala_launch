@@ -47,7 +47,7 @@ const Card: FC<CardProps> = ({ logo, subLogo, title, apy, version }) => {
       </div>
 
       <div className="flex justify-center">
-        <Link href="/discover">
+        <Link href="/asset">
           <div className="w-200 h-42 mt-2 bg-button text-primary text-center px-6 py-2 rounded-button shadow-sm cursor-pointer button-hover">
             Invest
           </div>

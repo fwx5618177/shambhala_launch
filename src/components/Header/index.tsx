@@ -49,6 +49,10 @@ export const Header: FC<HeaderProps> = ({
     setActiveTab(tab);
   };
 
+  const goHome = () => {
+    localStorage.setItem("nextTab", "market");
+  };
+
   return (
     <header
       style={{
@@ -60,7 +64,7 @@ export const Header: FC<HeaderProps> = ({
       className="flex justify-between items-center py-4 px-8 bg-bannerBg text-white"
     >
       <div className="flex items-center space-x-4">
-        <Link href="/">
+        <Link href="/" onClick={goHome}>
           <Logo size="large" />
         </Link>
       </div>
