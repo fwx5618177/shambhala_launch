@@ -7,8 +7,15 @@ import Earn from "@/components/Earn";
 import { Footer } from "@/components/Footer";
 import CardSection from "@/Section/CardSection";
 import HomeSwitchSection from "@/Section/HomeSwitchSection";
-
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 const Home: NextPage = () => {
+  const router = useRouter();
+  const { inviteCode } = router.query;
+  if (inviteCode) {
+    localStorage.setItem("inviteCode", inviteCode);
+  }
+
   return (
     <div>
       <Head>
