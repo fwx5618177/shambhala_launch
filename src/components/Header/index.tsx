@@ -1,24 +1,33 @@
-'use client';
+"use client";
 
 import React, { FC, useState, useRef, useEffect } from "react";
 import Logo from "@/components/Logo";
 import SwitchTab from "@/components/SwitchTab";
 import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
+import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18next";
 
 interface HeaderProps {
   logo?: boolean;
   switchTab?: boolean;
   type?: "fixed" | "normal";
-  tabType?: 'home' | 'normal'
+  tabType?: "home" | "normal";
 }
 
-export const Header: FC<HeaderProps> = ({ logo, switchTab, type = 'normal', tabType }) => {
+export const Header: FC<HeaderProps> = ({
+  logo,
+  switchTab,
+  type = "normal",
+  tabType,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'language' | 'currency'>('language');
+  const [activeTab, setActiveTab] = useState<"language" | "currency">(
+    "language"
+  );
   const menuRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation("common");
 
-  // 点击菜单外关闭菜单
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -36,7 +45,7 @@ export const Header: FC<HeaderProps> = ({ logo, switchTab, type = 'normal', tabT
     setIsMenuOpen((prev) => !prev);
   };
 
-  const handleTabSwitch = (tab: 'language' | 'currency') => {
+  const handleTabSwitch = (tab: "language" | "currency") => {
     setActiveTab(tab);
   };
 
@@ -56,40 +65,82 @@ export const Header: FC<HeaderProps> = ({ logo, switchTab, type = 'normal', tabT
       {switchTab && <SwitchTab type={tabType} />}
       <div className="relative flex items-center my-[9px]" ref={menuRef}>
         <WalletButton />
-        <Image src={"/union.svg"} width={22} height={22} alt="union" onClick={toggleMenu} />
+        <Image
+          src={"/union.svg"}
+          width={22}
+          height={22}
+          alt="union"
+          onClick={toggleMenu}
+        />
 
         {isMenuOpen && (
           <div className="p-[20px] absolute top-full right-0 mt-2 bg-thirdary text-primary text-desc rounded-lg shadow-lg z-10">
             <div className="flex justify-between border-b border-[#EBEBEB]">
               <div
-                className={`px-2 py-2 text-center cursor-pointer ${activeTab === 'language' ? 'border-b border-primary' : 'bg-white'}`}
-                onClick={() => handleTabSwitch('language')}
+                className={`px-2 py-2 text-center cursor-pointer ${
+                  activeTab === "language"
+                    ? "border-b border-primary"
+                    : "bg-white"
+                }`}
+                onClick={() => handleTabSwitch("language")}
               >
-                Language
+                {t("language")}
               </div>
               <div
-                className={`px-4 py-2 text-center cursor-pointer ${activeTab === 'currency' ? 'border-b border-primary' : 'bg-white'}`}
-                onClick={() => handleTabSwitch('currency')}
+                className={`px-4 py-2 text-center cursor-pointer ${
+                  activeTab === "currency"
+                    ? "border-b border-primary"
+                    : "bg-white"
+                }`}
+                onClick={() => handleTabSwitch("currency")}
               >
-                Currency
+                {t("currency")}
               </div>
             </div>
 
-            {activeTab === 'language' ? (
+            {activeTab === "language" ? (
               <ul className="text-sm">
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={toggleMenu}>
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => {
+                    changeLanguage("en");
+                    toggleMenu();
+                  }}
+                >
                   English
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={toggleMenu}>
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => {
+                    changeLanguage("jp");
+                    toggleMenu();
+                  }}
+                >
                   日本語
+                </li>
+
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => {
+                    changeLanguage("zh");
+                    toggleMenu();
+                  }}
+                >
+                  中文
                 </li>
               </ul>
             ) : (
               <ul className="text-sm">
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={toggleMenu}>
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={toggleMenu}
+                >
                   ETH
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={toggleMenu}>
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={toggleMenu}
+                >
                   USDT
                 </li>
               </ul>
