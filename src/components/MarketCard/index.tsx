@@ -32,6 +32,8 @@ const MarketCard: React.FC<MarketCardProps> = ({
   date,
   rate,
 }) => {
+  const [state, setState] = useState(0);
+  const [busy, setBusy] = useState(false);
   const pid = 5;
   const inputAmount = 100;
 
