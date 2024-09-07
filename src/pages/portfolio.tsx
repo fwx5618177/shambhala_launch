@@ -16,7 +16,7 @@ const Portfolio: NextPage = () => {
                 <link href="/favicon.ico" rel="icon" />
             </Head>
             <Header logo switchTab />
-            <PortfolioSection type='list' />
+            <PortfolioSection type='defi' />
             <Footer />
         </div>
     );

@@ -107,7 +107,7 @@ const AssetSection = () => {
                     <h2 className="text-lg font-bold mb-[40px]">FAQ</h2>
                     <div className='w-full h-[1px] bg-[#EBEBEB] mb-[44px]' />
                     <div className="mb-[68px]">
-                        <h3 className="text-[18px] font-500 mb-[30px]">What's Aave? How does it work?</h3>
+                        <h3 className="text-[18px] font-500 mb-[30px]">{`What's Aave? How does it work?`}</h3>
                         <p className="text-[12px] text-[#535353]">
                             ave is a decentralized finance (DeFi) protocol that allows users to borrow and lend cryptocurrencies without the need for an intermediary. It runs on blockchains like Ethereum, making it possible for anyone to conduct financial transactions through smart contracts. The main function of Aave is to provide liquidity pools in which users can deposit crypto assets to earn interest, or borrow from them to pay interest.
                         </p>
@@ -116,7 +116,7 @@ const AssetSection = () => {
                     <div className='w-full h-[1px] bg-[#EBEBEB]' />
 
                     <div className='mt-[50px]'>
-                        <h3 className="text-[18px] font-500 mb-[30px]">What's Aave? How does it work?</h3>
+                        <h3 className="text-[18px] font-500 mb-[30px]">{`What's Aave? How does it work?`}</h3>
                         <p className="text-[12px] text-[#535353]">
                             ave is a decentralized finance (DeFi) protocol that allows users to borrow and lend cryptocurrencies without the need for an intermediary. It runs on blockchains like Ethereum, making it possible for anyone to conduct financial transactions through smart contracts. The main function of Aave is to provide liquidity pools in which users can deposit crypto assets to earn interest, or borrow from them to pay interest.
                         </p>
