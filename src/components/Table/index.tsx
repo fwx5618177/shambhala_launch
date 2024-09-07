@@ -1,11 +1,11 @@
 import React from 'react';
 import { RowObject, TableProps } from './types';
 
-const Table = <T extends RowObject>({ columns, dataSource, type }: TableProps<T>) => {
+const Table = <T extends RowObject>({ columns, dataSource, type, header = true }: TableProps<T>) => {
     return (
         <div className="w-full">
             {/* Table Header */}
-            <div
+            {header && <div
                 className={`text-gray-400 mb-4 ${type === 'card' ? 'px-[41px]' : ''}`}
                 style={{ display: 'grid', gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
             >
@@ -14,7 +14,7 @@ const Table = <T extends RowObject>({ columns, dataSource, type }: TableProps<T>
                         {column.title}
                     </div>
                 ))}
-            </div>
+            </div>}
 
             {/* Table Body */}
             <div className="overflow-y-auto max-h-[400px]">
