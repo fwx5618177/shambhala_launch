@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import moment from 'moment';
+import { RowObject } from '@/components/Table/types';
 
-export const dataSource = [
+export const dataSource: RowObject[] = [
     {
         protocol: { src: '/fluid.svg', alt: 'Fluid', label: 'Fluid', size: 40 },
         network: { src: '/eth.svg', alt: 'Ethereum', label: 'Ethereum', size: 16 },
@@ -33,7 +34,7 @@ export const baseColumns = [
         title: 'Protocol',
         dataIndex: 'protocol',
         key: 'protocol',
-        render: (value: any) => (
+        render: (value: RowObject['protocol']) => (
             <div className="flex items-center space-x-4">
                 <Image src={value.src} alt={value.alt} width={value.size || 40} height={value.size || 40} />
                 <span>{value.label}</span>
@@ -44,7 +45,7 @@ export const baseColumns = [
         title: 'Network',
         dataIndex: 'network',
         key: 'network',
-        render: (value: any) => (
+        render: (value: RowObject['network']) => (
             <div className="flex items-center space-x-2">
                 <Image src={value.src} alt={value.alt} width={value.size || 16} height={value.size || 16} />
                 <span>{value.label}</span>
@@ -61,13 +62,13 @@ export const transactionsColumns = [
         ),
         dataIndex: 'amount',
         key: 'amount',
-        render: (value: any) => (
+        render: (value: RowObject['amount']) => (
             <div className="w-full flex flex-col items-end justify-center gap-[2px]">
                 <span className="text-success text-coinSm font-500">
-                    {value.fusdt} FUSDT
+                    {value?.fusdt} FUSDT
                 </span>
                 <span className="text-secondary text-[13px] font-500">
-                    {value.usdt} USDT
+                    {value?.usdt} USDT
                 </span>
             </div>
         ),
@@ -78,7 +79,7 @@ export const transactionsColumns = [
         ),
         dataIndex: 'date',
         key: 'date',
-        render: (value: any) => (
+        render: (value: RowObject['date']) => (
             <span className='w-full text-secondary flex items-center justify-end'>{moment(value).format('YYYY/MM/DD HH:mm')}</span>
         ),
     },
@@ -103,7 +104,7 @@ export const DetailColumns = [
         title: 'Protocol',
         dataIndex: 'protocol',
         key: 'protocol',
-        render: (value: any) => (
+        render: (value: RowObject['protocol']) => (
             <div className="flex items-center space-x-4">
                 <Image src={value.src} alt={value.alt} width={value.size || 40} height={value.size || 40} />
                 <span>{value.label}</span>
@@ -119,7 +120,7 @@ export const DetailColumns = [
         title: 'Claimable rewards',
         dataIndex: 'claimableRewards',
         key: 'claimableRewards',
-        render: (value: any) => (
+        render: (value: RowObject['claimableRewards']) => (
             <span className='text-primary'>{value}</span>
         )
     },
@@ -132,13 +133,13 @@ export const DetailColumns = [
         title: '',
         dataIndex: 'action',
         key: 'action',
-        render: (value: any) => (
+        render: (value: RowObject['action']) => (
             <div className='bg-[#0D0D0D] text-thirdary py-[11px] px-[22px] rounded-[30px] curosr-pointer button-hover' onClick={() => handleRedeem(value)}>Redeem</div>
         )
     }
 ]
 
-const handleRedeem = (value: any) => { }
+const handleRedeem = (value: RowObject['action']) => { }
 
 export const switchColumns = (type: 'defi' | 'transactions' | 'detail') => {
     switch (type) {
@@ -148,6 +149,6 @@ export const switchColumns = (type: 'defi' | 'transactions' | 'detail') => {
             return transactionsColumns;
         case 'detail':
         default:
-            return DetailColumns
+            return DetailColumns;
     }
 }
