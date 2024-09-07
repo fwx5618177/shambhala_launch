@@ -4,14 +4,16 @@ interface LimitProps {
     progress: number;
     current: string;
     total: string;
+    title?: string;
+    footer?: boolean;
 }
 
-const Limit: FC<LimitProps> = ({ progress, current, total }) => {
+const Limit: FC<LimitProps> = ({ progress, current, total, title = 'Supply Limit', footer = true }) => {
     return (
         <div className='w-full'>
             <div className='h-[82px] px-[21px] py-[13px] mb-[10px] border-[1px] border-solid border-[#EBEBEB] text-primary text-[16px] font-500'>
                 <div className='flex items-center justify-between mb-[17px]'>
-                    <span>Supply Limit</span>
+                    <span>{title}</span>
                     <span>{`${current}/${total}`}</span>
                 </div>
 
@@ -20,7 +22,7 @@ const Limit: FC<LimitProps> = ({ progress, current, total }) => {
                 </div>
             </div>
 
-            <span className='ml-[20px] text-[16px] font-600'>Utilization rate: {progress.toFixed(2)} %</span>
+            {footer && <span className='ml-[20px] text-[16px] font-600'>Utilization rate: {progress.toFixed(2)} %</span>}
         </div>
     )
 }

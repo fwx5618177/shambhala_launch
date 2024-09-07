@@ -37,4 +37,5 @@ export interface TableProps<T> {
     dataSource: T[];
     type?: 'normal' | 'detail' | 'card';
     onDetail?: (data: T) => void;
+    header?: boolean;
 }
