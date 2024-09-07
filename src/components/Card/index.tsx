@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-
+import Link from "next/link";
 interface CardProps {
   logo: string;
   subLogo: string;
@@ -47,9 +47,11 @@ const Card: FC<CardProps> = ({ logo, subLogo, title, apy, version }) => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-200 h-42 mt-2 bg-button text-primary text-center px-6 py-2 rounded-button shadow-sm cursor-pointer button-hover">
-          Invest
-        </div>
+        <Link href="/discover">
+          <div className="w-200 h-42 mt-2 bg-button text-primary text-center px-6 py-2 rounded-button shadow-sm cursor-pointer button-hover">
+            Invest
+          </div>
+        </Link>
       </div>
     </div>
   );

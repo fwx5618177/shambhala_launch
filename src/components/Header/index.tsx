@@ -7,7 +7,7 @@ import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
-
+import Link from "next/link";
 interface HeaderProps {
   logo?: boolean;
   switchTab?: boolean;
@@ -60,7 +60,9 @@ export const Header: FC<HeaderProps> = ({
       className="flex justify-between items-center py-4 px-8 bg-bannerBg text-white"
     >
       <div className="flex items-center space-x-4">
-        {logo && <Logo size="large" />}
+        <Link href="/">
+          <Logo size="large" />
+        </Link>
       </div>
       {switchTab && <SwitchTab type={tabType} />}
       <div className="relative flex items-center my-[9px]" ref={menuRef}>
