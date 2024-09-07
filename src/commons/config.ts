@@ -1,5 +1,5 @@
-// const build = 'dev'
-const build = 'prod'
+const build = 'dev'
+// const build = 'prod'
 import usdtErc20ABI from "@/commons/abis/USDT-ERC20.ts"
 import usdtErc20ABI_test from "@/commons/abis/USDT-ERC20-test.ts"
 const erc20Address_test = "0x3Ab1C11186d76A6815125636706374bf5d5B7cac"

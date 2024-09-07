@@ -1,21 +1,15 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import InputCard from "../InputCard";
 
-import { USDT_ERC20, USDTVAULT_ERC20 } from "@/commons/config.ts";
-
-import { config } from "@/wagmi.ts";
-
+import { USDTVAULT_ERC20, USDT_ERC20 } from "@/commons/config";
 import {
   readContract,
   writeContract,
-  watchContractEvent,
-  watchChainId,
-  getBlockNumber,
-  getTransaction,
   getTransactionReceipt,
   getAccount,
 } from "@wagmi/core";
+import { config } from "@/wagmi";
 
 interface MarketCardProps {
   logo: string;
@@ -38,7 +32,8 @@ const MarketCard: React.FC<MarketCardProps> = ({
   date,
   rate,
 }) => {
-  const pid = 0;
+  const pid = 5;
+  const inputAmount = 100;
 
   function getPoolInfo() {
     return readContract(config, {
@@ -49,8 +44,17 @@ const MarketCard: React.FC<MarketCardProps> = ({
     });
   }
 
+  function getPoolState() {
+    return readContract(config, {
+      abi: USDTVAULT_ERC20.abi,
+      address: USDTVAULT_ERC20.address,
+      functionName: "poolState",
+      args: [pid],
+    });
+  }
+
   function queryBalance() {
-    const account = getAccount();
+    const account = getAccount(config);
     console.log("account", account);
     return readContract(config, {
       abi: USDT_ERC20.abi,
@@ -60,11 +64,135 @@ const MarketCard: React.FC<MarketCardProps> = ({
     });
   }
 
+  function getAllowance() {
+    const account = getAccount(config);
+    return readContract(config, {
+      abi: USDT_ERC20.abi,
+      address: USDT_ERC20.address,
+      functionName: "allowance",
+      args: [account.address, USDTVAULT_ERC20.address],
+    });
+  }
+
+  function investing(amount) {
+    const account = getAccount(config);
+    return writeContract(config, {
+      abi: USDTVAULT_ERC20.abi,
+      address: USDTVAULT_ERC20.address,
+      functionName: "invest",
+      args: [pid, amount],
+      account: account.address,
+    });
+  }
+
+  function approving(amount) {
+    const account = getAccount(config);
+    return writeContract(config, {
+      abi: USDT_ERC20.abi,
+      address: USDT_ERC20.address,
+      functionName: "approve",
+      args: [USDTVAULT_ERC20.address, amount],
+      account: account.address,
+    });
+  }
+  async function success(hash) {
+    var retry = 5;
+    while (retry > 0) {
+      try {
+        const res = await getTransactionReceipt(config, {
+          hash,
+        });
+        console.log("getTransactionReceipt", res);
+        if (res) {
+          return res.status == "success";
+        }
+        retry--;
+      } catch (e) {
+        console.log(e);
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 1000);
+        });
+      }
+    }
+  }
+
   async function handleInvest() {
     console.log("handle invest");
-    const poolState = await getPoolInfo();
-    console.log("pool state", poolState);
-    const balance = await queryBalance();
+    const account = await getAccount(config);
+    if (!account) {
+      console.warn("Please connect wallet first");
+      //toast connect wallet
+      //todo
+      return;
+    }
+    if (busy) {
+      return;
+    }
+    setBusy(true);
+    try {
+      const poolState = await getPoolState();
+      console.log("pool state", poolState);
+      if (poolState > 1) {
+        console.log("Product has been ended");
+        //toast todo
+        return;
+      }
+      const balance = await queryBalance();
+      console.log("balance", balance);
+      if (inputAmount <= 0) {
+        console.warn("Asset must bigger than zero");
+        // uni.showToast({
+        // 	title: 'Asset must bigger than zero',
+        // 	icon: 'none'
+        // })
+        setBusy(false);
+        return;
+      }
+      const amount =
+        BigInt(inputAmount) * BigInt(Math.pow(10, Number(USDT_ERC20.decimals)));
+      if (amount > balance) {
+        console.warn("Insufficient balance");
+        //$toast('Insufficient balance')
+        setBusy(false);
+        return;
+      }
+      const allowance = await getAllowance();
+      console.log("allowance", allowance);
+      if (allowance < amount) {
+        setState(1);
+        var hash = await approving(amount);
+        if (await success(hash)) {
+          setState(2);
+          hash = await investing(amount);
+          if (await success(hash)) {
+            console.log("Invest succeed");
+            //toast success todo
+          } else {
+            console.warn("Invest failed");
+            //toast failed todo
+          }
+          setState(0);
+        }
+      } else {
+        setState(2);
+        const hash = await investing(amount);
+        if (await success(hash)) {
+          console.log("Invest succeed");
+          //toast success todo
+        } else {
+          console.warn("Invest failed");
+          //toast failed todo
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      //toast todo
+    } finally {
+      setBusy(false);
+      setState(0);
+    }
   }
   return (
     <div className="w-[500px] h-[473px]">
