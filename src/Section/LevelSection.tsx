@@ -8,7 +8,7 @@ const LevelSection = () => {
   const { t } = useTranslation("common");
 
   return (
-    <section className="bg-bg-primary w-full h-screen py-[135px]">
+    <section className="bg-bg-primary w-full min-h-screen py-[135px]">
       <h1 className="text-[34px] font-800 text-primary mb-[85px] ml-[105px]">
         Referral
       </h1>

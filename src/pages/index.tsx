@@ -6,9 +6,25 @@ import Earn from "@/components/Earn";
 import { Footer } from "@/components/Footer";
 import CardSection from "@/Section/CardSection";
 import { useTranslation } from "react-i18next";
+import { gql, useQuery } from "@apollo/client";
+const GET_USERS = gql`
+  query {
+    pointLogs(input: { userId: "1", pageSize: 10, pageNum: 0 }) {
+      id
+      userId
+      pointChange
+      type
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
 
 const Home: NextPage = () => {
   const { t } = useTranslation("common");
+  const { loading, error, data } = useQuery(GET_USERS);
+  console.log("--------data--------", data);
 
   return (
     <div>

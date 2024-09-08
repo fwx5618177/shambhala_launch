@@ -53,7 +53,7 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
     getList();
   }, []);
   return (
-    <section className="bg-bg-primary w-full h-screen py-[135px] px-[105px]">
+    <section className="bg-bg-primary w-full min-h-screen py-[135px] px-[105px]">
       <h1 className="text-[34px] font-800 text-primary mb-[85px]">{title()}</h1>
       {/* Hot Activity */}
       {type === "pointsMarket" && (
