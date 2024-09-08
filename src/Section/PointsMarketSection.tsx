@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Table from "@/components/Table";
 import { Column, RowObject } from "@/components/Table/types";
 import {
@@ -15,6 +15,7 @@ import Image from "next/image";
 import Referral from "@/components/Referral";
 import { useTranslation } from "react-i18next";
 import Router from "next/router";
+import api from "@/http/axios";
 
 type PointsMarketSectionProps = {
   type: "pointsMarket" | "referral" | "myRewards" | "rewardCenter";
@@ -41,7 +42,13 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
         return t("reward-center");
     }
   };
-
+  const getList = async () => {
+    const response = await api.get("/api/list");
+    console.log("kkkk", response);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <section className="bg-bg-primary w-full h-screen py-[135px] px-[105px]">
       <h1 className="text-[34px] font-800 text-primary mb-[85px]">{title()}</h1>
