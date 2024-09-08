@@ -42,9 +42,12 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
         return t("reward-center");
     }
   };
+  const [activeData, setActiveData] = useState([]);
   const getList = async () => {
     const response = await api.get("/api/list");
-    console.log("kkkk", response);
+    console.log("kkkk", response.data);
+    setActiveData(response.data);
+    console.log("activeCard", activeData);
   };
   useEffect(() => {
     getList();
@@ -52,7 +55,7 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
   return (
     <section className="bg-bg-primary w-full h-screen py-[135px] px-[105px]">
       <h1 className="text-[34px] font-800 text-primary mb-[85px]">{title()}</h1>
-
+      {/* Hot Activity */}
       {type === "pointsMarket" && (
         <>
           <h2 className="ml-[10px] text-primary text-[24px] font-600 mb-[53px]">
@@ -74,7 +77,7 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
           </div>
         </>
       )}
-
+      {/* My Rewards */}
       {type === "referral" && (
         <div className="w-full h-[300px] px-[20px] rounded-[10px] bg-primary flex justify-start items-center space-x-[39px] text-[24px] font-600 text-thirdary mb-[80px]">
           <h1 className="ml-[56px] text-[32px] font-600">

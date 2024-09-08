@@ -36,20 +36,21 @@ function sign() {
 }
 
 watchConnections(config, {
-  // onChange(data) {
-  //   console.log("Connections changed!", data);
-  //   if (data.length) {
-  //     sign()
-  //       .then((res) => {
-  //         console.log("sign result", res);
-  //         //do login
-  //         //todo
-  //       })
-  //       .catch((err) => {
-  //         console.error("Sign denied", err);
-  //       });
-  //   }
-  // },
+  onChange(data) {
+    console.log("Connections changed!", data);
+    const isLogin = true;
+    if (!isLogin && data.length) {
+      sign()
+        .then((res) => {
+          console.log("sign result", res);
+          //do login
+          //todo
+        })
+        .catch((err) => {
+          console.error("Sign denied", err);
+        });
+    }
+  },
 });
 
 const WalletButton: React.FC = () => {
