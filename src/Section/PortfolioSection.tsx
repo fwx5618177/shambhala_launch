@@ -42,7 +42,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({ type }) => {
   const handleUpdate = () => {};
 
   return (
-    <section className="bg-bg-primary w-full h-screen py-[135px] px-[105px]">
+    <section className="bg-bg-primary w-full min-h-screen py-[135px] px-[105px]">
       {(type === "defi" || type === "transactions") && (
         <>
           <h1 className="text-lg font-800 text-primary mb-[85px]">
