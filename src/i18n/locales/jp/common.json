@@ -84,5 +84,18 @@
     "privacy-changes-title": "6. 本ポリシーの変更",
     "privacy-changes-content": "私たちはプライバシーポリシーを変更することがあります。変更が行われた際には通知を行います。",
     "privacy-contact-title": "7. お問い合わせ",
-    "privacy-contact-content": "本プライバシーポリシーに関する質問は、以下の連絡先までお問い合わせください。"
+    "privacy-contact-content": "本プライバシーポリシーに関する質問は、以下の連絡先までお問い合わせください。",
+    "requestError": "リクエストの送信に失敗しました。後でもう一度お試しください。",
+    "unauthorized": "認証されていないリクエストです。ログインしてからもう一度お試しください。",
+    "forbidden": "この操作を実行する権限がありません。",
+    "notFound": "リクエストされたリソースが見つかりません。",
+    "serverError": "サーバーエラーが発生しました。後でもう一度お試しください。",
+    "requestFailed": "リクエストに失敗しました。後でもう一度お試しください。",
+    "language-en": "英語",
+    "language-jp": "日本語",
+    "language-cn": "中国語",
+    "home-instrc": "Ether.fiでリステークしてもっと稼ぎましょう。ETHまたはstETHをステークして、ネイティブにリステークされたリキッドステーキングトークンであるeETHを獲得しましょう。人気のネットワークやDeFiエコシステム全体でステーキング報酬を獲得できます。さらに、eETHを利用することで、ether.fiのロイヤリティポイントやEigenLayerポイント、その他のパートナーからのリワードも手に入れることができます。",
+    "Terms-Conditions": "利用規約",
+    "community": "コミュニティ",
+    "Docs": "ドキュメンテーション"
 }
