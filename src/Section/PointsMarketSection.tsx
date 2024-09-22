@@ -1,19 +1,19 @@
 import React, { FC, useState } from "react";
 import Table from "@/components/Table";
 import { Column, RowObject } from "@/components/Table/types";
-import {
-  marketColumns,
-  marketDataSource,
-  pointsRecordColumns,
-  pointsRecordDataSource,
-  referralDetailColumns,
-  referralDetailDataSource,
-  rewardCenterColumns,
-  rewardCenterDataSource,
-} from "@/configs/market";
 import Image from "next/image";
 import Referral from "@/components/Referral";
 import { useTranslation } from "react-i18next";
+import { marketColumns } from "@/configs/marketColumns";
+import {
+  marketDataSource,
+  pointsRecordDataSource,
+  referralDetailDataSource,
+  rewardCenterDataSource,
+} from "@/mocks/market";
+import { pointsRecordColumns } from "@/configs/pointsRecordColumns";
+import { referralDetailColumns } from "@/configs/referralDetailColumns";
+import { rewardCenterColumns } from "@/configs/rewardCenterColumns";
 
 type PointsMarketSectionProps = {
   type: "pointsMarket" | "referral" | "myRewards" | "rewardCenter";

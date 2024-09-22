@@ -3,9 +3,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import Table from "@/components/Table";
-import { dataSource, switchColumns } from "@/configs/portfolio";
+import { dataSource } from "@/mocks/portfolio";
 import { Column, RowObject } from "@/components/Table/types";
 import { useTranslation } from "react-i18next";
+import { switchColumns } from "@/configs/portfolioColumns";
 
 interface PortfolioSectionProps {
   type: "defi" | "transactions" | "detail";

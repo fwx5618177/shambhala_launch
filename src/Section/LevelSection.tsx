@@ -1,7 +1,8 @@
 import Limit from "@/components/Limit";
 import Referral from "@/components/Referral";
 import Table from "@/components/Table";
-import { levelColumns, levelDataSource } from "@/configs/level";
+import { levelColumns } from "@/configs/levelColumns";
+import { levelDataSource } from "@/mocks/level";
 import { useTranslation } from "react-i18next";
 
 const LevelSection = () => {

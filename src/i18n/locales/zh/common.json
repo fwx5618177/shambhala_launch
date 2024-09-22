@@ -84,5 +84,11 @@
     "privacy-changes-title": "6. 政策变更",
     "privacy-changes-content": "我们可能会不时更改本隐私政策。如有更改，我们将通过修订政策顶部的日期通知您。",
     "privacy-contact-title": "7. 联系我们",
-    "privacy-contact-content": "如果您对本隐私政策有任何疑问，请联系我们： [插入联系信息]。"
+    "privacy-contact-content": "如果您对本隐私政策有任何疑问，请联系我们： [插入联系信息]。",
+    "requestError": "请求发送失败，请稍后重试。",
+    "unauthorized": "未授权的请求，请登录后重试。",
+    "forbidden": "您没有权限执行此操作。",
+    "notFound": "请求的资源不存在。",
+    "serverError": "服务器发生错误，请稍后重试。",
+    "requestFailed": "请求失败，请稍后重试。"
 }
