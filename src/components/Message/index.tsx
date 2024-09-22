@@ -22,7 +22,13 @@ const Message: React.FC<MessageProps> = ({ message, onComplete }) => {
 
     const intervalDuration = message.duration / 100;
     const interval = setInterval(() => {
-      setProgress((prev) => (prev > 0 ? prev - 1 : 0));
+      setProgress((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          onComplete(message.id);
+        }
+        return prev > 0 ? prev - 1 : 0;
+      });
     }, intervalDuration);
 
     return () => {
@@ -32,9 +38,10 @@ const Message: React.FC<MessageProps> = ({ message, onComplete }) => {
   }, [message.duration, message.id, onComplete]);
 
   const messageTypeClass = `${styles.message} ${styles[message.type]}`;
+  const positionClass = `${styles[message.position]}`;
 
   return (
-    <div className={`${messageTypeClass}`}>
+    <div className={`${messageTypeClass} ${positionClass}`}>
       <div className={styles.content}>{message.content}</div>
       <div className={styles.progress} style={{ width: `${progress}%` }} />
     </div>
