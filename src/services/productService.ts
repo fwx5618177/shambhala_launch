@@ -4,7 +4,7 @@ type ProductItem = Product & {
   network?: string;
   tvl?: string;
   maturity?: string;
-  address?: string;
+  address?: `0x${string}`;
 };
 
 export interface ApiResponse {
@@ -20,7 +20,7 @@ export const getProductListApi = async (): Promise<Product[]> => {
       : process.env.NEXT_PUBLIC_API_URL_PROD;
 
   try {
-    const response = await fetch(apiUrl as string, {
+    const response = await fetch(`${apiUrl}/poolInfo/v1/avaliable` as string, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const getProductListApi = async (): Promise<Product[]> => {
         item.abbrExpireTime = item.maturity as string;
         item.network = "Ethereum";
         item.tvl = "";
-        item.contractAddress = item.address as string;
+        item.contractAddress = item.address;
       });
       return arr;
     }

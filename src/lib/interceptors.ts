@@ -4,7 +4,7 @@ import { ApiResponse } from "@/services/types";
 import i18n from "i18next";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 10000,
 });
 

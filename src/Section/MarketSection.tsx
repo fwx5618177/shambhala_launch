@@ -1,8 +1,10 @@
 import MarketCard from "@/components/MarketCard";
+import useStore from "@/store/useStore";
 import { useTranslation } from "react-i18next";
 
 const MarketSection = () => {
   const { t } = useTranslation("common");
+  const { productList } = useStore();
 
   return (
     <section className="bg-bg-primary py-16">
@@ -11,38 +13,25 @@ const MarketSection = () => {
           {t("discover-yield-markets")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          <MarketCard
-            logo="/avax.png"
-            subLogo="/aave.png"
-            coinName="AVAX"
-            apy="23.57"
-            tvl="10.5M"
-            network="Ethereum"
-          />
-          <MarketCard
-            logo="/solana.png"
-            subLogo="/aave.png"
-            coinName="SOL"
-            apy="23.57"
-            tvl="10.5M"
-            network="Ethereum"
-          />
-          <MarketCard
-            logo="/tether.png"
-            subLogo="/aave.png"
-            coinName="USDT"
-            apy="23.57"
-            tvl="10.5M"
-            network="Ethereum"
-          />
-          <MarketCard
-            logo="/usdc.png"
-            subLogo="/aave.png"
-            coinName="USDC"
-            apy="23.57"
-            tvl="10.5M"
-            network="Ethereum"
-          />
+          {productList.map((item, index) => (
+            <MarketCard
+              abbrId={item.id}
+              key={index + "market_card"}
+              logo={item.abbrLogo}
+              subLogo={item.abbrSubLogo}
+              coinName={item.abbrTitle}
+              apy={item.abbrApy}
+              cycle={item.abbrCycle}
+              maturity={item?.maturity}
+              tvl={item?.tvl}
+              network={item.network}
+              pid={item.pid}
+              contractAddress={item.contractAddress}
+              fixedDuration={item.fixedDuration}
+              startBlock={item.startBlock}
+              depositLimit={item?.depositLimit}
+            />
+          ))}
         </div>
       </div>
     </section>

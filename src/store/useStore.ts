@@ -15,7 +15,14 @@ export interface IntegralInfo {
   level?: string;
 }
 
-export type Product = CardProps & { id: string };
+export type Product = CardProps & {
+  id: string;
+  maturity: string;
+  address: string;
+  tvl: string;
+  network: string;
+  startBlock: number;
+};
 
 interface StoreState {
   isLogin: boolean;

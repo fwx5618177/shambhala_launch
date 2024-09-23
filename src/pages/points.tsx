@@ -4,9 +4,28 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import PointsMarketSection from "@/Section/PointsMarketSection";
 import { useTranslation } from "react-i18next";
+import useStore from "@/store/useStore";
+import { useEffect } from "react";
+import { useGetUserInfoByAddress } from "@/services/useGetUserInfoByAddress";
+import Loading from "@/components/Loading";
 
 const Market: NextPage = () => {
   const { t } = useTranslation("common");
+  const { userInfo, updateIntegralInfo } = useStore();
+  const { data, loading, error } = useGetUserInfoByAddress(
+    userInfo?.address || ""
+  );
+
+  console.log("data:", data);
+
+  useEffect(() => {
+    if (data && data.getUser?.user) {
+      updateIntegralInfo(data.getUser.user);
+    }
+  }, [data, updateIntegralInfo]);
+
+  if (loading) return <Loading text={"Points Loading"} />;
+  if (error) return <div>Error loading data</div>;
 
   return (
     <div>

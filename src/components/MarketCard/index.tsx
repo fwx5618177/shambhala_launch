@@ -29,7 +29,7 @@ interface MarketCardProps {
   logo: string;
   subLogo: string;
   coinName: string;
-  apy: number;
+  apy: number | string;
 
   tvl: string;
   network: string;
@@ -294,7 +294,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
         coinName={coinName}
         rate={rate || 1}
         network={network}
-        apy={apy}
+        apy={Number(apy)}
         cycle={cycle}
         maturity={maturity}
         fixedDuration={fixedDuration}

@@ -16,7 +16,7 @@ export interface CardProps {
   abbrExpireTime: string;
 
   pid: number;
-  contractAddress: string;
+  contractAddress: `0x${string}`;
   fixedDuration: number;
   depositLimit: string;
 }
