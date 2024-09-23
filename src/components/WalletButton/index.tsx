@@ -1,39 +1,66 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useDisconnect } from "wagmi";
-import React, { useState, useEffect, useRef } from "react";
+import { useAccount, useDisconnect, useSignMessage } from "wagmi";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { FaCopy } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import useStore from "@/store/useStore";
+import { getSignContent } from "@/services/getSignContent";
+import { message } from "@/providers/MessageProvider";
 
 const WalletButton: React.FC = () => {
   const { t } = useTranslation("common");
+  const { updateUserInfo, isLogin, updateIsLogin, login } = useStore();
   const { address, isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage();
   const { disconnect } = useDisconnect();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  // 点击外部关闭菜单
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
     };
-
-    // 监听点击事件
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuRef]);
 
+  const handleLogin = useCallback(async () => {
+    try {
+      const content = await getSignContent();
+      const signature = await signMessageAsync({ message: content.text });
+      if (address) await login(address, content.text, signature);
+      else throw new Error("No address found");
+
+      message.success("Login succeeded");
+    } catch (error) {
+      message.error("Login failed");
+    }
+  }, [address, login, signMessageAsync]);
+
   const handleDisconnect = () => {
     disconnect(); // 断开连接
     setIsMenuOpen(false); // 关闭菜单
+    localStorage.removeItem("token");
+    updateUserInfo({});
+    updateIsLogin(false);
+    router.push("/");
   };
+
+  useEffect(() => {
+    if (isConnected && !isLogin) {
+      handleLogin();
+    }
+  }, [handleLogin, isConnected, isLogin]);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev); // 切换菜单显示状态
@@ -70,7 +97,7 @@ const WalletButton: React.FC = () => {
             <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10">
               <ul className="text-sm">
                 <CopyToClipboard text={address || ""} onCopy={handleCopy}>
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-tl-xl rounded-tr-xl">
                     <p className="flex items-center justify-center gap-2">
                       <Image
                         src="/user-icon.svg"
@@ -94,6 +121,12 @@ const WalletButton: React.FC = () => {
                 )}
                 <li
                   className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => router.push("/portfolio")}
+                >
+                  {t("portfolio")}
+                </li>
+                <li
+                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-bl-xl rounded-br-xl"
                   onClick={handleDisconnect}
                 >
                   {t("disconnect")}
