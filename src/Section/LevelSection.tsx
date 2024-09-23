@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Limit from "@/components/Limit";
 import Referral from "@/components/Referral";
 import Table from "@/components/Table";
@@ -26,53 +26,52 @@ const LevelSection = () => {
 
   const directReferrals = data?.pointLogs?.length || 0;
 
-  // 生成邀请链接
-  const shareUrl = useMemo(() => `${inviteUrl}?inviteCode=${integralInfo?.inviteCode}`, [integralInfo.inviteCode]);
+  // 使用 useState 解决 SSR 报错
+  const [shareUrl, setShareUrl] = useState('');
 
+  useEffect(() => {
+    setShareUrl(`${inviteUrl}?inviteCode=${integralInfo?.inviteCode}`);
+  }, [integralInfo.inviteCode]);
 
   return (
-    <section className="bg-bg-primary w-full min-h-screen py-[135px]">
-      <h1 className="text-[34px] font-800 text-primary mb-[85px] ml-[105px]">
+    <section className="bg-bg-primary w-full min-h-screen py-[60px] sm:py-[80px] md:py-[100px] lg:py-[135px]">
+      <h1 className="text-[24px] sm:text-[28px] md:text-[34px] font-800 text-primary mb-[40px] sm:mb-[60px] md:mb-[85px] ml-4 sm:ml-8 md:ml-16 lg:ml-[105px]">
         {t("Referral")}
       </h1>
 
-      <div className="w-full h-[300px] px-[105px] bg-primary flex justify-between items-center text-[24px] font-600 text-thirdary mb-[80px]">
-        <div className="text-[32px] font-600">
-          <h1 className="text-[40px] font-600">{t("refer-friend")}</h1>
-          <span className="text-[28px] font-400">{t("earn-points")}</span>
+      <div className="w-full py-3 h-auto sm:h-[200px] md:h-[250px] lg:h-[300px] px-4 sm:px-8 md:px-16 lg:px-[105px] bg-primary flex flex-col sm:flex-row justify-between items-start sm:items-center text-[18px] sm:text-[24px] font-600 text-thirdary mb-[40px] sm:mb-[60px] md:mb-[80px]">
+        <div className="text-[24px] sm:text-[32px] font-600 mb-4 sm:mb-0">
+          <h1 className="text-[28px] sm:text-[32px] lg:text-[40px] font-600">{t("refer-friend")}</h1>
+          <span className="text-[20px] sm:text-[24px] lg:text-[28px] font-400">{t("earn-points")}</span>
         </div>
-        <div className="w-[600px]">
+        <div className="w-full sm:w-auto lg:w-[600px]">
           <Referral link={shareUrl} />
         </div>
       </div>
 
-      <h1 className="mt-[20px] font-600 text-[32px] ml-[105px]">
+      <h1 className="mt-[20px] text-[24px] sm:text-[28px] lg:text-[32px] font-600 ml-4 sm:ml-8 md:ml-16 lg:ml-[105px]">
         {t("level-reward")}
       </h1>
 
-      <div className="flex items-start justify-between mx-[105px] mt-[20px]">
-        <div className="flex items-start space-x-6">
+      <div className="flex flex-col sm:flex-row items-start justify-between mx-4 sm:mx-8 md:mx-16 lg:mx-[105px] mt-[20px]">
+        <div className="flex items-start space-x-4 sm:space-x-6 mb-4 sm:mb-0">
           {[
             { label: t("point-reward"), value: pointReward },
             { label: t("direct-referrals"), value: directReferrals },
           ].map((item, index) => (
             <div
               key={index}
-              className="w-[260px] flex flex-col px-[30px] py-[9px] text-primary rounded-card shadow-tableCard"
+              className="w-[150px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col px-4 sm:px-[30px] py-[9px] text-primary rounded-card shadow-tableCard"
             >
-              <span className="text-primary text-[16px] font-400">
-                {item.label}
-              </span>
-              <span className="text-primary text-[28px] font-600">
-                {item.value}
-              </span>
+              <span className="text-primary text-[14px] sm:text-[16px] font-400">{item.label}</span>
+              <span className="text-primary text-[20px] sm:text-[24px] lg:text-[28px] font-600">{item.value}</span>
             </div>
           ))}
         </div>
 
-        <div className="w-[600px]">
+        <div className="w-full sm:w-[300px] md:w-[450px] lg:w-[600px] mt-4 sm:mt-0">
           <Limit
-            progress={(pointReward / 100) * 100} // Adjust the progress calculation if needed
+            progress={(pointReward / 100) * 100}
             current={pointReward.toString()}
             total={"100"}
             footer={false}
@@ -81,7 +80,7 @@ const LevelSection = () => {
         </div>
       </div>
 
-      <div className="mt-[50px] ml-[105px]">
+      <div className="mt-[20px] sm:mt-[30px] md:mt-[50px] ml-4 sm:ml-8 md:ml-16 lg:ml-[105px]">
         <Table columns={levelColumns as any} dataSource={levelDataSource as any} />
       </div>
     </section>
