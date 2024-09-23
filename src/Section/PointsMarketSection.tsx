@@ -36,21 +36,21 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
     type,
   });
 
-  const pointLogs = pointsData?.pointLogs || [];
+
   const dataSource = useMemo(() => {
     switch (type) {
       case "pointsMarket":
-        return pointLogs;
+        return pointsData?.pointLogs;
       case "myRewards":
-        return activeTab === "pointsRecord" ? pointLogs : [];
+        return activeTab === "pointsRecord" ? pointsData?.pointLogs : [];
       case "referral":
-        return pointLogs;
+        return pointsData?.pointLogs;
       case "rewardCenter":
         return rewardCenterDataSource;
       default:
         return [];
     }
-  }, [type, activeTab, pointLogs]);
+  }, [type, pointsData?.pointLogs, activeTab]);
 
   const title = useMemo(() => {
     const titles: Record<PointsMarketSectionProps["type"], string> = {

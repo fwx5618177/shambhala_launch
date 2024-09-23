@@ -12,9 +12,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useAccount,
-  useBlockNumber,
 } from "wagmi";
-import { readContract } from 'wagmi/actions';
 import { ContractConfig } from "@/contract/config";
 import { getContractMsg } from "@/utils/contract";
 
@@ -201,27 +199,7 @@ const AssetSection = () => {
 
     setDailyEarn(dailyEarn);
     setTotalEarn(totalEarn);
-  }, [])
-
-  const changeTab = useCallback((tab: "invite" | "redeem") => {
-    if (busy) return; // 正在执行操作时禁止切换
-
-    setSelectedRedeem(tab);
-    setStep(0); // 重置步骤
-
-    if (tab === "redeem") {
-      getYourReceive(); // 选择领取时获取奖励信息
-    }
-  }, [busy])
-
-  // 获取 Decimals 和 Symbol
-  const getDecimalsAndSymbol = async (contractAddress: `0x${string}`) => {
-    const [decimals, symbol] = await Promise.all([
-      getDecimals(contractAddress),
-      getSymbol(contractAddress),
-    ]);
-    return { decimals, symbol };
-  };
+  }, [abbrApy, abbrCycle, fixedDuration])
 
   // 获取奖励信息
   const getYourReceive = useCallback(async () => {
@@ -245,7 +223,27 @@ const AssetSection = () => {
     } catch (error: any) {
       message.error(`Failed to get receive: ${error.message}`);
     }
-  }, []);
+  }, [canHarvest]);
+
+  const changeTab = useCallback((tab: "invite" | "redeem") => {
+    if (busy) return; // 正在执行操作时禁止切换
+
+    setSelectedRedeem(tab);
+    setStep(0); // 重置步骤
+
+    if (tab === "redeem") {
+      getYourReceive(); // 选择领取时获取奖励信息
+    }
+  }, [busy, getYourReceive])
+
+  // 获取 Decimals 和 Symbol
+  const getDecimalsAndSymbol = async (contractAddress: `0x${string}`) => {
+    const [decimals, symbol] = await Promise.all([
+      getDecimals(contractAddress),
+      getSymbol(contractAddress),
+    ]);
+    return { decimals, symbol };
+  };
 
   async function handleInvest() {
     if (!isConnected) {
