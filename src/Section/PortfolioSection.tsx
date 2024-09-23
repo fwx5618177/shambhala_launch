@@ -7,6 +7,7 @@ import { dataSource } from "@/mocks/portfolio";
 import { Column, RowObject } from "@/components/Table/types";
 import { useTranslation } from "react-i18next";
 import { switchColumns } from "@/configs/portfolioColumns";
+import moment from "moment";
 
 interface PortfolioSectionProps {
   type: "defi" | "transactions" | "detail";
@@ -100,8 +101,93 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({ type }) => {
         />
       </div>
 
-      {type === 'detail' && (
-        <div className="flex flex-col gap-2 sm:hidden px-4">
+      {activeTab === 'transactions' && (
+        <div className="flex flex-col gap-2 sm:hidden py-4">
+          {dataSource.map((data, index) => (
+            <div key={index}>
+              {/* Date Display */}
+              <div className="text-xs sm:text-sm text-gray-500 font-600 mb-2 sm:mb-0">
+                {moment(data.date).format('YYYY/MM/DD HH:mm')}
+              </div>
+              <div className="w-full max-w-full bg-white shadow-[0px_2px_8px_rgba(114,144,153,0.25)] rounded-[20px] p-4 mb-4 flex items-center justify-between border border-[#E3E3E3]">
+                {/* Protocol & Network Images with Interaction Type */}
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="relative w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]">
+                    <Image
+                      src={data.protocol.src}
+                      alt="Protocol"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-full"
+                    />
+                    <Image
+                      src={data.network.src}
+                      alt="Ethereum"
+                      width={20}
+                      height={20}
+                      className="absolute bottom-0 right-0"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between items-start">
+                    <span className="text-sm sm:text-md font-bold">{data.action || 'reaction'}</span>
+                    <span className="text-xs text-gray-500">{data.protocol.label}</span>
+                  </div>
+                </div>
+
+                {/* Amount Display */}
+                <div className="flex flex-col items-end">
+                  <span className="text-success text-sm sm:text-md font-bold">+{data.amount?.fusdt} FUSDT</span>
+                  <span className="text-gray-500 text-xs sm:text-sm">{data.amount?.usdt} USDT</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeTab === 'defi' && (
+        <div className="flex flex-col gap-2 sm:hidden py-4">
+          {dataSource.map((data, index) => (
+            <div key={index} className="w-full max-w-full bg-white my-4 flex items-center justify-around gap-3">
+              {/* Protocol & Network Images */}
+              <div className="flex items-center gap-2 w-[30%]">
+                <div className="relative w-[40px] h-[40px]">
+                  <Image
+                    src={data.protocol.src}
+                    alt="Protocol"
+                    layout="fill"
+                    objectFit="contain"
+                    className="rounded-full"
+                  />
+                  <Image
+                    src={data.network.src}
+                    alt="Ethereum"
+                    width={20}
+                    height={20}
+                    className="absolute bottom-0 right-0"
+                  />
+                </div>
+                <span className=" text-sm font-bold">{data.protocol.label}</span>
+              </div>
+
+              {/* Invested products */}
+              <div className="flex flex-col items-left w-[40%]">
+                <span className="text-xs text-[#929292] font-600">Invested products</span>
+                <span className="text-base font-bold">{data.investedProducts}</span>
+              </div>
+
+              {/* Assets */}
+              <div className="flex flex-col items-end text-center flex-1">
+                <span className="text-xs text-[#929292] font-600">Assets</span>
+                <span className="text-base font-bold">{data.assets}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeTab === 'detail' && (
+        <div className="flex flex-col gap-2 sm:hidden">
           {dataSource.map((data, index) => (
             <div
               key={index}
