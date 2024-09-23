@@ -72,7 +72,7 @@ export const Header: FC<HeaderProps> = ({
       <div className="flex items-center space-x-4">
         {logo && (
           <Link href="/">
-            <Logo size="large" />
+            <Logo size='large' />
           </Link>
         )}
       </div>
@@ -84,7 +84,7 @@ export const Header: FC<HeaderProps> = ({
         </div>
       )}
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center">
         {/* 确保 WalletButton 在所有屏幕上可见 */}
         <WalletButton />
 

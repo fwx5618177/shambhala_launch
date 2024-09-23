@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo } from "react";
 import Limit from "@/components/Limit";
 import Referral from "@/components/Referral";
@@ -26,6 +28,7 @@ const LevelSection = () => {
 
   // 生成邀请链接
   const shareUrl = useMemo(() => `${inviteUrl}?inviteCode=${integralInfo?.inviteCode}`, [integralInfo.inviteCode]);
+
 
   return (
     <section className="bg-bg-primary w-full min-h-screen py-[135px]">

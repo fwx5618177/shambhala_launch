@@ -372,10 +372,10 @@ const AssetSection = () => {
   }
 
   return (
-    <section className="w-full bg-thirdary flex items-start pt-[86px] px-[109px]">
-      <div className="max-w-[720px] w-2/3 mr-[52px] text-primary mb-[232px]">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex justify-center items-between space-x-4">
+    <section className="w-full bg-thirdary flex flex-col lg:flex-row items-start pt-8 lg:pt-[86px] px-4 sm:px-8 lg:px-[109px]">
+      <div className="max-w-full lg:max-w-[720px] w-full lg:w-2/3 lg:mr-[52px] text-primary mb-8 lg:mb-[232px]">
+        <div className="mb-4 flex flex-col lg:flex-row items-start lg:items-center justify-between">
+          <div className="flex justify-center items-start space-x-4 mb-4 lg:mb-0">
             <div className="relative mr-2">
               <Image
                 src={matchImg(abbrLogo)}
@@ -393,35 +393,35 @@ const AssetSection = () => {
               />
             </div>
             <div>
-              <h1 className="text-coinLg font-500">{abbrTitle}</h1>
-              <p className="text-coinSm text-secondary font-400">SHAMBHALA</p>
+              <h1 className="text-lg sm:text-coinLg font-500">{abbrTitle}</h1>
+              <p className="text-sm sm:text-coinSm text-secondary font-400">SHAMBHALA</p>
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start lg:items-center">
             <div className="flex items-baseline justify-between font-600 gap-2">
-              <span className="text-[42px] flex justify-end">
+              <span className="text-2xl sm:text-[42px] flex justify-end">
                 {formattedApy}%
               </span>
               <span className="text-coinSm">APY</span>
             </div>
-            <div className="bg-manturity text-primary px-[9px] py-[5px] rounded-[2px] text-coinSm">
+            <div className="bg-manturity text-primary px-2 sm:px-[9px] py-1 sm:py-[5px] rounded-[2px] text-xs sm:text-coinSm">
               Maturity: {abbrExpireTime}
             </div>
           </div>
         </div>
 
-        <div className="flex space-x-6 mb-8">
+        <div className="flex space-x-2 sm:space-x-6 mb-8">
           <div
             onClick={() => setSelectedTab("info")}
-            className={`px-[24px] py-[10px] text-primary cursor-pointer ${selectedTab === "info" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${selectedTab === "info" ? "bg-[#f1f1f1] rounded-[50px]" : ""
               }`}
           >
             Info
           </div>
           <div
             onClick={() => setSelectedTab("apy")}
-            className={`px-[24px] py-[10px] text-primary cursor-pointer ${selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""
               }`}
           >
             APY
@@ -430,37 +430,37 @@ const AssetSection = () => {
 
         {selectedTab === "info" && (
           <>
-            <div className="mt-[20px] mb-[40px]">
-              <h2 className="text-[16px] text-primary font-500 mb-[12px]">
+            <div className="mt-4 lg:mt-[20px] mb-6 lg:mb-[40px]">
+              <h2 className="text-base lg:text-[16px] text-primary font-500 mb-2 lg:mb-[12px]">
                 {t("about")}
               </h2>
-              <p className="text-[12px] font-500 text-[#535353]">
+              <p className="text-xs lg:text-[12px] font-500 text-[#535353]">
                 {t("about-content")}
               </p>
             </div>
-            <div className="w-full h-[1px] bg-[#EBEBEB] mb-[22px]" />
-            <div className="flex items-center justify-between gap-[110px] mb-[45px] text-primary text-[18px] font-400">
-              <div className="flex flex-col items-start ">
-                <span className="mb-[17px]">{t("earn")}</span>
-                <div className="flex items-center gap-[2px]">
+            <div className="w-full h-[1px] bg-[#EBEBEB] mb-5 lg:mb-[22px]" />
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-[110px] mb-6 lg:mb-[45px] text-primary text-sm lg:text-[18px] font-400">
+              <div className="flex flex-col items-start">
+                <span className="mb-2 lg:mb-[17px]">{t("earn")}</span>
+                <div className="flex items-center gap-1 lg:gap-[2px]">
                   <Image src={"/tether.png"} width={18} height={18} alt="eth" />
                   <p className="font-500">USDT</p>
                 </div>
               </div>
-              <div className="flex flex-col items-start ">
-                <span className="mb-[17px]">TVL</span>
+              <div className="flex flex-col items-start">
+                <span className="mb-2 lg:mb-[17px]">TVL</span>
                 <p className="font-500">$54.34M</p>
               </div>
-              <div className="flex flex-col items-start ">
-                <span className="mb-[17px]">{t("protocol")}</span>
-                <div className="flex items-center gap-[2px]">
+              <div className="flex flex-col items-start">
+                <span className="mb-2 lg:mb-[17px]">{t("protocol")}</span>
+                <div className="flex items-center gap-1 lg:gap-[2px]">
                   <Image src={"/aave.png"} width={18} height={18} alt="aave" />
-                  <p className="font-500 ml-[5px]">SHAMBHALA</p>
+                  <p className="font-500 ml-1 lg:ml-[5px]">SHAMBHALA</p>
                 </div>
               </div>
-              <div className="flex flex-col items-start ">
-                <span className="mb-[17px]">{t("network")}</span>
-                <div className="flex items-center gap-[5px]">
+              <div className="flex flex-col items-start">
+                <span className="mb-2 lg:mb-[17px]">{t("network")}</span>
+                <div className="flex items-center gap-1 lg:gap-[5px]">
                   <Image src={"/eth.svg"} width={18} height={18} alt="eth" />
                   <p className="font-500">{t("ethereum")}</p>
                 </div>
@@ -477,46 +477,46 @@ const AssetSection = () => {
         {selectedTab === "apy" && <LineCharts />}
 
         {/* FAQ 部分 */}
-        <div className="mb-8 mt-[47px]">
-          <h2 className="text-lg font-bold mb-[40px]">{t("faq")}</h2>
-          <div className="w-full h-[1px] bg-[#EBEBEB] mb-[44px]" />
-          <div className="mb-[68px]">
-            <h3 className="text-[18px] font-500 mb-[30px]">{`What's Aave? How does it work?`}</h3>
-            <p className="text-[12px] text-[#535353]">{t("faq-content")}</p>
+        <div className="mb-8 mt-8 lg:mt-[47px]">
+          <h2 className="text-lg font-bold mb-4 lg:mb-[40px]">{t("faq")}</h2>
+          <div className="w-full h-[1px] bg-[#EBEBEB] mb-6 lg:mb-[44px]" />
+          <div className="mb-6 lg:mb-[68px]">
+            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{`What's Aave? How does it work?`}</h3>
+            <p className="text-xs lg:text-[12px] text-[#535353]">{t("faq-content")}</p>
           </div>
 
           <div className="w-full h-[1px] bg-[#EBEBEB]" />
 
-          <div className="mt-[50px]">
-            <h3 className="text-[18px] font-500 mb-[30px]">{t("ave")}</h3>
-            <p className="text-[12px] text-[#535353]">{t("ave-content")}</p>
+          <div className="mt-6 lg:mt-[50px]">
+            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{t("ave")}</h3>
+            <p className="text-xs lg:text-[12px] text-[#535353]">{t("ave-content")}</p>
           </div>
         </div>
       </div>
 
-      <div className="w-1/3 flex flex-col items-center justify-center">
-        <div className="flex items-center mb-[31px] border border-[1px] border-[#E2E2E2] rounded-[50px]">
+      <div className="w-full lg:w-1/3 flex flex-col items-center justify-center mt-6 lg:mt-0">
+        <div className="flex items-center mb-6 lg:mb-[31px] border border-[#E2E2E2] rounded-[50px]">
           <div
             onClick={() => changeTab("invite")}
-            className={`m-[2px] px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
               }`}
           >
             {t("invite")}
           </div>
           <div
             onClick={() => changeTab("redeem")}
-            className={`m-[2px] px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
               }`}
           >
             {t("redeem")}
           </div>
         </div>
 
-        <div className="w-full bg-thirdary shadow-card rounded-card text-primary px-[28px] py-[33px]">
-          <div className="text-[12px] font-500 text-[#929292] flex items-center justify-end mb-[5px]">
-            {t("balance")}:
-            {formattedBalance}
+        <div className="w-full bg-thirdary shadow-card rounded-card text-primary px-4 sm:px-[28px] py-4 sm:py-[33px]">
+          <div className="text-[10px] sm:text-[12px] font-500 text-[#929292] flex items-center justify-end mb-1 sm:mb-[5px]">
+            {t("balance")}: {formattedBalance}
           </div>
+
           <InputBalance
             logo={"/tether.png"}
             coinName={"USDT"}
@@ -527,33 +527,29 @@ const AssetSection = () => {
             onChange={inputChange}
           />
 
-          <div className="w-full flex flex-col items-center justify-around text-secondary font-500 mt-[14px] mb-[38px]">
+          <div className="w-full flex flex-col items-center justify-around text-secondary font-500 mt-3 sm:mt-[14px] mb-5 sm:mb-[38px]">
             {selectedRedeem == "invite" ? (
               <>
-                <div className="w-full flex items-center justify-between">
-                  <span className="text-[12px]">Est.daily</span>
-                  <span className="text-[14px] text-primary">
-                    {dailyEarn} USDT
-                  </span>
+                <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
+                  <span>Est.daily</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">{dailyEarn} USDT</span>
                 </div>
-                <div className="w-full flex items-center justify-between">
-                  <span className="text-[12px]">Est.receive</span>
-                  <span className="text-[14px] text-primary">
-                    {totalEarn} USDT
-                  </span>
+                <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
+                  <span>Est.receive</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">{totalEarn} USDT</span>
                 </div>
-                <div className="w-full flex items-center justify-between">
-                  <span className="text-[12px]">Est.Points reward</span>
-                  <span className="text-[14px] text-primary">{points}</span>
+                <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
+                  <span>Est.Points reward</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">{points}</span>
                 </div>
               </>
             ) : (
               <>
-                <div className="w-full flex items-center justify-between">
-                  <span className="text-[12px]">Your receive</span>
+                <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
+                  <span>Your receive</span>
                   <div>
                     {receives?.map((item) => (
-                      <div className="text-[14px] text-primary" key={item}>
+                      <div className="text-[12px] sm:text-[14px] text-primary" key={item}>
                         {item}
                       </div>
                     ))}
@@ -564,19 +560,11 @@ const AssetSection = () => {
 
             {(step === 1 || step === 2) && (
               <>
-                <div className="w-full h-[1px] bg-[#ededed] mt-[25px]"></div>
-                <div className="mt-[12px] w-full flex items-center justify-between">
-                  <span className="text-[12px]">{t("network")}</span>
-                  <span className="text-[14px] text-primary">
-                    {t("ethereum")}
-                  </span>
+                <div className="w-full h-[1px] bg-[#ededed] mt-3 sm:mt-[25px]"></div>
+                <div className="mt-3 sm:mt-[12px] w-full flex items-center justify-between">
+                  <span className="text-[10px] sm:text-[12px]">{t("network")}</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">{t("ethereum")}</span>
                 </div>
-                {/* <div className="w-full flex items-center justify-between">
-                  <span className="text-[12px]">Investment Loss</span>
-                  <span className="text-[14px] text-primary">
-                    {(rate * inputValue).toFixed(2)}
-                  </span>
-                </div> */}
               </>
             )}
           </div>
@@ -584,7 +572,7 @@ const AssetSection = () => {
           {selectedRedeem == "invite" ? (
             <div
               onClick={() => handleInvest()}
-              className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover capitalize"
+              className="w-full h-[48px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover capitalize"
             >
               {step == 0 ? (
                 "Invest"
@@ -599,7 +587,7 @@ const AssetSection = () => {
           ) : (
             <div
               onClick={() => handleRedeem()}
-              className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover capitalize"
+              className="w-full h-[48px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover capitalize"
             >
               {!busy ? "Redeem" : <Loading text="Redeeming" type="asset" />}
             </div>

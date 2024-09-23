@@ -132,7 +132,7 @@ const WalletButton: React.FC = () => {
       ) : (
         <ConnectButton.Custom>
           {({ openConnectModal }) => (
-            <div onClick={openConnectModal} className="bg-white text-black px-4 py-2 rounded-full mr-4 cursor-pointer text-xs sm:text-base whitespace-nowrap">
+            <div onClick={openConnectModal} className="bg-white text-black px-3 py-2 rounded-full mr-2 cursor-pointer text-xs sm:text-base whitespace-nowrap">
               {t("connect-wallet")}
             </div>
           )}

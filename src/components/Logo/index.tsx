@@ -6,26 +6,14 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ size }) => {
-  const sizeMap = {
-    small: {
-      width: 80,
-      height: 40,
-    },
-    medium: {
-      width: 128,
-      height: 30,
-    },
-    large: {
-      width: 200,
-      height: 30,
-    },
+  const sizeClasses = {
+    small: "w-[60px] h-[30px] sm:w-[80px] sm:h-[40px]", // 小屏幕和上面的尺寸
+    medium: "w-[100px] h-[30px] sm:w-[128px] sm:h-[50px] md:w-[160px] md:h-[60px]", // 中等尺寸
+    large: "w-[120px] h-[40px] sm:w-[200px] sm:h-[60px] md:w-[250px] md:h-[80px]", // 大屏幕尺寸
   };
 
   return (
-    <div
-      className="relative"
-      style={{ width: sizeMap[size].width, height: sizeMap[size].height }}
-    >
+    <div className={`relative ${sizeClasses[size]}`}>
       <Image
         src="/logo.svg"
         alt="Logo"

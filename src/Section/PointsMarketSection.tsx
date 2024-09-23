@@ -36,7 +36,6 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
     type,
   });
 
-
   const dataSource = useMemo(() => {
     switch (type) {
       case "pointsMarket":
