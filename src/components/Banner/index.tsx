@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
+import WalletButton from "@/components/WalletButton";
+import { useAccount } from "wagmi";
 
 const Banner = () => {
+  const { isConnected } = useAccount();
+
   return (
     <section className="bg-bannerBg text-white w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] flex items-center">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 w-full">
@@ -13,6 +17,10 @@ const Banner = () => {
             Maximize earnings with top-performing DeFi products curated from
             multiple blockchain protocols
           </p>
+
+          {!isConnected && <div className="sm:hidden w-full flex items-center justify-center mt-2">
+            <WalletButton />
+          </div>}
         </div>
 
         {/* Image Container */}
