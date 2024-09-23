@@ -38,11 +38,10 @@ const InputBalance: FC<InputBalanceProps> = ({
 
   return (
     <div
-      className={`h-[117px] rounded-[20px] flex items-center justify-between ${
-        type === "asset"
-          ? "bg-market-card-bg"
-          : "bg-thirdary mx-[20px] my-[24px]"
-      }`}
+      className={`h-[117px] rounded-[20px] flex items-center justify-between ${type === "asset"
+        ? "bg-market-card-bg"
+        : "bg-thirdary mx-[20px] my-[24px]"
+        }`}
     >
       <div className="flex flex-col items-start ml-[29px]">
         {/* 输入框 */}

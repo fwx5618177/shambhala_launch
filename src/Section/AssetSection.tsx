@@ -27,6 +27,7 @@ import { getSymbol } from "@/hoocs/getSymbol";
 import { message } from "@/providers/MessageProvider";
 import { usePurchaseDefi } from "@/services/usePurchaseDefi";
 import numeral from "numeral";
+import { FaTimes } from "react-icons/fa";
 
 const { USDT_VAULT_ERC20, USDT_ERC20 } = ContractConfig;
 
@@ -50,6 +51,7 @@ const AssetSection = () => {
   const [selectedRedeem, setSelectedRedeem] = useState<"invite" | "redeem">(
     "invite"
   );
+  const [isCardOpen, setIsCardOpen] = useState(false); // 控制卡片的状态
   const [inputValue, setInputValue] = useState<number>(0.0);
   const [step, setStep] = useState<number>(0);
   const { address: accountAddress, isConnected, chain } = useAccount();
@@ -371,6 +373,11 @@ const AssetSection = () => {
     }
   }
 
+  // 控制卡片显示的函数
+  const toggleCard = () => {
+    setIsCardOpen(!isCardOpen);
+  };
+
   return (
     <section className="w-full bg-thirdary flex flex-col lg:flex-row items-start pt-8 lg:pt-[86px] px-4 sm:px-8 lg:px-[109px]">
       <div className="max-w-full lg:max-w-[720px] w-full lg:w-2/3 lg:mr-[52px] text-primary mb-8 lg:mb-[232px]">
@@ -494,7 +501,141 @@ const AssetSection = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/3 flex flex-col items-center justify-center mt-6 lg:mt-0">
+      {/* 显示按钮，点击时显示卡片 */}
+      <span
+        className="sm:hidden w-full bg-primary text-[#fff] px-4 py-2 my-5 rounded-md text-center cursor-pointer font-800"
+        onClick={toggleCard}
+      >
+        Invest
+      </span>
+
+      {/* 卡片和遮罩部分 */}
+      {isCardOpen && (
+        <>
+          {/* 背景遮罩 */}
+          <div
+            className="sm:hidden fixed inset-0 bg-black opacity-50 z-40"
+            onClick={toggleCard} // 点击遮罩关闭卡片
+          ></div>
+
+          {/* 滑动卡片 */}
+          <div className="fixed inset-x-0 bottom-0 bg-white z-50 rounded-t-2xl shadow-lg pt-10 transition-transform transform translate-y-0 sm:hidden">
+            {/* 关闭按钮 */}
+            <div>
+              <FaTimes
+                size={24}
+                className="absolute top-2 right-2 text-xl cursor-pointer text-gray-500 hover:text-gray-700"
+                onClick={toggleCard}
+              />
+            </div>
+
+            <div className="flex items-center mb-6 lg:mb-[31px] border border-[#E2E2E2] rounded-[50px] mx-auto w-2/3">
+              <div
+                onClick={() => changeTab("invite")}
+                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+                  }`}
+              >
+                {t("invite")}
+              </div>
+              <div
+                onClick={() => changeTab("redeem")}
+                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+                  }`}
+              >
+                {t("redeem")}
+              </div>
+            </div>
+
+            <div className="w-full bg-thirdary text-primary px-4 py-4 mb-0 relative">
+
+              {/* Balance信息 */}
+              <div className="text-[10px] font-500 text-[#929292] flex items-center justify-end mb-1">
+                {t("balance")}: {formattedBalance}
+              </div>
+
+              <InputBalance
+                logo={"/tether.png"}
+                coinName={"USDT"}
+                rate={rate}
+                type="asset"
+                // @ts-ignore
+                maxValue={balance?.decimals || 0}
+                onChange={inputChange}
+              />
+
+              {/* Estimated Earnings */}
+              <div className="w-full flex flex-col items-center justify-around text-secondary font-500 mt-3 mb-5">
+                {selectedRedeem == "invite" ? (
+                  <>
+                    <div className="w-full flex items-center justify-between text-[10px]">
+                      <span>Est.daily</span>
+                      <span className="text-[12px] text-primary">{dailyEarn} USDT</span>
+                    </div>
+                    <div className="w-full flex items-center justify-between text-[10px]">
+                      <span>Est.receive</span>
+                      <span className="text-[12px] text-primary">{totalEarn} USDT</span>
+                    </div>
+                    <div className="w-full flex items-center justify-between text-[10px]">
+                      <span>Est.Points reward</span>
+                      <span className="text-[12px] text-primary">{points}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-full flex items-center justify-between text-[10px]">
+                      <span>Your receive</span>
+                      <div>
+                        {receives?.map((item) => (
+                          <div className="text-[12px] text-primary" key={item}>
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {(step === 1 || step === 2) && (
+                  <>
+                    <div className="w-full h-[1px] bg-[#ededed] mt-3"></div>
+                    <div className="mt-3 w-full flex items-center justify-between">
+                      <span className="text-[10px]">{t("network")}</span>
+                      <span className="text-[12px] text-primary">{t("ethereum")}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* 操作按钮 */}
+              {selectedRedeem == "invite" ? (
+                <div
+                  onClick={() => handleInvest()}
+                  className="w-full h-[48px] flex items-center justify-center bg-primary text-thirdary text-[14px] font-600 rounded-[10px] button-hover capitalize"
+                >
+                  {step == 0 ? (
+                    "Invest"
+                  ) : step == 1 ? (
+                    "Step 1 of 2 : Approve USDT"
+                  ) : step == 2 ? (
+                    <Loading text="Approving" type="asset" />
+                  ) : (
+                    <Loading text="Investing" type="asset" />
+                  )}
+                </div>
+              ) : (
+                <div
+                  onClick={() => handleRedeem()}
+                  className="w-full h-[48px] flex items-center justify-center bg-primary text-thirdary text-[14px] font-600 rounded-[10px] button-hover capitalize"
+                >
+                  {!busy ? "Redeem" : <Loading text="Redeeming" type="asset" />}
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
+      <div className="hidden sm:flex w-full lg:w-1/3 flex flex-col items-center justify-center mt-6 lg:mt-0">
         <div className="flex items-center mb-6 lg:mb-[31px] border border-[#E2E2E2] rounded-[50px]">
           <div
             onClick={() => changeTab("invite")}
