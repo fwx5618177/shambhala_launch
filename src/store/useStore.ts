@@ -1,24 +1,23 @@
+// useStore.ts
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
+import { login as loginAPI } from "@/services/login";
 
 // 定义状态和更新函数的类型
 interface UserInfo {
-  name?: string;
-  email?: string;
-  // 根据实际情况添加更多字段
+  token?: string;
+  address?: string;
 }
 
 interface IntegralInfo {
   points?: number;
   level?: string;
-  // 根据实际情况添加更多字段
 }
 
 interface Product {
   id: number;
   name: string;
   price: number;
-  // 根据实际情况添加更多字段
 }
 
 interface StoreState {
@@ -30,12 +29,11 @@ interface StoreState {
   updateIntegralInfo: (info: IntegralInfo) => void;
   updateProductArray: (products: Product[]) => void;
   updateIsLogin: (flag: boolean) => void;
+  login: (walletAddr: string, text: string, signature: string) => Promise<void>;
 }
 
-type StorePersist = PersistOptions<StoreState>;
-
 const useStore = create<StoreState>()(
-  persist<StoreState>(
+  persist(
     (set) => ({
       isLogin: false,
       userInfo: {},
@@ -45,12 +43,30 @@ const useStore = create<StoreState>()(
       updateIntegralInfo: (info) => set({ integralInfo: info }),
       updateProductArray: (products) => set({ productArray: products }),
       updateIsLogin: (flag) => set({ isLogin: flag }),
+
+      // 更新 login 方法
+      login: async (walletAddr, text, signature) => {
+        try {
+          const response = await loginAPI({ walletAddr, text, signature });
+          const { token, user } = response;
+
+          // 更新状态
+          set({
+            userInfo: { token, address: user.walletAddr },
+            isLogin: true,
+          });
+
+          localStorage.setItem("token", token);
+        } catch (error) {
+          console.error("Login failed:", error);
+          throw error;
+        }
+      },
     }),
     {
       name: "shambhala",
-    } as StorePersist
+    }
   )
 );
 
-export type { UserInfo, IntegralInfo, Product, StoreState, StorePersist };
 export default useStore;
