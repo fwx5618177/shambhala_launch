@@ -18,74 +18,90 @@ const Privacy: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <Header logo switchTab />
-      <section className="bg-bg-primary w-full py-[135px] px-[105px]">
-        <h1 className="text-4xl font-bold text-primary mb-8">
+      <section className="bg-bg-primary w-full py-8 sm:py-[135px] px-4 sm:px-8 md:px-12 lg:px-[105px]">
+        <h1 className="text-2xl sm:text-4xl font-bold text-primary mb-6 sm:mb-8">
           {t("privacy-title")}
         </h1>
 
-        <div className="space-y-6 text-primary">
+        <div className="space-y-4 sm:space-y-6 text-primary">
           {/* Introduction */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-intro-title")}
             </h2>
-            <p>{t("privacy-intro-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-intro-content")}
+            </p>
           </div>
 
           {/* Section 1: The Information We Collect */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-collect-title")}
             </h2>
-            <p>{t("privacy-collect-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-collect-content")}
+            </p>
           </div>
 
           {/* Section 2: Use of Information */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-use-title")}
             </h2>
-            <p>{t("privacy-use-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-use-content")}
+            </p>
           </div>
 
           {/* Section 3: Disclosure of Information */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-disclosure-title")}
             </h2>
-            <p>{t("privacy-disclosure-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-disclosure-content")}
+            </p>
           </div>
 
           {/* Section 4: Security */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-security-title")}
             </h2>
-            <p>{t("privacy-security-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-security-content")}
+            </p>
           </div>
 
           {/* Section 5: Your Rights */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-rights-title")}
             </h2>
-            <p>{t("privacy-rights-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-rights-content")}
+            </p>
           </div>
 
           {/* Section 6: Changes to this Policy */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-changes-title")}
             </h2>
-            <p>{t("privacy-changes-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-changes-content")}
+            </p>
           </div>
 
           {/* Section 7: Contact Us */}
           <div>
-            <h2 className="text-md font-500 mb-2 text-primary">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("privacy-contact-title")}
             </h2>
-            <p>{t("privacy-contact-content")}</p>
+            <p className="text-sm sm:text-base leading-relaxed">
+              {t("privacy-contact-content")}
+            </p>
           </div>
         </div>
       </section>

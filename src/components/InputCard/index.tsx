@@ -64,7 +64,7 @@ const InputCard: React.FC<InputCardProps> = ({
   );
 
   return (
-    <div className="w-full h-[312px] bg-market-card-bg shadow-card p-4 rounded-card mb-[6px] text-primary">
+    <div className="w-full max-w-[600px] h-auto bg-market-card-bg shadow-card p-3 sm:p-4 rounded-card mb-[6px] text-primary">
       {/* 输入和余额部分 */}
       <InputBalance
         logo={logo}
@@ -75,30 +75,30 @@ const InputCard: React.FC<InputCardProps> = ({
       />
 
       {/* 估计收益和奖励部分 */}
-      <div className="w-full flex flex-col items-center justify-around text-secondary font-500 px-[52px]">
-        <div className="w-full flex items-center justify-between">
-          <span className="text-[12px]">Est.daily</span>
-          <span className="text-[14px] text-primary">{dailyEarn} USDT</span>
+      <div className="w-full flex flex-col items-center justify-around text-secondary font-500 px-4 sm:px-[52px] mt-4">
+        <div className="w-full flex items-center justify-between mb-2">
+          <span className="text-xs sm:text-[12px]">Est.daily</span>
+          <span className="text-sm sm:text-[14px] text-primary">{dailyEarn} USDT</span>
         </div>
-        <div className="w-full flex items-center justify-between">
-          <span className="text-[12px]">Est.receive</span>
-          <span className="text-[14px] text-primary">{totalEarn} USDT</span>
+        <div className="w-full flex items-center justify-between mb-2">
+          <span className="text-xs sm:text-[12px]">Est.receive</span>
+          <span className="text-sm sm:text-[14px] text-primary">{totalEarn} USDT</span>
         </div>
-        <div className="w-full flex items-center justify-between">
-          <span className="text-[12px]">Est.Points reward</span>
-          <span className="text-[14px] text-primary">{points}</span>
+        <div className="w-full flex items-center justify-between mb-2">
+          <span className="text-xs sm:text-[12px]">Est.Points reward</span>
+          <span className="text-sm sm:text-[14px] text-primary">{points}</span>
         </div>
       </div>
 
       {/* 分隔线 */}
-      <div className="w-full h-[1px] bg-[#ededed] mt-[25px]"></div>
+      <div className="w-full h-[1px] bg-[#ededed] my-3 sm:mt-[25px]"></div>
 
       {/* 网络信息 */}
-      <div className="mt-[12px] flex items-center justify-between text-secondary px-[52px]">
-        <span className="text-[12px]">Network</span>
+      <div className="flex items-center justify-between text-secondary px-4 sm:px-[52px]">
+        <span className="text-xs sm:text-[12px]">Network</span>
         <div className="flex items-center gap-[2px]">
-          <Image src={"/eth.svg"} width={16} height={16} alt="eth" />
-          <p className="text-primary text-desc font-500">{network}</p>
+          <Image src={"/eth.svg"} width={14} height={14} alt="eth" className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]" />
+          <p className="text-primary text-[10px] sm:text-desc font-500">{network}</p>
         </div>
       </div>
     </div>

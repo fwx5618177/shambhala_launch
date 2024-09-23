@@ -18,82 +18,100 @@ const Terms: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <Header logo switchTab />
-      <section className="bg-bg-primary w-full py-[135px] px-[105px]">
-        <h1 className="text-4xl font-bold text-primary mb-8">
+      <section className="bg-bg-primary w-full py-8 sm:py-[135px] px-4 sm:px-8 md:px-12 lg:px-[105px]">
+        <h1 className="text-2xl sm:text-4xl font-bold text-primary mb-6 sm:mb-8">
           {t("terms-title")}
         </h1>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Intro Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-intro-title")}
             </h2>
-            <p className="text-primary">{t("terms-intro-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-intro-content")}
+            </p>
           </div>
 
           {/* Acceptance Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-acceptance-title")}
             </h2>
-            <p className="text-primary">{t("terms-acceptance-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-acceptance-content")}
+            </p>
           </div>
 
           {/* Services Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-services-title")}
             </h2>
-            <p className="text-primary">{t("terms-services-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-services-content")}
+            </p>
           </div>
 
           {/* Privacy Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-privacy-title")}
             </h2>
-            <p className="text-primary">{t("terms-privacy-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-privacy-content")}
+            </p>
           </div>
 
           {/* Risks Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-risks-title")}
             </h2>
-            <p className="text-primary">{t("terms-risks-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-risks-content")}
+            </p>
           </div>
 
           {/* Liability Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-liability-title")}
             </h2>
-            <p className="text-primary">{t("terms-liability-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-liability-content")}
+            </p>
           </div>
 
           {/* Amendments Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-amendments-title")}
             </h2>
-            <p className="text-primary">{t("terms-amendments-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-amendments-content")}
+            </p>
           </div>
 
           {/* Warranty Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-warranty-title")}
             </h2>
-            <p className="text-primary">{t("terms-warranty-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-warranty-content")}
+            </p>
           </div>
 
           {/* Contact Section */}
           <div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
               {t("terms-contact-title")}
             </h2>
-            <p className="text-primary">{t("terms-contact-content")}</p>
+            <p className="text-sm sm:text-base text-primary leading-relaxed">
+              {t("terms-contact-content")}
+            </p>
           </div>
         </div>
       </section>

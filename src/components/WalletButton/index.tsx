@@ -1,6 +1,6 @@
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
-import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { FaCopy } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -90,44 +90,45 @@ const WalletButton: React.FC = () => {
           </div>
 
           {/* Desktop Menu Button (large screens) */}
-          <div className="hidden sm:flex items-center space-x-2" ref={menuRef} onClick={toggleMenu}>
-            <Image src="/user-icon.svg" alt="User" width={24} height={24} />
-            <span className="truncate">
-              {address?.slice(0, 6)}...{address?.slice(-4)}
-            </span>
-            <Image
-              src="/dropdown-arrow.svg"
-              alt="Dropdown"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-          </div>
-
-          {/* Desktop Menu (visible on large screens) */}
-          {isMenuOpen && (
-            <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 w-48 sm:w-64">
-              <ul className="text-sm">
-                <CopyToClipboard text={address || ""} onCopy={handleCopy}>
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-tl-xl rounded-tr-xl">
-                    <p className="flex items-center justify-between gap-2">
-                      <span>{address?.slice(0, 6)}...{address?.slice(-4)}</span>
-                      <FaCopy size={18} className="text-black bg-white p-1 rounded-full" />
-                    </p>
-                  </li>
-                </CopyToClipboard>
-                {isCopied && (
-                  <li className="text-center text-green-500">{t("copied")}</li>
-                )}
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={() => router.push("/portfolio")}>
-                  {t("portfolio")}
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-bl-xl rounded-br-xl" onClick={handleDisconnect}>
-                  {t("disconnect")}
-                </li>
-              </ul>
+          <div className="hidden sm:flex items-center space-x-2 relative" ref={menuRef}>
+            <div onClick={toggleMenu} className="flex items-center cursor-pointer">
+              <Image src="/user-icon.svg" alt="User" width={24} height={24} />
+              <span className="truncate">
+                {address?.slice(0, 6)}...{address?.slice(-4)}
+              </span>
+              <Image
+                src="/dropdown-arrow.svg"
+                alt="Dropdown"
+                width={16}
+                height={16}
+                className="cursor-pointer"
+              />
             </div>
-          )}
+            {/* Desktop Menu (visible on large screens) */}
+            {isMenuOpen && (
+              <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 w-48 sm:w-64">
+                <ul className="text-sm">
+                  <CopyToClipboard text={address || ""} onCopy={handleCopy}>
+                    <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-tl-xl rounded-tr-xl">
+                      <p className="flex items-center justify-between gap-2">
+                        <span>{address?.slice(0, 6)}...{address?.slice(-4)}</span>
+                        <FaCopy size={18} className="text-black bg-white p-1 rounded-full" />
+                      </p>
+                    </li>
+                  </CopyToClipboard>
+                  {isCopied && (
+                    <li className="text-center text-green-500">{t("copied")}</li>
+                  )}
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={() => router.push("/portfolio")}>
+                    {t("portfolio")}
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-bl-xl rounded-br-xl" onClick={handleDisconnect}>
+                    {t("disconnect")}
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <ConnectButton.Custom>

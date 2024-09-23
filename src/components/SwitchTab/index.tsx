@@ -63,8 +63,8 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
   return (
     <nav
       className={`flex rounded-[6px] text-tab text-400 items-center ${type === "normal"
-          ? "w-[220px] bg-inactiveTab border border-solid border-tabBorder"
-          : ""
+        ? "w-[220px] bg-inactiveTab border border-solid border-tabBorder"
+        : ""
         }`}
     >
       <div
@@ -81,8 +81,8 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
           toggleMenu();
         }}
         className={`whitespace-nowrap w-full py-3 rounded-[6px] cursor-pointer text-center ${activeTab === "pointMarkets"
-            ? "bg-activeTab text-primary"
-            : "text-activeTab"
+          ? "bg-activeTab text-primary"
+          : "text-activeTab"
           }`}
       >
         {t("points")}
@@ -97,10 +97,10 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
                 <li
                   key={index}
                   className={`flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer ${index === 0
-                      ? "rounded-tl-xl rounded-tr-xl"
-                      : index === menuItems.length - 1
-                        ? "rounded-bl-xl rounded-br-xl"
-                        : ""
+                    ? "rounded-tl-xl rounded-tr-xl"
+                    : index === menuItems.length - 1
+                      ? "rounded-bl-xl rounded-br-xl"
+                      : ""
                     }`}
                   onClick={() => handleNavigation(item.path, item.label)}
                 >

@@ -6,7 +6,6 @@ import moment from "moment";
 import useStore from "@/store/useStore";
 import { matchImg } from "@/utils/matchImg";
 import { ContractConfig } from "@/contract/config";
-
 import {
   useReadContracts,
   useWriteContract,
@@ -14,7 +13,6 @@ import {
   useAccount,
   useBlockNumber,
 } from "wagmi";
-
 import { getContractMsg } from "@/utils/contract";
 import { message } from "@/providers/MessageProvider";
 import { fetchInvestments, InvestmentItem } from "@/services/investService";
@@ -25,16 +23,13 @@ const { USDT_ERC20, USDT_VAULT_ERC20 } = ContractConfig;
 
 interface MarketCardProps {
   abbrId: string;
-
   logo: string;
   subLogo: string;
   coinName: string;
   apy: number | string;
-
   tvl: string;
   network: string;
   rate?: number;
-
   pid: number;
   contractAddress: `0x${string}`;
   fixedDuration: number;
@@ -236,58 +231,62 @@ const MarketCard: React.FC<MarketCardProps> = ({
   ]);
 
   return (
-    <div className="w-[500px] h-[473px]">
-      <div className="w-full h-[90px] px-4 flex justify-between items-center mb-[5px] bg-market-card-bg rounded-card shadow-card text-primary">
+    <div className="w-full max-w-[500px] h-auto p-4 bg-white shadow-lg rounded-lg transition-all duration-300">
+      <div className="w-full h-auto text-[8px] sm:h-[90px] p-4 flex flex-row flex-wrap justify-between items-center mb-[5px] text-primary bg-market-card-bg shadow-card">
         {/* 第一个部分 */}
-        <div className="flex items-center">
-          <div className="relative mr-2">
+        <div className="flex items-center w-full sm:w-auto overflow-hidden">
+          <div className="relative mr-2 flex-shrink-0">
             <Image
               src={matchImg(logo)}
               alt={coinName}
               width={40}
               height={40}
-              className="rounded-coin"
+              className="rounded-coin w-[40px] h-[40px]"
             />
             <Image
               src={subLogo}
               alt={coinName}
               width={20}
               height={20}
-              className="absolute bottom-0 right-normal"
+              className="absolute bottom-0 right-0"
             />
           </div>
-          <div className="ml-4 flex items-center gap-2">
-            <h3 className="text-coinXl">{formattedApy}</h3>
-            <div>
-              <p>%</p>
-              <p className="text-primary text-coinSm">APY</p>
+          <div className="ml-4 flex items-center gap-2 overflow-hidden">
+            <h3 className="text-lg sm:text-coinXl truncate">{formattedApy}</h3>
+            <div className="flex flex-col truncate">
+              <p className="text-sm sm:text-lg font-bold truncate">%</p>
+              <p className="text-primary text-xs sm:text-coinSm truncate">APY</p>
             </div>
           </div>
         </div>
 
-        <div className="h-[40px] w-[1px] bg-[#ededed]"></div>
-
-        <div className="ml-4 flex flex-col items-center gap-1">
-          <p className="text-[22px] text-primary">{tvl}</p>
-          <p className="text-[12px] text-secondary">TVL</p>
-        </div>
-
-        <div className="h-[40px] w-[1px] bg-[#ededed]"></div>
-
-        <div className="ml-4 flex flex-col items-center gap-2">
-          <div className="flex items-center gap-[2px]">
-            <Image src={"/eth.svg"} width={16} height={16} alt="eth" />
-            <p className="text-primary text-desc font-500">{network}</p>
+        {/* 第二部分: TVL 和 Network */}
+        <div className="flex items-center justify-between w-full sm:w-auto gap-4 mt-2 sm:mt-0">
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-[16px] sm:text-[22px] text-primary truncate">{tvl}</p>
+            <p className="text-[10px] sm:text-[12px] text-secondary">TVL</p>
           </div>
 
-          <p className="text-desc text-secondary">
-            Date:{" "}
-            {fixedDuration == 0
-              ? handleShowDay(startBlock, Number(blockNumber), cycle)
-              : moment(maturity).format("ll")}
-          </p>
+          {/* 中间的分隔线 */}
+          <div className="h-[40px] w-[1px] bg-[#ededed] hidden sm:block"></div>
+
+          {/* 第三部分: Network */}
+          <div className="ml-4 flex flex-col items-center gap-2">
+            <div className="flex items-center gap-[2px]">
+              <Image src={"/eth.svg"} width={16} height={16} alt="eth" />
+              <p className="text-primary text-xs sm:text-desc font-500 truncate">{network}</p>
+            </div>
+
+            <p className="text-[10px] sm:text-desc text-secondary truncate">
+              Date:{" "}
+              {fixedDuration === 0
+                ? handleShowDay(startBlock, Number(blockNumber), cycle)
+                : moment(maturity).format("ll")}
+            </p>
+          </div>
         </div>
       </div>
+
       <InputCard
         logo={matchImg(logo)}
         coinName={coinName}
@@ -299,13 +298,14 @@ const MarketCard: React.FC<MarketCardProps> = ({
         fixedDuration={fixedDuration}
         onChange={(value) => setInputAmount(value)}
       />
+
       <div
         onClick={handleInvest}
-        className="w-full h-[60px] flex items-center justify-center bg-primary text-thirdary text-[16px] font-600 rounded-[20px] button-hover"
+        className="w-full h-[40px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover mt-4 sm:mt-0"
       >
-        {state == 0 ? (
+        {state === 0 ? (
           "Invest"
-        ) : state == 1 ? (
+        ) : state === 1 ? (
           <Loading text="Approving" type="asset" />
         ) : (
           <Loading text="Investing" type="asset" />
