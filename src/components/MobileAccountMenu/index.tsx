@@ -33,8 +33,8 @@ const MobileAccountMenu: FC<MobileAccountMenuProps> = ({
 
             {/* Mobile Account Menu */}
             <div className="fixed bottom-0 left-0 w-full h-[30%] bg-white text-black z-50 p-4 rounded-t-xl flex flex-col space-y-3 border-t border-gray-300 shadow-lg">
-                <div className="flex justify-between items-center pb-2 mb-2 border-b border-gray-200">
-                    <h2 className="text-lg font-bold">{t("my-wallet")}</h2>
+                <div className="flex justify-between items-center pb-2 mb-2">
+                    <h2 className="text-lg font-bold">{t("My Wallet")}</h2>
                     <FaTimes size={20} className="cursor-pointer text-gray-500 hover:text-gray-700" onClick={onClose} />
                 </div>
 

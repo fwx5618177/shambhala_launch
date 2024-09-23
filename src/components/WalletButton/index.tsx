@@ -49,8 +49,8 @@ const WalletButton: React.FC = () => {
   }, [address, login, signMessageAsync]);
 
   const handleDisconnect = () => {
-    disconnect(); // 断开连接
-    setIsMenuOpen(false); // 关闭菜单
+    disconnect();
+    setIsMenuOpen(false);
     setIsMobileMenuOpen(false);
     localStorage.removeItem("token");
     updateUserInfo({});
@@ -81,23 +81,30 @@ const WalletButton: React.FC = () => {
     <div className="relative flex items-center">
       {isConnected ? (
         <div
-          className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-4 cursor-pointer"
-          ref={menuRef}
-          onClick={toggleMobileMenu}
-        >
-          <Image src="/user-icon.svg" alt="User" width={24} height={24} />
-          <span className="hidden sm:inline truncate">
-            {address?.slice(0, 6)}...{address?.slice(-4)}
-          </span>
-          <Image
-            src="/dropdown-arrow.svg"
-            alt="Dropdown"
-            width={16}
-            height={16}
-            className="cursor-pointer"
-          />
+          className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-4 cursor-pointer">
+          <div className="sm:hidden flex items-center" onClick={toggleMobileMenu}>
+            <Image src="/user-icon.svg" alt="User" width={24} height={24} />
+            <span className="text-sm">
+              {address?.slice(0, 2)}...{address?.slice(-2)}
+            </span>
+          </div>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu Button (large screens) */}
+          <div className="hidden sm:flex items-center space-x-2" ref={menuRef} onClick={toggleMenu}>
+            <Image src="/user-icon.svg" alt="User" width={24} height={24} />
+            <span className="truncate">
+              {address?.slice(0, 6)}...{address?.slice(-4)}
+            </span>
+            <Image
+              src="/dropdown-arrow.svg"
+              alt="Dropdown"
+              width={16}
+              height={16}
+              className="cursor-pointer"
+            />
+          </div>
+
+          {/* Desktop Menu (visible on large screens) */}
           {isMenuOpen && (
             <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 w-48 sm:w-64">
               <ul className="text-sm">
@@ -132,7 +139,7 @@ const WalletButton: React.FC = () => {
         </ConnectButton.Custom>
       )}
 
-      {/* Mobile Menu */}
+      {/* Mobile Account Menu (visible on small and medium screens) */}
       {isMobileMenuOpen && (
         <MobileAccountMenu
           address={address}
