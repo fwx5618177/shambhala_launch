@@ -552,7 +552,7 @@ const AssetSection = () => {
                 <div className="w-full flex items-center justify-between">
                   <span className="text-[12px]">Your receive</span>
                   <div>
-                    {receives.map((item) => (
+                    {receives?.map((item) => (
                       <div className="text-[14px] text-primary" key={item}>
                         {item}
                       </div>

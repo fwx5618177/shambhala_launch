@@ -18,7 +18,7 @@ const Table = <T extends RowObject>({
             gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
           }}
         >
-          {columns.map((column) => (
+          {columns?.map((column) => (
             <div key={column.key} className="px-4">
               {column.title}
             </div>
@@ -28,7 +28,7 @@ const Table = <T extends RowObject>({
 
       {/* Table Body */}
       <div className="overflow-y-auto max-h-[400px]">
-        {dataSource.map((row, rowIndex) => (
+        {dataSource?.map((row, rowIndex) => (
           <div
             key={rowIndex}
             className={
@@ -41,7 +41,7 @@ const Table = <T extends RowObject>({
               gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
             }}
           >
-            {columns.map((column, columnIndex) => (
+            {columns?.map((column, columnIndex) => (
               <div
                 key={columnIndex}
                 className="px-4 flex items-center text-primary"

@@ -9,7 +9,7 @@ const CardSection = () => {
   return (
     <section className="py-12 px-8 bg-gray-100">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        {products.map((item, index) => (
+        {products?.map((item, index) => (
           <Card
             abbrId={item.id}
             key={index + "_card"}
