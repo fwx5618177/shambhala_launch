@@ -26,6 +26,11 @@ const LevelSection = () => {
 
   const directReferrals = data?.pointLogs?.length || 0;
 
+  const rewardList = [
+    { label: t("point-reward"), value: pointReward },
+    { label: t("direct-referrals"), value: directReferrals },
+  ]
+
   // 使用 useState 解决 SSR 报错
   const [shareUrl, setShareUrl] = useState('');
 
@@ -54,17 +59,14 @@ const LevelSection = () => {
       </h1>
 
       <div className="flex flex-col sm:flex-row items-start justify-between mx-4 sm:mx-8 md:mx-16 lg:mx-[105px] mt-[20px]">
-        <div className="flex items-start space-x-4 sm:space-x-6 mb-4 sm:mb-0">
-          {[
-            { label: t("point-reward"), value: pointReward },
-            { label: t("direct-referrals"), value: directReferrals },
-          ].map((item, index) => (
+        <div className="flex flex-wrap w-full items-start gap-4 sm:gap-6 mb-4 sm:mb-0">
+          {rewardList?.map((item, index) => (
             <div
               key={index}
-              className="w-[150px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col px-4 sm:px-[30px] py-[9px] text-primary rounded-card shadow-tableCard"
+              className="flex-1 min-w-[45%] sm:min-w-[48%] md:min-w-[45%] lg:min-w-[48%] max-w-[48%] flex flex-col px-4 sm:px-6 py-2 sm:py-4 text-primary rounded-card shadow-tableCard"
             >
-              <span className="text-primary text-[14px] sm:text-[16px] font-400">{item.label}</span>
-              <span className="text-primary text-[20px] sm:text-[24px] lg:text-[28px] font-600">{item.value}</span>
+              <span className="text-primary text-sm sm:text-base font-400">{item.label}</span>
+              <span className="text-primary text-lg sm:text-xl lg:text-2xl font-600">{item.value}</span>
             </div>
           ))}
         </div>

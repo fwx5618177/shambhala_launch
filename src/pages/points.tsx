@@ -16,8 +16,6 @@ const Market: NextPage = () => {
     userInfo?.address || ""
   );
 
-  console.log("data:", data);
-
   useEffect(() => {
     if (data && data.getUser?.user) {
       updateIntegralInfo(data.getUser.user);
