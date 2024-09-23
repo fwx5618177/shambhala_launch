@@ -19,7 +19,7 @@ const Table = <T extends RowObject>({
           }}
         >
           {columns?.map((column) => (
-            <div key={column.key} className="px-2 sm:px-3 md:px-4 text-xs sm:text-sm md:text-base">
+            <div key={column.key} className="px-2 sm:px-3 md:px-4 text-xs sm:text-sm md:text-base flex">
               {column.title}
             </div>
           ))}
