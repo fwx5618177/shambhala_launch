@@ -2,29 +2,26 @@
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 import { login as loginAPI } from "@/services/login";
+import { CardProps } from "@/components/Card";
 
 // 定义状态和更新函数的类型
-interface UserInfo {
+export interface UserInfo {
   token?: string;
   address?: string;
 }
 
-interface IntegralInfo {
+export interface IntegralInfo {
   points?: number;
   level?: string;
 }
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-}
+export type Product = CardProps & { id: string };
 
 interface StoreState {
   isLogin: boolean;
   userInfo: UserInfo;
   integralInfo: IntegralInfo;
-  productArray: Product[];
+  productList: Product[];
   updateUserInfo: (info: UserInfo) => void;
   updateIntegralInfo: (info: IntegralInfo) => void;
   updateProductArray: (products: Product[]) => void;
@@ -38,10 +35,10 @@ const useStore = create<StoreState>()(
       isLogin: false,
       userInfo: {},
       integralInfo: {},
-      productArray: [],
+      productList: [],
       updateUserInfo: (info) => set({ userInfo: info }),
       updateIntegralInfo: (info) => set({ integralInfo: info }),
-      updateProductArray: (products) => set({ productArray: products }),
+      updateProductArray: (products) => set({ productList: products }),
       updateIsLogin: (flag) => set({ isLogin: flag }),
 
       // 更新 login 方法

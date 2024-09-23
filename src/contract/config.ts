@@ -8,7 +8,7 @@ import BSC_USDT_ABI from "@/abis/mainnet/BSC-USDT.json";
 
 const isDev = process.env.NODE_ENV === "development";
 
-export const config = {
+export const ContractConfig = {
   USDT_ERC20: {
     address: isDev
       ? process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS_DEV

@@ -7,6 +7,8 @@ import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
+import Link from "next/link";
+import useStore from "@/store/useStore";
 
 interface HeaderProps {
   logo?: boolean;
@@ -27,6 +29,7 @@ export const Header: FC<HeaderProps> = ({
   );
   const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
+  const { isLogin } = useStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -60,7 +63,11 @@ export const Header: FC<HeaderProps> = ({
       className="flex justify-between items-center py-4 px-8 bg-bannerBg text-white"
     >
       <div className="flex items-center space-x-4">
-        {logo && <Logo size="large" />}
+        {logo && isLogin && (
+          <Link href="/">
+            <Logo size="large" />
+          </Link>
+        )}
       </div>
       {switchTab && <SwitchTab type={tabType} />}
       <div className="relative flex items-center my-[9px]" ref={menuRef}>
@@ -107,7 +114,7 @@ export const Header: FC<HeaderProps> = ({
                     toggleMenu();
                   }}
                 >
-                  English
+                  {t("language-en")}
                 </li>
                 <li
                   className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
@@ -116,7 +123,7 @@ export const Header: FC<HeaderProps> = ({
                     toggleMenu();
                   }}
                 >
-                  日本語
+                  {t("language-jp")}
                 </li>
 
                 <li
@@ -126,7 +133,7 @@ export const Header: FC<HeaderProps> = ({
                     toggleMenu();
                   }}
                 >
-                  中文
+                  {t("language-cn")}
                 </li>
               </ul>
             ) : (
