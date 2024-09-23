@@ -11,22 +11,24 @@ interface SwitchTabProps {
 
 const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
   const { t } = useTranslation("common");
-  const [isBrowser, setIsBrowser] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>(
-    () => (isBrowser && localStorage.getItem("currentMenuTab")) || "market"
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 控制菜单的状态
   const menuRef = useRef<HTMLDivElement>(null); // 用于点击外部关闭菜单的引用
   const router = useRouter(); // 用于跳转
+  const currentPath = router.pathname; // 获取当前连接路径
+
+  // 根据当前路径设置 `activeTab`
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (currentPath.includes("/market")) return "market";
+    if (currentPath.includes("/referral")) return "referral";
+    if (currentPath.includes("/reward")) return "reward-center";
+    if (currentPath.includes("/points")) return "my-points";
+    return "market";
+  });
 
   const handleOutsideClick = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
     }
-  }, []);
-
-  useEffect(() => {
-    setIsBrowser(true);
   }, []);
 
   useEffect(() => {
@@ -39,7 +41,6 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
   // 更新活动 Tab 和导航
   const handleNavigation = useCallback(
     (path: string, tabKey: string) => {
-      localStorage.setItem("currentMenuTab", tabKey);
       setActiveTab(tabKey);
 
       if (tabKey === "pointMarkets") toggleMenu();

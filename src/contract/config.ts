@@ -5,6 +5,7 @@ import usdtErc20ABI from "@/abis/mainnet/USDT-ERC20.json";
 import USDTEarnVaultABI from "@/abis/mainnet/USDT-EarnVault.json";
 
 import BSC_USDT_ABI from "@/abis/mainnet/BSC-USDT.json";
+import BSC_STAKE_ABI from "@/abis/mainnet/BSC-STAKE.json";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -32,8 +33,13 @@ export const ContractConfig = {
     decimals: 6,
   },
   BSC_USDT: {
-    address: "0x6e7E9700350467bc645fb2985D6b63972Eb9F9e1",
+    address: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS_BSC,
     abi: BSC_USDT_ABI,
     decimals: 6,
   },
+  BSC_STAKE: {
+    address: process.env.NEXT_PUBLIC_STAKE_ADDRESS_BSC,
+    abi: BSC_STAKE_ABI,
+    decimals: 6,
+  }
 } as ContractConfig;
