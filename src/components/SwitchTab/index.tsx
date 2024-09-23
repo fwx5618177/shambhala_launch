@@ -18,6 +18,7 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 控制菜单的状态
   const menuRef = useRef<HTMLDivElement>(null); // 用于点击外部关闭菜单的引用
   const router = useRouter(); // 用于跳转
+
   const handleOutsideClick = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
@@ -61,17 +62,15 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
 
   return (
     <nav
-      className={`flex rounded-[6px] text-tab text-400 items-center ${
-        type === "normal"
+      className={`flex rounded-[6px] text-tab text-400 items-center ${type === "normal"
           ? "w-[220px] bg-inactiveTab border border-solid border-tabBorder"
           : ""
-      }`}
+        }`}
     >
       <div
         onClick={() => handleNavigation("/discover", "market")}
-        className={`whitespace-nowrap py-3 w-full rounded-[6px] cursor-pointer text-center ${
-          activeTab === "market" ? "bg-activeTab text-primary" : "text-white"
-        }`}
+        className={`whitespace-nowrap py-3 w-full rounded-[6px] cursor-pointer text-center ${activeTab === "market" ? "bg-activeTab text-primary" : "text-white"
+          }`}
       >
         {t("market")}
       </div>
@@ -81,11 +80,10 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
           handleNavigation("/points", "pointMarkets");
           toggleMenu();
         }}
-        className={`whitespace-nowrap w-full py-3 rounded-[6px] cursor-pointer text-center ${
-          activeTab === "pointMarkets"
+        className={`whitespace-nowrap w-full py-3 rounded-[6px] cursor-pointer text-center ${activeTab === "pointMarkets"
             ? "bg-activeTab text-primary"
             : "text-activeTab"
-        }`}
+          }`}
       >
         {t("points")}
       </div>
@@ -98,13 +96,12 @@ const SwitchTab: FC<SwitchTabProps> = ({ type = "normal" }) => {
               {menuItems?.map((item, index) => (
                 <li
                   key={index}
-                  className={`flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer ${
-                    index === 0
+                  className={`flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer ${index === 0
                       ? "rounded-tl-xl rounded-tr-xl"
                       : index === menuItems.length - 1
-                      ? "rounded-bl-xl rounded-br-xl"
-                      : ""
-                  }`}
+                        ? "rounded-bl-xl rounded-br-xl"
+                        : ""
+                    }`}
                   onClick={() => handleNavigation(item.path, item.label)}
                 >
                   <Image

@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { FaCopy } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import useStore from "@/store/useStore";
@@ -77,12 +76,12 @@ const WalletButton: React.FC = () => {
     <div className="relative flex items-center space-x-2">
       {isConnected ? (
         <div
-          className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-[20px] cursor-pointer"
-          ref={menuRef} // 将菜单容器引用赋给 menuRef
-          onClick={toggleMenu} // 点击显示/隐藏菜单
+          className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-4 cursor-pointer"
+          ref={menuRef}
+          onClick={toggleMenu}
         >
           <Image src="/user-icon.svg" alt="User" width={24} height={24} />
-          <span className="truncate">
+          <span className="hidden sm:inline truncate">
             {address?.slice(0, 6)}...{address?.slice(-4)}
           </span>
           <Image
@@ -94,21 +93,20 @@ const WalletButton: React.FC = () => {
           />
 
           {isMenuOpen && (
-            <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10">
+            <div className="absolute top-full right-0 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 w-48 sm:w-64">
               <ul className="text-sm">
                 <CopyToClipboard text={address || ""} onCopy={handleCopy}>
                   <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-tl-xl rounded-tr-xl">
-                    <p className="flex items-center justify-center gap-2">
+                    <p className="flex items-center justify-between gap-2">
                       <Image
                         src="/user-icon.svg"
                         alt="User"
                         width={24}
                         height={24}
                       />
-                      <span className="truncate">
+                      <span className="truncate text-xs sm:text-sm">
                         {address?.slice(0, 6)}...{address?.slice(-4)}
                       </span>
-                      {/* 修改图标颜色和背景 */}
                       <FaCopy
                         size={18}
                         className="text-black bg-white p-1 rounded-full"
@@ -140,7 +138,7 @@ const WalletButton: React.FC = () => {
           {({ openConnectModal }) => (
             <div
               onClick={openConnectModal}
-              className="bg-white text-black px-4 py-2 rounded-full mr-[20px]"
+              className="bg-white text-black px-4 py-2 rounded-full mr-4 cursor-pointer text-xs sm:text-base whitespace-nowrap"
             >
               {t("connect-wallet")}
             </div>
