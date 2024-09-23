@@ -96,6 +96,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({ type }) => {
           columns={columns as Column<RowObject>[]}
           dataSource={dataSource}
           type={activeTab === "transactions" ? "card" : "normal"}
+          onDetail={(data) => router.push("/detail", {})}
         />
       </div>
     </section>
