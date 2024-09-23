@@ -21,7 +21,8 @@ const Message: React.FC<MessageProps> = ({ message, onComplete }) => {
       setProgress((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          onComplete(message.id); // 当 progress 走完时，调用回调函数移除消息
+          // 使用 setTimeout 延迟调用 onComplete，确保它不会在渲染期间调用
+          setTimeout(() => onComplete(message.id), 0);
         }
         return prev > 0 ? prev - 1 : 0;
       });

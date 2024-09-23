@@ -7,8 +7,11 @@ import i18n from "@/i18n/i18n";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { ApolloProvider } from "@apollo/client";
 
 import { config } from "../wagmi";
+import { clientConfig } from "@/lib/apolloClient";
+import { MessageProvider } from "@/providers/MessageProvider";
 
 const client = new QueryClient();
 
@@ -18,7 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <WagmiProvider config={config}>
         <QueryClientProvider client={client}>
           <RainbowKitProvider>
-            <Component {...pageProps} />
+            <MessageProvider>
+              <ApolloProvider client={clientConfig}>
+                <Component {...pageProps} />
+              </ApolloProvider>
+            </MessageProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

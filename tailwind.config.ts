@@ -8,6 +8,7 @@ const config: Config = {
         inter: ["Inter", "sans-serif"],
       },
       fontSize: {
+        "3xl": ["38px", { lineHeight: "30px" }], // 超大标题
         xl: ["48px", { lineHeight: "50px" }], // 大标题
         lg: ["34px", { lineHeight: "1" }], // 标题
         md: ["32px", { lineHeight: "1" }], // 小标题
@@ -75,6 +76,12 @@ const config: Config = {
       opacity: {
         "75": "0.75",
       },
+    },
+    screens: {
+      'sm': '640px', // 小屏幕
+      'md': '768px', // 中等屏幕
+      'lg': '1024px', // 大屏幕
+      'xl': '1280px', // 超大屏幕
     },
   },
   plugins: [

@@ -1,7 +1,7 @@
 {
     "connect-wallet": "Connect Wallet",
     "copied": "Copied Address!",
-    "disconnect": "Disconnect",
+    "disconnect": "Exit",
     "language": "Language",
     "currency": "Currency",
     "earn": "Earn",
@@ -84,5 +84,18 @@
     "privacy-changes-title": "6. CHANGES TO THIS POLICY",
     "privacy-changes-content": "We may change this Privacy Policy from time to time. If we make changes, we will notify you by revising the date at the top of the policy.",
     "privacy-contact-title": "7. CONTACT US",
-    "privacy-contact-content": "If you have any questions about this Privacy Policy, please contact us at: [insert contact information]."
+    "privacy-contact-content": "If you have any questions about this Privacy Policy, please contact us at: [insert contact information].",
+    "requestError": "Request failed, please try again later.",
+    "unauthorized": "Unauthorized request, please log in again.",
+    "forbidden": "You do not have permission to perform this action.",
+    "notFound": "The requested resource was not found.",
+    "serverError": "Server error, please try again later.",
+    "requestFailed": "Request failed, please try again later.",
+    "language-en": "English",
+    "language-jp": "Japanese",
+    "language-cn": "Chinese",
+    "home-instrc": "Earn more when you re-stake with ether.fi Stake your ETH or stETH and get eETH - a natively re-staked liquid staking token. Earn staking rewards across popular networks and the DeFi ecosystem. Plus, receive ether.fi loyalty points, EigenLayer points and many more partner rewards with your eETH.",
+    "Terms-Conditions": "Terms & Conditions",
+    "community": "Community",
+    "Docs": "Docs"
 }
