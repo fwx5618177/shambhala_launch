@@ -11,5 +11,5 @@ export function matchImg(logo: string): string {
     USDC: "/usdc.png",
   };
 
-  return logosMap[logo] || "";
+  return logosMap[logo] || "/tether.png";
 }

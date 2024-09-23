@@ -8,6 +8,14 @@ import BSC_USDT_ABI from "@/abis/mainnet/BSC-USDT.json";
 
 const isDev = process.env.NODE_ENV === "development";
 
+export interface ContractConfig {
+  [key: string]: {
+    address: `0x${string}`;
+    abi: any;
+    decimals: number;
+  };
+}
+
 export const ContractConfig = {
   USDT_ERC20: {
     address: isDev
@@ -28,4 +36,4 @@ export const ContractConfig = {
     abi: BSC_USDT_ABI,
     decimals: 6,
   },
-};
+} as ContractConfig;

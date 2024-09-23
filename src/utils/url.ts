@@ -1,1 +1,3 @@
-export const baseURL = window.location.origin;
+"use client";
+
+export const inviteUrl = typeof window !== "undefined" ? window.location.origin : "";

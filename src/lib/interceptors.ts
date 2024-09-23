@@ -1,3 +1,5 @@
+"use client";
+
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { message } from "@/providers/MessageProvider";
 import { ApiResponse } from "@/services/types";

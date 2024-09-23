@@ -13,6 +13,8 @@ export interface UserInfo {
 export interface IntegralInfo {
   points?: number;
   level?: string;
+  id: string;
+  inviteCode: string;
 }
 
 export type Product = CardProps & {
@@ -41,7 +43,12 @@ const useStore = create<StoreState>()(
     (set) => ({
       isLogin: false,
       userInfo: {},
-      integralInfo: {},
+      integralInfo: {
+        points: 0,
+        level: "",
+        id: "",
+        inviteCode: "",
+      },
       productList: [],
       updateUserInfo: (info) => set({ userInfo: info }),
       updateIntegralInfo: (info) => set({ integralInfo: info }),

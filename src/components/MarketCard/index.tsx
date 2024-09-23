@@ -65,7 +65,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const [inputAmount, setInputAmount] = useState(0);
   const [busy, setBusy] = useState(false);
   const [myInvestings, setMyInvestings] = useState<InvestmentItem[]>([]);
-  const { address: accountAddress, isConnected, chain } = useAccount();
+  const { address: accountAddress, isConnected } = useAccount();
   const { purchaseDefi, loading } = usePurchaseDefi();
   const formattedApy = useMemo(() => (Number(apy) / 1000000) * 100, [apy]);
   const { data: blockNumber } = useBlockNumber();
@@ -113,14 +113,14 @@ const MarketCard: React.FC<MarketCardProps> = ({
         address: USDT_ERC20.address as `0x${string}`,
         abi: USDT_ERC20.abi,
         functionName: "balanceOf",
-        args: [accountAddress],
+        args: [accountAddress as `0x${string}`],
       },
       // 查询授权额度
       {
         address: USDT_ERC20.address as `0x${string}`,
         abi: USDT_ERC20.abi,
         functionName: "allowance",
-        args: [accountAddress, contractAddress],
+        args: [accountAddress as `0x${string}`, contractAddress],
       },
     ],
   });
@@ -163,8 +163,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
       if (amount < BigInt(depositLimit)) {
         message.error(
-          `Assets must be greater than ${
-            Number(depositLimit) / 10 ** USDT_ERC20.decimals
+          `Assets must be greater than ${Number(depositLimit) / 10 ** USDT_ERC20.decimals
           } USDT`
         );
         return;

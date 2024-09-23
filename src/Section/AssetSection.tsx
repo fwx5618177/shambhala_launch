@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Limit from "@/components/Limit";
 import InputBalance from "@/components/InputBalance";
@@ -93,8 +93,27 @@ const AssetSection = () => {
   const [dailyEarn, setDailyEarn] = useState<string>('0');
   const [totalEarn, setTotalEarn] = useState<string>('0');
 
-  const d = moment(abbrExpireTime).diff(moment(), "days");
-  const points = numeral(100).divide(abbrCycle).multiply(d).value();
+  // 确保 abbrExpireTime 存在且是有效的字符串
+  const daysDifference = useMemo(() => {
+    // 确保 abbrExpireTime 存在且不是空字符串
+    if (!abbrExpireTime || !moment(abbrExpireTime, moment.ISO_8601, true).isValid()) {
+      console.warn("Invalid abbrExpireTime:", abbrExpireTime);
+      return 0; // 或者你可以返回其他默认值
+    }
+
+    // 计算日期差异
+    const diffDays = moment(abbrExpireTime).diff(moment(), "days");
+
+    // 检查 diffDays 是否有效
+    if (isNaN(diffDays)) {
+      console.warn("Failed to calculate difference in days:", diffDays);
+      return 0; // 默认返回 0 天，或者根据业务逻辑返回其他值
+    }
+
+    return diffDays;
+  }, [abbrExpireTime]);
+  const points = numeral(100).divide(Number(abbrCycle) || 1).multiply(daysDifference).value();
+
   const formattedApy = (Number(abbrApy) / 1000000) * 100;
 
   const { data: hash, writeContractAsync } = useWriteContract();
@@ -111,7 +130,7 @@ const AssetSection = () => {
         abi: USDT_VAULT_ERC20.abi,
         address: contractAddress,
         functionName: "canHarvest",
-        args: [pid, accountAddress],
+        args: [pid, accountAddress as `0x${string}`],
       },
       // 读取合约数据：获取池信息
       {
@@ -132,19 +151,33 @@ const AssetSection = () => {
         abi: USDT_ERC20.abi,
         address: USDT_ERC20.address,
         functionName: "balanceOf",
-        args: [accountAddress],
+        args: [accountAddress as `0x${string}`],
       },
       // 查询用户授权额度
       {
         abi: USDT_ERC20.abi,
         address: USDT_ERC20.address,
         functionName: "allowance",
-        args: [accountAddress, contractAddress],
+        args: [accountAddress as `0x${string}`, contractAddress],
       }
     ]
   });
 
-  const [canHarvest, _poolInfo, poolState, balance, allowance] = data?.map((item) => BigInt(item?.result as string)) || [];
+  const [canHarvest, _poolInfo, poolState, balanceData, allowance] = data?.map((item) => item?.result) || [];
+
+  // 将 balance 数据转换为 bigint 或默认值 0
+  const balance = balanceData ? BigInt(balanceData as string) : BigInt(0);
+
+  // 使用 useMemo 来优化 balance 的格式化
+  const formattedBalance = useMemo(() => {
+    // 如果 balance 是 0，则直接返回 "0.00 USDT"
+    if (!balance) return "0.00 USDT";
+
+    // 格式化 balance 为 USDT 格式，保留两位小数
+    return `${formatUsdt(formatUnits(balance, USDT_ERC20.decimals), 2)} USDT`;
+  }, [balance]);
+
+  console.log("canHarvest", canHarvest, "poolInfo", _poolInfo, "poolState", poolState, "balance", balance, "allowance", allowance);
 
   useEffect(() => {
     const fetchMyInvestings = async () => {
@@ -193,8 +226,8 @@ const AssetSection = () => {
   // 获取奖励信息
   const getYourReceive = useCallback(async () => {
     try {
-      if (canHarvest?.length === 2) {
-        const [addrs, values] = canHarvest;
+      if ((canHarvest as [`0x${string}`[], string[]])?.length === 2) {
+        const [addrs, values] = canHarvest as [`0x${string}`[], string[]];
         const list = [];
 
         for (let i = 0; i < values.length; i++) {
@@ -204,7 +237,7 @@ const AssetSection = () => {
 
           console.log("decimals", decimals, "symbol", symbol);
 
-          list.push(`${formatUsdt(formatUnits(v, Number(decimals)), 4)} ${symbol}`);
+          list.push(`${formatUsdt(formatUnits(BigInt(v), Number(decimals)), 4)} ${symbol}`);
         }
 
         setReceives(list);
@@ -228,7 +261,7 @@ const AssetSection = () => {
     setBusy(true);
 
     try {
-      if (poolState > 1) {
+      if (Number(poolState) > 1) {
         message.error("Product has been ended");
         return;
       }
@@ -259,13 +292,13 @@ const AssetSection = () => {
         return;
       }
 
-      if (balance && amount > balance) {
+      if (balance && BigInt(amount) > BigInt(balance)) {
         message.error("Insufficient balance");
         setBusy(false);
         return;
       }
 
-      if (allowance && allowance < amount) {
+      if (allowance && BigInt(allowance as string) < amount) {
         setStep(2);
 
         // 写入合约数据：授权
@@ -483,14 +516,15 @@ const AssetSection = () => {
 
         <div className="w-full bg-thirdary shadow-card rounded-card text-primary px-[28px] py-[33px]">
           <div className="text-[12px] font-500 text-[#929292] flex items-center justify-end mb-[5px]">
-            {t("balance")}:{" "}
-            {formatUsdt(formatUnits(balance, USDT_ERC20.decimals), 2)} USDT
+            {t("balance")}:
+            {formattedBalance}
           </div>
           <InputBalance
             logo={"/tether.png"}
             coinName={"USDT"}
             rate={rate}
             type="asset"
+            // @ts-ignore
             maxValue={balance?.decimals || 0}
             onChange={inputChange}
           />
