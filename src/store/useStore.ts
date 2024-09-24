@@ -24,6 +24,7 @@ export type Product = CardProps & {
   tvl: string;
   network: string;
   startBlock: number;
+  abbrExpireTime: string;
 };
 
 interface StoreState {
