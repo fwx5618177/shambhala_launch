@@ -42,7 +42,7 @@ interface MarketCardProps {
 const MarketCard: React.FC<MarketCardProps> = ({
   abbrId,
   logo,
-  subLogo,
+  // subLogo,
   coinName,
   apy,
   cycle,
@@ -61,7 +61,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const [busy, setBusy] = useState(false);
   const [myInvestings, setMyInvestings] = useState<InvestmentItem[]>([]);
   const { address: accountAddress, isConnected } = useAccount();
-  const { purchaseDefi, loading } = usePurchaseDefi();
+  const { purchaseDefi } = usePurchaseDefi();
   const formattedApy = useMemo(() => (Number(apy) / 1000000) * 100, [apy]);
   const { data: blockNumber } = useBlockNumber();
   const { userInfo } = useStore();
@@ -121,7 +121,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   });
 
   const handleInvest = useCallback(async () => {
-    if (busy || loading) return;
+    if (busy ) return;
 
     if (!isConnected) {
       message.error("Please connect wallet first!");
@@ -223,7 +223,6 @@ const MarketCard: React.FC<MarketCardProps> = ({
     isConnected,
     isError,
     isSuccess,
-    loading,
     myInvestings,
     pid,
     purchaseDefi,
@@ -243,13 +242,13 @@ const MarketCard: React.FC<MarketCardProps> = ({
               height={40}
               className="rounded-coin w-[40px] h-[40px]"
             />
-            <Image
-              src={subLogo}
-              alt={coinName}
-              width={20}
-              height={20}
-              className="absolute bottom-0 right-0"
-            />
+            {/*<Image*/}
+            {/*  src={subLogo}*/}
+            {/*  alt={coinName}*/}
+            {/*  width={20}*/}
+            {/*  height={20}*/}
+            {/*  className="absolute bottom-0 right-0"*/}
+            {/*/>*/}
           </div>
           <div className="ml-4 flex items-center gap-2 overflow-hidden">
             <h3 className="text-lg sm:text-coinXl truncate">{formattedApy}</h3>
@@ -273,12 +272,12 @@ const MarketCard: React.FC<MarketCardProps> = ({
           {/* 第三部分: Network */}
           <div className="ml-4 flex flex-col items-center gap-2">
             <div className="flex items-center gap-[2px]">
-              <Image src={"/eth.svg"} width={16} height={16} alt="eth" />
+              <Image src={"/bsc.svg"} width={16} height={16} alt="bsc" />
               <p className="text-primary text-xs sm:text-desc font-500 truncate">{network}</p>
             </div>
 
             <p className="text-[10px] sm:text-desc text-secondary truncate">
-              Date:{" "}
+
               {fixedDuration === 0
                 ? handleShowDay(startBlock, Number(blockNumber), cycle)
                 : moment(maturity).format("ll")}

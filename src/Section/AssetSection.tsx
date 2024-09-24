@@ -120,7 +120,7 @@ const AssetSection = () => {
   const { isSuccess, isError } = useWaitForTransactionReceipt({
     hash
   })
-  const { purchaseDefi, loading } = usePurchaseDefi();
+  const { purchaseDefi } = usePurchaseDefi();
 
 
   const { data, refetch } = useReadContracts({
@@ -339,7 +339,7 @@ const AssetSection = () => {
   }
 
   async function handleRedeem() {
-    if (busy || loading) return;
+    if (busy ) return;
 
     if (!isConnected) {
       message.error("Please connect wallet first!");

@@ -23,7 +23,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ onClose }) => {
     };
 
     const menuItems = [
-        { label: t("market"), path: "/market", icon: "/referral.svg" },
+        // { label: t("market"), path: "/market", icon: "/referral.svg" },
         { label: t("referral"), path: "/referral", icon: "/referral.svg" },
         { label: t("reward-center"), path: "/reward", icon: "/reward.svg" },
         { label: t("my-points"), path: "/points", icon: "/points.svg" },
@@ -65,7 +65,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ onClose }) => {
             <div
                 className=" py-2 cursor-pointer"
                 onClick={() => {
-                    router.push("/market");
+                    router.push("/discover");
                     onClose();
                 }}
             >
@@ -99,32 +99,6 @@ const MobileMenu: FC<MobileMenuProps> = ({ onClose }) => {
                 )}
             </div>
 
-            {/* Language Section */}
-            <div className=" py-2">
-                <div
-                    className="flex justify-between items-center cursor-pointer"
-                    onClick={() => toggleSection("Language")}
-                >
-                    <span>{t("language")}</span>
-                    {activeSection === "Language" ? <FaChevronUp /> : <FaChevronDown />}
-                </div>
-                {activeSection === "Language" && (
-                    <div className="mt-2 pl-4 text-gray-400">
-                        {["en", "jp", "zh"].map((lang) => (
-                            <div
-                                key={lang}
-                                className="py-1 cursor-pointer"
-                                onClick={() => {
-                                    changeLanguage(lang);
-                                    onClose();
-                                }}
-                            >
-                                {t(`language-${lang}`)}
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
         </div>
     );
 };

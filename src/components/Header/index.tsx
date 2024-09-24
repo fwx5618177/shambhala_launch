@@ -6,7 +6,7 @@ import SwitchTab from "@/components/SwitchTab";
 import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
 import { useTranslation } from "react-i18next";
-import { changeLanguage } from "i18next";
+// import { changeLanguage } from "i18next";
 import Link from "next/link";
 import useStore from "@/store/useStore";
 import MobileMenu from "@/components/MobileMenu"; // 引入 MobileMenu 组件
@@ -100,76 +100,76 @@ export const Header: FC<HeaderProps> = ({
           />
         </div>
 
-        {/* 菜单图标仅在中大屏幕显示 */}
-        <div className="hidden sm:flex items-center space-x-4">
-          <Image
-            src={"/union.svg"}
-            width={22}
-            height={22}
-            alt="union"
-            onClick={toggleMenu}
-            className="cursor-pointer"
-          />
-        </div>
+        {/*/!* 菜单图标仅在中大屏幕显示 *!/*/}
+        {/*<div className="hidden sm:flex items-center space-x-4">*/}
+        {/*  <Image*/}
+        {/*    src={"/union.svg"}*/}
+        {/*    width={22}*/}
+        {/*    height={22}*/}
+        {/*    alt="union"*/}
+        {/*    onClick={toggleMenu}*/}
+        {/*    className="cursor-pointer"*/}
+        {/*  />*/}
+        {/*</div>*/}
       </div>
 
-      {/* 下拉菜单 */}
-      {isMenuOpen && (
-        <div
-          ref={menuRef}
-          className="absolute top-full right-4 sm:right-8 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 p-4 w-64 sm:w-auto"
-        >
-          <div className="flex justify-between border-b border-[#EBEBEB] mb-2">
-            <div
-              className={`px-2 py-2 text-center cursor-pointer ${activeTab === "language"
-                ? "border-b border-primary text-black"
-                : "text-gray-600"
-                }`}
-              onClick={() => handleTabSwitch("language")}
-            >
-              {t("language")}
-            </div>
-            <div
-              className={`px-4 py-2 text-center cursor-pointer ${activeTab === "currency"
-                ? "border-b border-primary text-black"
-                : "text-gray-600"
-                }`}
-              onClick={() => handleTabSwitch("currency")}
-            >
-              {t("currency")}
-            </div>
-          </div>
+      {/*/!* 下拉菜单 *!/*/}
+      {/*{isMenuOpen && (*/}
+      {/*  <div*/}
+      {/*    ref={menuRef}*/}
+      {/*    className="absolute top-full right-4 sm:right-8 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 p-4 w-64 sm:w-auto"*/}
+      {/*  >*/}
+      {/*    <div className="flex justify-between border-b border-[#EBEBEB] mb-2">*/}
+      {/*      <div*/}
+      {/*        className={`px-2 py-2 text-center cursor-pointer ${activeTab === "language"*/}
+      {/*          ? "border-b border-primary text-black"*/}
+      {/*          : "text-gray-600"*/}
+      {/*          }`}*/}
+      {/*        onClick={() => handleTabSwitch("language")}*/}
+      {/*      >*/}
+      {/*        {t("language")}*/}
+      {/*      </div>*/}
+      {/*      <div*/}
+      {/*        className={`px-4 py-2 text-center cursor-pointer ${activeTab === "currency"*/}
+      {/*          ? "border-b border-primary text-black"*/}
+      {/*          : "text-gray-600"*/}
+      {/*          }`}*/}
+      {/*        onClick={() => handleTabSwitch("currency")}*/}
+      {/*      >*/}
+      {/*        {t("currency")}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
 
-          {activeTab === "language" ? (
-            <ul className="text-sm space-y-1">
-              {["en", "jp", "zh"].map((lang) => (
-                <li
-                  key={lang}
-                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-md"
-                  onClick={() => {
-                    changeLanguage(lang);
-                    toggleMenu();
-                  }}
-                >
-                  {t(`language-${lang}`)}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul className="text-sm space-y-1">
-              {["$ USD", "¥ JPY"].map((currency) => (
-                <li
-                  key={currency}
-                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-md"
-                  onClick={toggleMenu}
-                >
-                  {currency}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      {/*    {activeTab === "language" ? (*/}
+      {/*      <ul className="text-sm space-y-1">*/}
+      {/*        {["en", "jp", "zh"].map((lang) => (*/}
+      {/*          <li*/}
+      {/*            key={lang}*/}
+      {/*            className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-md"*/}
+      {/*            onClick={() => {*/}
+      {/*              changeLanguage(lang);*/}
+      {/*              toggleMenu();*/}
+      {/*            }}*/}
+      {/*          >*/}
+      {/*            {t(`language-${lang}`)}*/}
+      {/*          </li>*/}
+      {/*        ))}*/}
+      {/*      </ul>*/}
+      {/*    ) : (*/}
+      {/*      <ul className="text-sm space-y-1">*/}
+      {/*        {["$ USD", "¥ JPY"].map((currency) => (*/}
+      {/*          <li*/}
+      {/*            key={currency}*/}
+      {/*            className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-md"*/}
+      {/*            onClick={toggleMenu}*/}
+      {/*          >*/}
+      {/*            {currency}*/}
+      {/*          </li>*/}
+      {/*        ))}*/}
+      {/*      </ul>*/}
+      {/*    )}*/}
+      {/*  </div>*/}
+      {/*)}*/}
 
       {/* 添加的 MobileMenu 组件，显示在移动端 */}
       {isMobileMenuOpen && <MobileMenu onClose={toggleMobileMenu} />}
