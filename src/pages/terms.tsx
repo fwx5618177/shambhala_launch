@@ -3,9 +3,11 @@ import Head from "next/head";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 const Terms: NextPage = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("terms");
+  const router = useRouter();
 
   return (
     <div>
@@ -23,96 +25,357 @@ const Terms: NextPage = () => {
           {t("terms-title")}
         </h1>
 
+        <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+          {t("terms-sub-title")}
+        </h2>
+
         <div className="space-y-4 sm:space-y-6">
-          {/* Intro Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-intro-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-intro-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-3")}
+          </p>
 
-          {/* Acceptance Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-acceptance-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-acceptance-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-4")}
+          </p>
 
-          {/* Services Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-services-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-services-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-5")}
+          </p>
 
-          {/* Privacy Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-privacy-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-privacy-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-6")}
+          </p>
 
-          {/* Risks Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-risks-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-risks-content")}
-            </p>
-          </div>
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-7")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-8")}
+          </p>
 
-          {/* Liability Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-liability-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-liability-content")}
-            </p>
-          </div>
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-9")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-10")}
+          </p>
 
-          {/* Amendments Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-amendments-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-amendments-content")}
-            </p>
-          </div>
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-11")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-12")}
+          </p>
 
-          {/* Warranty Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-warranty-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-warranty-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-13")}
+          </p>
 
-          {/* Contact Section */}
-          <div>
-            <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
-              {t("terms-contact-title")}
-            </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
-              {t("terms-contact-content")}
-            </p>
-          </div>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-14")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-15")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-16")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-17")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-18")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-19")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-20")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-21")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-22")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-23")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-24")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-25")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-26")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-27")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-28")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-29")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-30")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-31")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-32")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-33")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-34")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-35")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-36")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-37")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-38")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-39")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-40")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-41")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-42")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-43")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-44")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-45")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-46")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-47")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-48")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-49")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-50")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-51")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-52")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-53")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-54")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-55")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-56")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-57")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-58")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-59")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-60")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-61")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-62")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-63")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-64")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-65")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-66")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-67")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-68")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-69")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-70")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-71")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-72")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-73")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-74")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-76")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-77")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-78")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-79")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-80")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-81")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-82")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-83")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-84")}
+          </p>
+
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-85")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-86")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-87")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-88")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-89")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-90")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-91")}
+          </p>
+
+          <h2 className="text-lg sm:text-2xl font-semibold mb-1 sm:mb-2">
+            {t("terms-title-92")}
+          </h2>
+          <p className="text-sm sm:text-base text-primary leading-relaxed">
+            {t("terms-content-93")}
+          </p>
+
+          <p
+            className="text-base font-semibold mb-1 sm:mb-2 text-right cursor-pointer hover:text-[#FFD700]"
+            onClick={() => router.push("/privacy")}
+          >
+            {t("terms-title-94")}
+          </p>
         </div>
       </section>
       <Footer />
