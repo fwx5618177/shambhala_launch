@@ -119,7 +119,7 @@ export const Header: FC<HeaderProps> = ({
       {isMenuOpen && (
         <div
           ref={menuRef}
-          className="absolute top-full right-4 sm:right-8 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 p-4 w-64 sm:w-auto"
+          className="absolute top-1/2 right-4 sm:right-8 mt-2 bg-thirdary text-primary rounded-lg shadow-lg z-10 p-4 w-64 sm:w-auto"
         >
           <div className="flex justify-between border-b border-[#EBEBEB] mb-2">
             <div
