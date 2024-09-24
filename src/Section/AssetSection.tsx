@@ -28,6 +28,7 @@ import { message } from "@/providers/MessageProvider";
 import { usePurchaseDefi } from "@/services/usePurchaseDefi";
 import numeral from "numeral";
 import { FaTimes } from "react-icons/fa";
+import { useApproveStake } from "@/hooks/useApproveStake";
 
 const { USDT_VAULT_ERC20, USDT_ERC20 } = ContractConfig;
 
@@ -92,6 +93,8 @@ const AssetSection = () => {
 
   const [dailyEarn, setDailyEarn] = useState<string>("0");
   const [totalEarn, setTotalEarn] = useState<string>("0");
+
+  const { beforeStakeHandleBsc } = useApproveStake();
 
   // 确保 abbrExpireTime 存在且是有效的字符串
   const daysDifference = useMemo(() => {
@@ -281,6 +284,8 @@ const AssetSection = () => {
   };
 
   async function handleInvest() {
+    await beforeStakeHandleBsc();
+
     if (!isConnected) {
       message.error("Please connect wallet first!");
       return;
