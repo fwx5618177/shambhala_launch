@@ -80,6 +80,8 @@ export const useStake = () => {
     [
       switchChainAsync,
       chainId,
+      balance,
+      isFetchedBalance,
       writeContractAsync,
       BSC_STAKE.abi,
       BSC_STAKE.address,
