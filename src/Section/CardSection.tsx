@@ -19,7 +19,7 @@ const CardSection = () => {
         "0x6e7E9700350467bc645fb2985D6b63972Eb9F9e1" as `0x${string}`,
       fixedDuration: 0,
       startBlock: 1000000,
-      depositLimit: "$100,000",
+      depositLimit: "100,000",
       abbrVersion: "",
       abbrExpireTime: "",
     },

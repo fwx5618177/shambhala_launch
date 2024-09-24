@@ -17,14 +17,14 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { inviteCode } = router.query;
 
-  useEffect(() => {
-    const fetchProductList = async () => {
-      const products = await getProductListApi();
-      updateProductArray(products);
-    };
+  // useEffect(() => {
+  //   const fetchProductList = async () => {
+  //     const products = await getProductListApi();
+  //     updateProductArray(products);
+  //   };
 
-    fetchProductList();
-  }, [updateProductArray]);
+  //   fetchProductList();
+  // }, [updateProductArray]);
 
   useEffect(() => {
     if (inviteCode) {

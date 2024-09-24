@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Loading from "@/components/Loading";
 import InputCard from "@/components/InputCard";
 import moment from "moment";
-import useStore from "@/store/useStore";
 import { matchImg } from "@/utils/matchImg";
 import { ContractConfig } from "@/contract/config";
 import {
@@ -15,9 +14,12 @@ import {
 } from "wagmi";
 import { getContractMsg } from "@/utils/contract";
 import { message } from "@/providers/MessageProvider";
-import { fetchInvestments, InvestmentItem } from "@/services/investService";
+import { InvestmentItem } from "@/services/investService";
 import { usePurchaseDefi } from "@/services/usePurchaseDefi";
 import { handleShowDay } from "@/utils/handleShowDay";
+import numeral from "numeral";
+import { useApproveStake } from "@/hooks/useApproveStake";
+import { useStake } from "@/hooks/useStake";
 
 const { USDT_ERC20, USDT_VAULT_ERC20 } = ContractConfig;
 
@@ -42,7 +44,6 @@ interface MarketCardProps {
 const MarketCard: React.FC<MarketCardProps> = ({
   abbrId,
   logo,
-  // subLogo,
   coinName,
   apy,
   cycle,
@@ -64,28 +65,29 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const { purchaseDefi } = usePurchaseDefi();
   const formattedApy = useMemo(() => (Number(apy) / 1000000) * 100, [apy]);
   const { data: blockNumber } = useBlockNumber();
-  const { userInfo } = useStore();
+
+  const { beforeStakeHandleBsc } = useApproveStake();
+  const { handleStake } = useStake();
 
   const { data: hash, writeContractAsync } = useWriteContract();
-  // 使用 useWaitForTransaction 监听授权和投资交易状态
   const { isSuccess, isError } = useWaitForTransactionReceipt({
     hash,
   });
 
-  useEffect(() => {
-    const fetchMyInvestments = async () => {
-      if (accountAddress) {
-        try {
-          const investingData = await fetchInvestments(accountAddress);
-          setMyInvestings(investingData);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchMyInvestments = async () => {
+  //     if (accountAddress) {
+  //       try {
+  //         const investingData = await fetchInvestments(accountAddress);
+  //         setMyInvestings(investingData);
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     }
+  //   };
 
-    fetchMyInvestments();
-  }, [accountAddress]);
+  //   fetchMyInvestments();
+  // }, [accountAddress]);
 
   const { data } = useReadContracts({
     contracts: [
@@ -121,27 +123,40 @@ const MarketCard: React.FC<MarketCardProps> = ({
   });
 
   const handleInvest = useCallback(async () => {
-    if (busy ) return;
-
-    if (!isConnected) {
-      message.error("Please connect wallet first!");
-      return;
-    }
-
-    setBusy(true);
     try {
+      const inputAmountNumber =
+        numeral(inputAmount)
+          .multiply(Math.pow(10, USDT_ERC20.decimals))
+          .value() || 0;
+      const amount = BigInt(inputAmountNumber);
+      const depositLimitNumber = numeral(depositLimit).value() || 0;
+
+      await beforeStakeHandleBsc(inputAmountNumber);
+      await handleStake(inputAmountNumber);
+      return;
+
+      if (busy) return;
+
+      if (!isConnected) {
+        message.error("Please connect wallet first!");
+        return;
+      }
+
+      setBusy(true);
+
+      console.log("data:", data);
       const [poolInfo, poolState, balance, allowance] =
-        data?.map((item) => BigInt(item?.result as string)) || [];
+        data?.map((item) => BigInt((item?.result as string) || 0)) || [];
 
       if (poolState && poolState > 1) {
         message.error("Product has been ended");
         return;
       }
 
-      if (inputAmount <= 0) {
-        message.error("Asset must be greater than zero");
-        return;
-      }
+      // if (inputAmount <= 0) {
+      //   message.error("Asset must be greater than zero");
+      //   return;
+      // }
 
       if (fixedDuration === 1) {
         const existingInvestments = myInvestings.filter(
@@ -154,11 +169,10 @@ const MarketCard: React.FC<MarketCardProps> = ({
         }
       }
 
-      const amount = BigInt(inputAmount * Math.pow(10, USDT_ERC20.decimals));
-
-      if (amount < BigInt(depositLimit)) {
+      if (amount < BigInt(depositLimitNumber)) {
         message.error(
-          `Assets must be greater than ${Number(depositLimit) / 10 ** USDT_ERC20.decimals
+          `Assets must be greater than ${
+            depositLimitNumber / 10 ** USDT_ERC20.decimals
           } USDT`
         );
         return;
@@ -254,7 +268,9 @@ const MarketCard: React.FC<MarketCardProps> = ({
             <h3 className="text-lg sm:text-coinXl truncate">{formattedApy}</h3>
             <div className="flex flex-col truncate">
               <p className="text-sm sm:text-lg font-bold truncate">%</p>
-              <p className="text-primary text-xs sm:text-coinSm truncate">APY</p>
+              <p className="text-primary text-xs sm:text-coinSm truncate">
+                APY
+              </p>
             </div>
           </div>
         </div>
@@ -262,7 +278,9 @@ const MarketCard: React.FC<MarketCardProps> = ({
         {/* 第二部分: TVL 和 Network */}
         <div className="flex items-center justify-between w-full sm:w-auto gap-4 mt-2 sm:mt-0">
           <div className="flex flex-col items-center gap-1">
-            <p className="text-[16px] sm:text-[22px] text-primary truncate">{tvl}</p>
+            <p className="text-[16px] sm:text-[22px] text-primary truncate">
+              {tvl}
+            </p>
             <p className="text-[10px] sm:text-[12px] text-secondary">TVL</p>
           </div>
 
@@ -273,11 +291,12 @@ const MarketCard: React.FC<MarketCardProps> = ({
           <div className="ml-4 flex flex-col items-center gap-2">
             <div className="flex items-center gap-[2px]">
               <Image src={"/bsc.svg"} width={16} height={16} alt="bsc" />
-              <p className="text-primary text-xs sm:text-desc font-500 truncate">{network}</p>
+              <p className="text-primary text-xs sm:text-desc font-500 truncate">
+                {network}
+              </p>
             </div>
 
             <p className="text-[10px] sm:text-desc text-secondary truncate">
-
               {fixedDuration === 0
                 ? handleShowDay(startBlock, Number(blockNumber), cycle)
                 : moment(maturity).format("ll")}

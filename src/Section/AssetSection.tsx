@@ -5,7 +5,6 @@ import InputBalance from "@/components/InputBalance";
 import LineCharts from "@/components/LineCharts";
 import Loading from "@/components/Loading";
 import { useTranslation } from "react-i18next";
-import useStore from "@/store/useStore";
 import { matchImg } from "@/utils/matchImg";
 import {
   useReadContracts,
@@ -29,6 +28,7 @@ import { usePurchaseDefi } from "@/services/usePurchaseDefi";
 import numeral from "numeral";
 import { FaTimes } from "react-icons/fa";
 import { useApproveStake } from "@/hooks/useApproveStake";
+import { useStake } from "@/hooks/useStake";
 
 const { USDT_VAULT_ERC20, USDT_ERC20 } = ContractConfig;
 
@@ -55,16 +55,14 @@ const AssetSection = () => {
   const [isCardOpen, setIsCardOpen] = useState(false); // 控制卡片的状态
   const [inputValue, setInputValue] = useState<number>(0.0);
   const [step, setStep] = useState<number>(0);
-  const { address: accountAddress, isConnected, chain } = useAccount();
+  const { address: accountAddress, isConnected } = useAccount();
   const rate = 1;
   const [busy, setBusy] = useState(false);
   const router = useRouter();
   const {
-    abbrId = "",
     abbrLogo = "",
     abbrTitle = "",
     abbrApy = "0",
-    abbrVersion = "",
     abbrExpireTime = "",
     contractAddress = "0x1",
     pid = "0",
@@ -73,21 +71,6 @@ const AssetSection = () => {
     depositLimit = "0",
   } = router.query as Partial<QueryParams>;
 
-  const queryParams: QueryParams = {
-    abbrId,
-    abbrLogo,
-    abbrTitle,
-    abbrApy: Number(abbrApy),
-    abbrVersion,
-    abbrExpireTime,
-    pid: Number(pid),
-    abbrCycle: Number(abbrCycle),
-    fixedDuration: Number(fixedDuration),
-    depositLimit: BigInt(depositLimit),
-    contractAddress,
-  };
-
-  const { userInfo } = useStore();
   const [receives, setReceives] = useState<any[]>([]);
   const [myInvestings, setMyInvestings] = useState<InvestmentItem[]>([]);
 
@@ -95,6 +78,7 @@ const AssetSection = () => {
   const [totalEarn, setTotalEarn] = useState<string>("0");
 
   const { beforeStakeHandleBsc } = useApproveStake();
+  const { handleStake } = useStake();
 
   // 确保 abbrExpireTime 存在且是有效的字符串
   const daysDifference = useMemo(() => {
@@ -199,20 +183,20 @@ const AssetSection = () => {
     allowance
   );
 
-  useEffect(() => {
-    const fetchMyInvestings = async () => {
-      if (accountAddress) {
-        try {
-          const investingData = await fetchInvestments(accountAddress);
-          setMyInvestings(investingData);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchMyInvestings = async () => {
+  //     if (accountAddress) {
+  //       try {
+  //         const investingData = await fetchInvestments(accountAddress);
+  //         setMyInvestings(investingData);
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     }
+  //   };
 
-    fetchMyInvestings();
-  }, [accountAddress]);
+  //   fetchMyInvestings();
+  // }, [accountAddress]);
 
   const inputChange = useCallback(
     (value: number) => {
@@ -284,7 +268,14 @@ const AssetSection = () => {
   };
 
   async function handleInvest() {
-    await beforeStakeHandleBsc();
+    const inputAmountNumber =
+      numeral(inputValue).multiply(Math.pow(10, USDT_ERC20.decimals)).value() ||
+      0;
+    const amount = BigInt(inputAmountNumber);
+    const depositLimitNumber = numeral(depositLimit).value() || 0;
+    await beforeStakeHandleBsc(inputAmountNumber);
+    await handleStake(inputAmountNumber);
+    return;
 
     if (!isConnected) {
       message.error("Please connect wallet first!");
