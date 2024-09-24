@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { FaTimes, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import { changeLanguage } from "i18next";
+import { useChangeLanguage } from "@/hooks/useChangeLanguage";
 import { languageList } from "@/utils/languageList";
 
 interface MobileMenuProps {
@@ -14,6 +14,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ onClose }) => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [currency, setCurrency] = useState("$ USD");
   const router = useRouter();
+  const changeLanguage = useChangeLanguage();
 
   const toggleSection = (section: string) => {
     setActiveSection(activeSection === section ? null : section);

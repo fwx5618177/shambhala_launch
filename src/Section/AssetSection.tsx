@@ -22,8 +22,8 @@ import moment from "moment";
 import { formatUsdt } from "@/utils/formatUsdt";
 import { fetchInvestments, InvestmentItem } from "@/services/investService";
 import { calculateEarnings } from "@/utils/calculationProfit";
-import { getDecimals } from "@/hoocs/getDecimals";
-import { getSymbol } from "@/hoocs/getSymbol";
+import { getDecimals } from "@/hooks/getDecimals";
+import { getSymbol } from "@/hooks/getSymbol";
 import { message } from "@/providers/MessageProvider";
 import { usePurchaseDefi } from "@/services/usePurchaseDefi";
 import numeral from "numeral";
@@ -59,17 +59,17 @@ const AssetSection = () => {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
   const {
-    abbrId = '',
-    abbrLogo = '',
-    abbrTitle = '',
-    abbrApy = '0',
-    abbrVersion = '',
-    abbrExpireTime = '',
-    contractAddress = '0x1',
-    pid = '0',
-    abbrCycle = '0',
-    fixedDuration = '0',
-    depositLimit = '0',
+    abbrId = "",
+    abbrLogo = "",
+    abbrTitle = "",
+    abbrApy = "0",
+    abbrVersion = "",
+    abbrExpireTime = "",
+    contractAddress = "0x1",
+    pid = "0",
+    abbrCycle = "0",
+    fixedDuration = "0",
+    depositLimit = "0",
   } = router.query as Partial<QueryParams>;
 
   const queryParams: QueryParams = {
@@ -90,13 +90,16 @@ const AssetSection = () => {
   const [receives, setReceives] = useState<any[]>([]);
   const [myInvestings, setMyInvestings] = useState<InvestmentItem[]>([]);
 
-  const [dailyEarn, setDailyEarn] = useState<string>('0');
-  const [totalEarn, setTotalEarn] = useState<string>('0');
+  const [dailyEarn, setDailyEarn] = useState<string>("0");
+  const [totalEarn, setTotalEarn] = useState<string>("0");
 
   // 确保 abbrExpireTime 存在且是有效的字符串
   const daysDifference = useMemo(() => {
     // 确保 abbrExpireTime 存在且不是空字符串
-    if (!abbrExpireTime || !moment(abbrExpireTime, moment.ISO_8601, true).isValid()) {
+    if (
+      !abbrExpireTime ||
+      !moment(abbrExpireTime, moment.ISO_8601, true).isValid()
+    ) {
       console.warn("Invalid abbrExpireTime:", abbrExpireTime);
       return 0; // 或者你可以返回其他默认值
     }
@@ -112,16 +115,18 @@ const AssetSection = () => {
 
     return diffDays;
   }, [abbrExpireTime]);
-  const points = numeral(100).divide(Number(abbrCycle) || 1).multiply(daysDifference).value();
+  const points = numeral(100)
+    .divide(Number(abbrCycle) || 1)
+    .multiply(daysDifference)
+    .value();
 
   const formattedApy = (Number(abbrApy) / 1000000) * 100;
 
   const { data: hash, writeContractAsync } = useWriteContract();
   const { isSuccess, isError } = useWaitForTransactionReceipt({
-    hash
-  })
+    hash,
+  });
   const { purchaseDefi } = usePurchaseDefi();
-
 
   const { data, refetch } = useReadContracts({
     contracts: [
@@ -159,11 +164,12 @@ const AssetSection = () => {
         address: USDT_ERC20.address,
         functionName: "allowance",
         args: [accountAddress as `0x${string}`, contractAddress],
-      }
-    ]
+      },
+    ],
   });
 
-  const [canHarvest, _poolInfo, poolState, balanceData, allowance] = data?.map((item) => item?.result) || [];
+  const [canHarvest, _poolInfo, poolState, balanceData, allowance] =
+    data?.map((item) => item?.result) || [];
 
   // 将 balance 数据转换为 bigint 或默认值 0
   const balance = balanceData ? BigInt(balanceData as string) : BigInt(0);
@@ -177,7 +183,18 @@ const AssetSection = () => {
     return `${formatUsdt(formatUnits(balance, USDT_ERC20.decimals), 2)} USDT`;
   }, [balance]);
 
-  console.log("canHarvest", canHarvest, "poolInfo", _poolInfo, "poolState", poolState, "balance", balance, "allowance", allowance);
+  console.log(
+    "canHarvest",
+    canHarvest,
+    "poolInfo",
+    _poolInfo,
+    "poolState",
+    poolState,
+    "balance",
+    balance,
+    "allowance",
+    allowance
+  );
 
   useEffect(() => {
     const fetchMyInvestings = async () => {
@@ -189,19 +206,27 @@ const AssetSection = () => {
           console.error(error);
         }
       }
-    }
+    };
 
     fetchMyInvestings();
-  }, [accountAddress])
+  }, [accountAddress]);
 
-  const inputChange = useCallback((value: number) => {
-    setInputValue(value);
-    console.log("input change", value, abbrApy);
-    const { dailyEarn, totalEarn } = calculateEarnings(value, Number(abbrApy), Number(fixedDuration), Number(abbrCycle));
+  const inputChange = useCallback(
+    (value: number) => {
+      setInputValue(value);
+      console.log("input change", value, abbrApy);
+      const { dailyEarn, totalEarn } = calculateEarnings(
+        value,
+        Number(abbrApy),
+        Number(fixedDuration),
+        Number(abbrCycle)
+      );
 
-    setDailyEarn(dailyEarn);
-    setTotalEarn(totalEarn);
-  }, [abbrApy, abbrCycle, fixedDuration])
+      setDailyEarn(dailyEarn);
+      setTotalEarn(totalEarn);
+    },
+    [abbrApy, abbrCycle, fixedDuration]
+  );
 
   // 获取奖励信息
   const getYourReceive = useCallback(async () => {
@@ -217,7 +242,12 @@ const AssetSection = () => {
 
           console.log("decimals", decimals, "symbol", symbol);
 
-          list.push(`${formatUsdt(formatUnits(BigInt(v), Number(decimals)), 4)} ${symbol}`);
+          list.push(
+            `${formatUsdt(
+              formatUnits(BigInt(v), Number(decimals)),
+              4
+            )} ${symbol}`
+          );
         }
 
         setReceives(list);
@@ -227,16 +257,19 @@ const AssetSection = () => {
     }
   }, [canHarvest]);
 
-  const changeTab = useCallback((tab: "invite" | "redeem") => {
-    if (busy) return; // 正在执行操作时禁止切换
+  const changeTab = useCallback(
+    (tab: "invite" | "redeem") => {
+      if (busy) return; // 正在执行操作时禁止切换
 
-    setSelectedRedeem(tab);
-    setStep(0); // 重置步骤
+      setSelectedRedeem(tab);
+      setStep(0); // 重置步骤
 
-    if (tab === "redeem") {
-      getYourReceive(); // 选择领取时获取奖励信息
-    }
-  }, [busy, getYourReceive])
+      if (tab === "redeem") {
+        getYourReceive(); // 选择领取时获取奖励信息
+      }
+    },
+    [busy, getYourReceive]
+  );
 
   // 获取 Decimals 和 Symbol
   const getDecimalsAndSymbol = async (contractAddress: `0x${string}`) => {
@@ -272,7 +305,8 @@ const AssetSection = () => {
       }
       if (Number(fixedDuration) === 1) {
         const existingInvestments = myInvestings.filter(
-          (item) => item?.pid === Number(pid) && item?.address == contractAddress
+          (item) =>
+            item?.pid === Number(pid) && item?.address == contractAddress
         );
 
         if (existingInvestments.length > 0) {
@@ -286,8 +320,8 @@ const AssetSection = () => {
       if (amount < BigInt(depositLimit)) {
         message.error(
           "Assets must bigger than " +
-          BigInt(depositLimit) / BigInt(Math.pow(10, USDT_ERC20.decimals)) +
-          " USDT"
+            BigInt(depositLimit) / BigInt(Math.pow(10, USDT_ERC20.decimals)) +
+            " USDT"
         );
         return;
       }
@@ -307,9 +341,10 @@ const AssetSection = () => {
           address: USDT_ERC20.address as `0x${string}`,
           functionName: "approve",
           args: [contractAddress, amount],
-        })
+        });
 
-        if (isSuccess) message.success(`Approval successful, hash: ${approveTx}`);
+        if (isSuccess)
+          message.success(`Approval successful, hash: ${approveTx}`);
         if (isError) throw new Error(`Approval failed, hash: ${approveTx}`);
       }
 
@@ -321,9 +356,10 @@ const AssetSection = () => {
         functionName: "invest",
         args: [pid, amount],
         account: accountAddress,
-      })
+      });
 
-      if (isSuccess) message.success(`Investment successful, hash: ${investTx}`);
+      if (isSuccess)
+        message.success(`Investment successful, hash: ${investTx}`);
       if (isError) throw new Error(`Investment failed, hash: ${investTx}`);
 
       await purchaseDefi({
@@ -339,7 +375,7 @@ const AssetSection = () => {
   }
 
   async function handleRedeem() {
-    if (busy ) return;
+    if (busy) return;
 
     if (!isConnected) {
       message.error("Please connect wallet first!");
@@ -348,7 +384,6 @@ const AssetSection = () => {
 
     setBusy(true);
     try {
-
       if (poolState && poolState !== BigInt(2)) {
         message.error("The product has not yet expired");
         return;
@@ -401,7 +436,9 @@ const AssetSection = () => {
             </div>
             <div>
               <h1 className="text-lg sm:text-coinLg font-500">{abbrTitle}</h1>
-              <p className="text-sm sm:text-coinSm text-secondary font-400">SHAMBHALA</p>
+              <p className="text-sm sm:text-coinSm text-secondary font-400">
+                SHAMBHALA
+              </p>
             </div>
           </div>
 
@@ -421,15 +458,17 @@ const AssetSection = () => {
         <div className="flex space-x-2 sm:space-x-6 mb-8">
           <div
             onClick={() => setSelectedTab("info")}
-            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${selectedTab === "info" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-              }`}
+            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${
+              selectedTab === "info" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            }`}
           >
             Info
           </div>
           <div
             onClick={() => setSelectedTab("apy")}
-            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-              }`}
+            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${
+              selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            }`}
           >
             APY
           </div>
@@ -489,14 +528,20 @@ const AssetSection = () => {
           <div className="w-full h-[1px] bg-[#EBEBEB] mb-6 lg:mb-[44px]" />
           <div className="mb-6 lg:mb-[68px]">
             <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{`What's Aave? How does it work?`}</h3>
-            <p className="text-xs lg:text-[12px] text-[#535353]">{t("faq-content")}</p>
+            <p className="text-xs lg:text-[12px] text-[#535353]">
+              {t("faq-content")}
+            </p>
           </div>
 
           <div className="w-full h-[1px] bg-[#EBEBEB]" />
 
           <div className="mt-6 lg:mt-[50px]">
-            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{t("ave")}</h3>
-            <p className="text-xs lg:text-[12px] text-[#535353]">{t("ave-content")}</p>
+            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">
+              {t("ave")}
+            </h3>
+            <p className="text-xs lg:text-[12px] text-[#535353]">
+              {t("ave-content")}
+            </p>
           </div>
         </div>
       </div>
@@ -532,22 +577,27 @@ const AssetSection = () => {
             <div className="flex items-center mb-6 lg:mb-[31px] border border-[#E2E2E2] rounded-[50px] mx-auto w-2/3">
               <div
                 onClick={() => changeTab("invite")}
-                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-                  }`}
+                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${
+                  selectedRedeem === "invite"
+                    ? "bg-[#f1f1f1] rounded-[50px]"
+                    : ""
+                }`}
               >
                 {t("invite")}
               </div>
               <div
                 onClick={() => changeTab("redeem")}
-                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-                  }`}
+                className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${
+                  selectedRedeem === "redeem"
+                    ? "bg-[#f1f1f1] rounded-[50px]"
+                    : ""
+                }`}
               >
                 {t("redeem")}
               </div>
             </div>
 
             <div className="w-full bg-thirdary text-primary px-4 py-4 mb-0 relative">
-
               {/* Balance信息 */}
               <div className="text-[10px] font-500 text-[#929292] flex items-center justify-end mb-1">
                 {t("balance")}: {formattedBalance}
@@ -569,11 +619,15 @@ const AssetSection = () => {
                   <>
                     <div className="w-full flex items-center justify-between text-[10px]">
                       <span>Est.daily</span>
-                      <span className="text-[12px] text-primary">{dailyEarn} USDT</span>
+                      <span className="text-[12px] text-primary">
+                        {dailyEarn} USDT
+                      </span>
                     </div>
                     <div className="w-full flex items-center justify-between text-[10px]">
                       <span>Est.receive</span>
-                      <span className="text-[12px] text-primary">{totalEarn} USDT</span>
+                      <span className="text-[12px] text-primary">
+                        {totalEarn} USDT
+                      </span>
                     </div>
                     <div className="w-full flex items-center justify-between text-[10px]">
                       <span>Est.Points reward</span>
@@ -600,7 +654,9 @@ const AssetSection = () => {
                     <div className="w-full h-[1px] bg-[#ededed] mt-3"></div>
                     <div className="mt-3 w-full flex items-center justify-between">
                       <span className="text-[10px]">{t("network")}</span>
-                      <span className="text-[12px] text-primary">{t("ethereum")}</span>
+                      <span className="text-[12px] text-primary">
+                        {t("ethereum")}
+                      </span>
                     </div>
                   </>
                 )}
@@ -639,15 +695,17 @@ const AssetSection = () => {
         <div className="flex items-center mb-6 lg:mb-[31px] border border-[#E2E2E2] rounded-[50px]">
           <div
             onClick={() => changeTab("invite")}
-            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-              }`}
+            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${
+              selectedRedeem === "invite" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            }`}
           >
             {t("invite")}
           </div>
           <div
             onClick={() => changeTab("redeem")}
-            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-              }`}
+            className={`m-[2px] px-8 sm:px-[66px] py-[13px] text-primary cursor-pointer ${
+              selectedRedeem === "redeem" ? "bg-[#f1f1f1] rounded-[50px]" : ""
+            }`}
           >
             {t("redeem")}
           </div>
@@ -673,15 +731,21 @@ const AssetSection = () => {
               <>
                 <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
                   <span>Est.daily</span>
-                  <span className="text-[12px] sm:text-[14px] text-primary">{dailyEarn} USDT</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">
+                    {dailyEarn} USDT
+                  </span>
                 </div>
                 <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
                   <span>Est.receive</span>
-                  <span className="text-[12px] sm:text-[14px] text-primary">{totalEarn} USDT</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">
+                    {totalEarn} USDT
+                  </span>
                 </div>
                 <div className="w-full flex items-center justify-between text-[10px] sm:text-[12px]">
                   <span>Est.Points reward</span>
-                  <span className="text-[12px] sm:text-[14px] text-primary">{points}</span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">
+                    {points}
+                  </span>
                 </div>
               </>
             ) : (
@@ -690,7 +754,10 @@ const AssetSection = () => {
                   <span>Your receive</span>
                   <div>
                     {receives?.map((item) => (
-                      <div className="text-[12px] sm:text-[14px] text-primary" key={item}>
+                      <div
+                        className="text-[12px] sm:text-[14px] text-primary"
+                        key={item}
+                      >
                         {item}
                       </div>
                     ))}
@@ -703,8 +770,12 @@ const AssetSection = () => {
               <>
                 <div className="w-full h-[1px] bg-[#ededed] mt-3 sm:mt-[25px]"></div>
                 <div className="mt-3 sm:mt-[12px] w-full flex items-center justify-between">
-                  <span className="text-[10px] sm:text-[12px]">{t("network")}</span>
-                  <span className="text-[12px] sm:text-[14px] text-primary">{t("ethereum")}</span>
+                  <span className="text-[10px] sm:text-[12px]">
+                    {t("network")}
+                  </span>
+                  <span className="text-[12px] sm:text-[14px] text-primary">
+                    {t("ethereum")}
+                  </span>
                 </div>
               </>
             )}

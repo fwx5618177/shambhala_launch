@@ -6,11 +6,11 @@ import SwitchTab from "@/components/SwitchTab";
 import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
 import { useTranslation } from "react-i18next";
-import { changeLanguage } from "i18next";
 import Link from "next/link";
 import useStore from "@/store/useStore";
 import MobileMenu from "@/components/MobileMenu"; // 引入 MobileMenu 组件
 import { languageList } from "@/utils/languageList";
+import { useChangeLanguage } from "@/hooks/useChangeLanguage";
 
 interface HeaderProps {
   logo?: boolean;
@@ -33,6 +33,7 @@ export const Header: FC<HeaderProps> = ({
   const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
   const { isLogin } = useStore();
+  const changeLanguage = useChangeLanguage();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -68,7 +69,7 @@ export const Header: FC<HeaderProps> = ({
         zIndex: type === "fixed" ? 99 : undefined,
         background: type === "fixed" ? "rgba(24, 24, 24, 0.8)" : undefined,
       }}
-      className="flex justify-between items-center py-2 px-4 sm:px-8 bg-bannerBg text-white"
+      className="relative flex justify-between items-center py-2 px-4 sm:px-8 bg-bannerBg text-white"
     >
       <div className="flex items-center space-x-4">
         {logo && (
