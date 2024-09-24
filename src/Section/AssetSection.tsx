@@ -445,9 +445,9 @@ const AssetSection = () => {
               </span>
               <span className="text-coinSm">APY</span>
             </div>
-            <div className="bg-manturity text-primary px-2 sm:px-[9px] py-1 sm:py-[5px] rounded-[2px] text-xs sm:text-coinSm">
-              Maturity: {abbrExpireTime}
-            </div>
+            {/*<div className="bg-manturity text-primary px-2 sm:px-[9px] py-1 sm:py-[5px] rounded-[2px] text-xs sm:text-coinSm">*/}
+            {/*  Maturity: {abbrExpireTime}*/}
+            {/*</div>*/}
           </div>
         </div>
 
@@ -460,14 +460,14 @@ const AssetSection = () => {
           >
             Info
           </div>
-          <div
-            onClick={() => setSelectedTab("apy")}
-            className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${
-              selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""
-            }`}
-          >
-            APY
-          </div>
+          {/*<div*/}
+          {/*  onClick={() => setSelectedTab("apy")}*/}
+          {/*  className={`px-3 sm:px-[24px] py-1 sm:py-[10px] text-primary cursor-pointer ${*/}
+          {/*    selectedTab === "apy" ? "bg-[#f1f1f1] rounded-[50px]" : ""*/}
+          {/*  }`}*/}
+          {/*>*/}
+          {/*  APY*/}
+          {/*</div>*/}
         </div>
 
         {selectedTab === "info" && (
@@ -491,7 +491,7 @@ const AssetSection = () => {
               </div>
               <div className="flex flex-col items-start">
                 <span className="mb-2 lg:mb-[17px]">TVL</span>
-                <p className="font-500">$54.34M</p>
+                <p className="font-500">$7.67M</p>
               </div>
               <div className="flex flex-col items-start">
                 <span className="mb-2 lg:mb-[17px]">{t("protocol")}</span>
@@ -503,43 +503,43 @@ const AssetSection = () => {
               <div className="flex flex-col items-start">
                 <span className="mb-2 lg:mb-[17px]">{t("network")}</span>
                 <div className="flex items-center gap-1 lg:gap-[5px]">
-                  <Image src={"/eth.svg"} width={18} height={18} alt="eth" />
-                  <p className="font-500">{t("ethereum")}</p>
+                  <Image src={"/bsc.svg"} width={18} height={18} alt="eth" />
+                  <p className="font-500">BSC</p>
                 </div>
               </div>
             </div>
-            <Limit
-              progress={(45 / 94) * 100}
-              current={"$4.5M"}
-              total={"$9.4M"}
-            />
+            {/*<Limit*/}
+            {/*  progress={(45 / 94) * 100}*/}
+            {/*  current={"$4.5M"}*/}
+            {/*  total={"$9.4M"}*/}
+            {/*/>*/}
           </>
         )}
 
         {selectedTab === "apy" && <LineCharts />}
 
         {/* FAQ 部分 */}
-        <div className="mb-8 mt-8 lg:mt-[47px]">
-          <h2 className="text-lg font-bold mb-4 lg:mb-[40px]">{t("faq")}</h2>
-          <div className="w-full h-[1px] bg-[#EBEBEB] mb-6 lg:mb-[44px]" />
-          <div className="mb-6 lg:mb-[68px]">
-            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{`What's Aave? How does it work?`}</h3>
-            <p className="text-xs lg:text-[12px] text-[#535353]">
-              {t("faq-content")}
-            </p>
-          </div>
+        {/*<div className="mb-8 mt-8 lg:mt-[47px]">*/}
+        {/*  <h2 className="text-lg font-bold mb-4 lg:mb-[40px]">{t("faq")}</h2>*/}
+        {/*  <div className="w-full h-[1px] bg-[#EBEBEB] mb-6 lg:mb-[44px]" />*/}
+        {/*  <div className="mb-6 lg:mb-[68px]">*/}
+        {/*    <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">{`What's Aave? How does it work?`}</h3>*/}
+        {/*    <p className="text-xs lg:text-[12px] text-[#535353]">*/}
+        {/*      {t("faq-content")}*/}
+        {/*    </p>*/}
+        {/*  </div>*/}
 
-          <div className="w-full h-[1px] bg-[#EBEBEB]" />
+        {/*  <div className="w-full h-[1px] bg-[#EBEBEB]" />*/}
 
-          <div className="mt-6 lg:mt-[50px]">
-            <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">
-              {t("ave")}
-            </h3>
-            <p className="text-xs lg:text-[12px] text-[#535353]">
-              {t("ave-content")}
-            </p>
-          </div>
-        </div>
+        {/*  <div className="mt-6 lg:mt-[50px]">*/}
+        {/*    <h3 className="text-base lg:text-[18px] font-500 mb-4 lg:mb-[30px]">*/}
+        {/*      {t("ave")}*/}
+        {/*    </h3>*/}
+        {/*    <p className="text-xs lg:text-[12px] text-[#535353]">*/}
+        {/*      {t("ave-content")}*/}
+        {/*    </p>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
 
       {/* 显示按钮，点击时显示卡片 */}

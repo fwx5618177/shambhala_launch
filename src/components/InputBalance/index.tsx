@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 import Image from "next/image";
 
 interface InputBalanceProps {
@@ -38,61 +38,68 @@ const InputBalance: FC<InputBalanceProps> = ({
 
   return (
     <div
-      className={`h-[117px] rounded-[20px] flex items-center justify-between ${type === "asset"
-        ? "bg-market-card-bg"
-        : "bg-thirdary mx-[20px] my-[24px]"
-        }`}
+      className={`h-auto sm:h-[117px] rounded-[10px] sm:rounded-[20px] flex sm:flex-row items-start sm:items-center justify-between p-4 sm:p-0 ${
+        type === "asset"
+          ? "bg-market-card-bg"
+          : "bg-thirdary mx-2 sm:mx-[20px] my-2 sm:my-[24px]"
+      }`}
     >
-      <div className="flex flex-col items-start ml-[29px]">
+      <div className="flex flex-col items-start w-full sm:ml-[29px]">
         {/* 输入框 */}
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          className="text-coinLg bg-transparent border-none outline-none w-full"
+          className="text-base sm:text-coinLg bg-transparent border-none outline-none w-full"
           placeholder="0.00"
         />
         {/* 计算并显示的值 */}
-        <p className="text-[12px] text-secondary">
+        <p className="text-[10px] sm:text-[12px] text-secondary">
           ${calculatedValue.toFixed(2)}
         </p>
       </div>
       {type === "asset" ? (
-        <div className="flex flex-col items-center">
+        <div className="flex items-center mt-2 sm:mt-0">
           <div
-            className={`bg-thirdary rounded-[10px] w-[142px] h-[50px] mr-[36px] flex items-center justify-between px-[12px]`}
+            className={`bg-thirdary rounded-[10px] w-auto h-[40px] sm:h-[50px] mr-0 sm:mr-[36px] flex items-center justify-between px-2 sm:px-[12px] whitespace-nowrap`}
           >
-            <Image
-              src={logo}
-              alt={coinName}
-              width={40}
-              height={40}
-              className="rounded-coin"
-            />
-            <span className="text-[22px] font-500">{coinName}</span>
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Image
+                src={logo}
+                alt={coinName}
+                width={24} // 根据需要调整大小以适应屏幕
+                height={24} // 根据需要调整大小以适应屏幕
+                className="rounded-coin flex-shrink-0"
+              />
+              <span className="text-[14px] sm:text-[18px] font-500 truncate">
+                {coinName}
+              </span>
+            </div>
           </div>
           <div
-            className="mt-[12px] px-[12px] py-[5px] rounded-[20px] text-[14px] bg-primary text-thirdary cursor-pointer"
+            className="mt-2 sm:mt-0 px-3 sm:px-[12px] py-[2px] sm:py-[5px] rounded-[10px] sm:rounded-[20px] text-[12px] sm:text-[14px] bg-primary text-thirdary cursor-pointer"
             onClick={handleMaxClick}
           >
             Max
           </div>
         </div>
       ) : (
-        <>
-          <div
-            className={`bg-market-card-bg rounded-[10px] w-[142px] h-[50px] mr-[36px] flex items-center justify-between px-[12px]`}
-          >
+        <div
+          className={`bg-market-card-bg rounded-[10px] p-[10px] sm:p-[12px] flex items-center justify-between w-3/4 mr-0 sm:mr-[36px] mt-2 sm:mt-0`}
+        >
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Image
               src={logo}
               alt={coinName}
-              width={40}
-              height={40}
-              className="rounded-coin"
+              width={24} // 根据需要调整大小以适应屏幕
+              height={24} // 根据需要调整大小以适应屏幕
+              className="rounded-coin flex-shrink-0"
             />
-            <span className="text-[22px] font-500">{coinName}</span>
+            <span className="text-[14px] sm:text-[18px] font-500 truncate">
+              {coinName}
+            </span>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

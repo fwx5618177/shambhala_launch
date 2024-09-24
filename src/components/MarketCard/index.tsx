@@ -245,16 +245,16 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
   return (
     <div className="w-full max-w-[500px] h-auto p-4 bg-white shadow-lg rounded-lg transition-all duration-300">
-      <div className="w-full h-auto text-[8px] sm:h-[90px] p-4 flex flex-row flex-wrap justify-between items-center mb-[5px] text-primary bg-market-card-bg shadow-card">
+      <div className="w-full h-auto text-[8px] rounded-[12px] sm:h-[90px] px-4 py-2 flex flex-row flex-nowrap justify-between items-center mb-[5px] text-primary bg-market-card-bg sm:shadow-card">
         {/* 第一个部分 */}
         <div className="flex items-center w-full sm:w-auto overflow-hidden">
           <div className="relative mr-2 flex-shrink-0">
             <Image
               src={matchImg(logo)}
               alt={coinName}
-              width={40}
-              height={40}
-              className="rounded-coin w-[40px] h-[40px]"
+              width={36}
+              height={36}
+              className="rounded-coin w-[24px] h-[24px] sm:w-[40px] sm:h-[40px]"
             />
             {/*<Image*/}
             {/*  src={subLogo}*/}
@@ -264,8 +264,10 @@ const MarketCard: React.FC<MarketCardProps> = ({
             {/*  className="absolute bottom-0 right-0"*/}
             {/*/>*/}
           </div>
-          <div className="ml-4 flex items-center gap-2 overflow-hidden">
-            <h3 className="text-lg sm:text-coinXl truncate">{formattedApy}</h3>
+          <div className="ml-[2px] flex items-center gap-2 overflow-hidden">
+            <h3 className="text-[26px] sm:text-coinXl truncate">
+              {formattedApy}
+            </h3>
             <div className="flex flex-col truncate">
               <p className="text-sm sm:text-lg font-bold truncate">%</p>
               <p className="text-primary text-xs sm:text-coinSm truncate">
@@ -276,7 +278,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
         </div>
 
         {/* 第二部分: TVL 和 Network */}
-        <div className="flex items-center justify-between w-full sm:w-auto gap-4 mt-2 sm:mt-0">
+        <div className="flex items-center justify-around w-full sm:w-auto mt-2 sm:mt-0">
           <div className="flex flex-col items-center gap-1">
             <p className="text-[16px] sm:text-[22px] text-primary truncate">
               {tvl}
