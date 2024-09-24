@@ -6,10 +6,11 @@ import SwitchTab from "@/components/SwitchTab";
 import Image from "next/image";
 import WalletButton from "@/components/WalletButton";
 import { useTranslation } from "react-i18next";
-import { changeLanguage } from "i18next";
 import Link from "next/link";
 import useStore from "@/store/useStore";
 import MobileMenu from "@/components/MobileMenu"; // 引入 MobileMenu 组件
+import { languageList } from "@/utils/languageList";
+import { useChangeLanguage } from "@/hooks/useChangeLanguage";
 
 interface HeaderProps {
   logo?: boolean;
@@ -32,6 +33,7 @@ export const Header: FC<HeaderProps> = ({
   const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
   const { isLogin } = useStore();
+  const changeLanguage = useChangeLanguage();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,12 +69,12 @@ export const Header: FC<HeaderProps> = ({
         zIndex: type === "fixed" ? 99 : undefined,
         background: type === "fixed" ? "rgba(24, 24, 24, 0.8)" : undefined,
       }}
-      className="flex justify-between items-center py-2 px-4 sm:px-8 bg-bannerBg text-white"
+      className="relative flex justify-between items-center py-2 px-4 sm:px-8 bg-bannerBg text-white"
     >
       <div className="flex items-center space-x-4">
         {logo && (
           <Link href="/">
-            <Logo size='large' />
+            <Logo size="large" />
           </Link>
         )}
       </div>
@@ -100,7 +102,7 @@ export const Header: FC<HeaderProps> = ({
           />
         </div>
 
-        {/* 菜单图标仅在中大屏幕显示 */}
+        {/*/!* 菜单图标仅在中大屏幕显示 *!/*/}
         <div className="hidden sm:flex items-center space-x-4">
           <Image
             src={"/union.svg"}
@@ -121,19 +123,21 @@ export const Header: FC<HeaderProps> = ({
         >
           <div className="flex justify-between border-b border-[#EBEBEB] mb-2">
             <div
-              className={`px-2 py-2 text-center cursor-pointer ${activeTab === "language"
-                ? "border-b border-primary text-black"
-                : "text-gray-600"
-                }`}
+              className={`px-2 py-2 text-center cursor-pointer ${
+                activeTab === "language"
+                  ? "border-b border-primary text-black"
+                  : "text-gray-600"
+              }`}
               onClick={() => handleTabSwitch("language")}
             >
               {t("language")}
             </div>
             <div
-              className={`px-4 py-2 text-center cursor-pointer ${activeTab === "currency"
-                ? "border-b border-primary text-black"
-                : "text-gray-600"
-                }`}
+              className={`px-4 py-2 text-center cursor-pointer ${
+                activeTab === "currency"
+                  ? "border-b border-primary text-black"
+                  : "text-gray-600"
+              }`}
               onClick={() => handleTabSwitch("currency")}
             >
               {t("currency")}
@@ -142,7 +146,7 @@ export const Header: FC<HeaderProps> = ({
 
           {activeTab === "language" ? (
             <ul className="text-sm space-y-1">
-              {["en", "jp", "zh"].map((lang) => (
+              {languageList?.map((lang) => (
                 <li
                   key={lang}
                   className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-md"

@@ -9,7 +9,7 @@ import BSC_STAKE_ABI from "@/abis/mainnet/BSC-STAKE.json";
 
 const isDev = process.env.NODE_ENV === "development";
 
-export interface ContractConfig {
+export interface ContractConfigProps {
   [key: string]: {
     address: `0x${string}`;
     abi: any;
@@ -41,5 +41,5 @@ export const ContractConfig = {
     address: process.env.NEXT_PUBLIC_STAKE_ADDRESS_BSC,
     abi: BSC_STAKE_ABI,
     decimals: 6,
-  }
-} as ContractConfig;
+  },
+} as ContractConfigProps;

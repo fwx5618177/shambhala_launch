@@ -33,26 +33,26 @@ export const usePurchaseDefi = () => {
   const { address: accountAddress, chain } = useAccount();
   const [purchaseDefiMutation] = useMutation(PURCHASE_DEFI);
 
-  const {
-    data: userData,
-    loading: userLoading,
-    error: userError,
-  } = useGetUserInfoByAddress(accountAddress || "");
+  // const {
+  //   data: userData,
+  //   loading: userLoading,
+  //   error: userError,
+  // } = useGetUserInfoByAddress(accountAddress || "");
 
   const purchaseDefi = async (params: any) => {
-    if (!userData || userError || !accountAddress) {
-      message.error(
-        "Failed to get user info or account address is not available"
-      );
-      return;
-    }
+    // if (!userData || userError || !accountAddress) {
+    //   message.error(
+    //     "Failed to get user info or account address is not available"
+    //   );
+    //   return;
+    // }
 
     try {
-      const userId = userData?.getUser?.user?.id || "";
+      // const userId = userData?.getUser?.user?.id || "";
       const response = await purchaseDefiMutation({
         variables: {
           id: params.id || "",
-          userId: userId,
+          // userId: userId,
           signedTx: params.signedTx,
           userAddr: accountAddress,
           chainCode: chain?.id || "",
@@ -73,5 +73,5 @@ export const usePurchaseDefi = () => {
     }
   };
 
-  return { purchaseDefi, loading: userLoading };
+  return { purchaseDefi };
 };

@@ -11,7 +11,6 @@ import { marketColumns } from "@/configs/marketColumns";
 import { pointsRecordColumns } from "@/configs/pointsRecordColumns";
 import { referralDetailColumns } from "@/configs/referralDetailColumns";
 import { rewardCenterColumns } from "@/configs/rewardCenterColumns";
-import { rewardCenterDataSource } from "@/mocks/market";
 import { useGetPointLogsByUserId } from "@/services/useGetPointLogsByUserId";
 
 export type PointsMarketSectionProps = {
@@ -50,7 +49,7 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
       case "referral":
         return pointsData?.pointLogs;
       case "rewardCenter":
-        return rewardCenterDataSource;
+        return [];
       default:
         return [];
     }
@@ -249,7 +248,7 @@ const PointsMarketSection: FC<PointsMarketSectionProps> = ({ type }) => {
             <Table
               header={false}
               columns={rewardCenterColumns as Column<RowObject>[]}
-              dataSource={rewardCenterDataSource as any}
+              dataSource={dataSource as any}
               type={"card"}
             />
           </div>

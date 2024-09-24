@@ -57,9 +57,11 @@
     "requestFailed": "Request failed, please try again later.",
     "language-en": "English",
     "language-jp": "Japanese",
-    "language-cn": "Chinese",
+    "language-zh": "Chinese",
     "home-instrc": "Earn more when you re-stake with ether.fi Stake your ETH or stETH and get eETH - a natively re-staked liquid staking token. Earn staking rewards across popular networks and the DeFi ecosystem. Plus, receive ether.fi loyalty points, EigenLayer points and many more partner rewards with your eETH.",
     "Terms-Conditions": "Terms & Conditions",
     "community": "Community",
-    "Docs": "Docs"
+    "Docs": "Docs",
+    "index-title": "A powerful Web3 yield aggregator",
+    "index-desc": "Maximize earnings with top-performing DeFi products curated from multiple blockchain protocols"
 }

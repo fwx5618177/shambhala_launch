@@ -52,7 +52,8 @@ const InputCard: React.FC<InputCardProps> = ({
 
       const total =
         fixedDuration === 0
-          ? (formattedValue * cycle * apyFactor) / (365 * 6646) + formattedValue
+          // ? (formattedValue * cycle * apyFactor) / (365 * 6646) + formattedValue
+          ?  daily * cycle
           : formattedValue * apyFactor + formattedValue;
 
       setDailyEarn(formatUsdt(daily, 4));
@@ -84,20 +85,22 @@ const InputCard: React.FC<InputCardProps> = ({
           <span className="text-xs sm:text-[12px]">Est.receive</span>
           <span className="text-sm sm:text-[14px] text-primary">{totalEarn} USDT</span>
         </div>
-        <div className="w-full flex items-center justify-between mb-2">
-          <span className="text-xs sm:text-[12px]">Est.Points reward</span>
-          <span className="text-sm sm:text-[14px] text-primary">{points}</span>
-        </div>
+          <div className="w-full flex items-center justify-between mb-2">
+              <span className="text-xs sm:text-[12px]">Est.Points reward</span>
+              {/*<span className="text-sm sm:text-[14px] text-primary">{points}</span>*/}
+              <span className="text-sm sm:text-[14px] text-primary">0</span>
+
+          </div>
       </div>
 
-      {/* 分隔线 */}
-      <div className="w-full h-[1px] bg-[#ededed] my-3 sm:mt-[25px]"></div>
+        {/* 分隔线 */}
+        <div className="w-full h-[1px] bg-[#ededed] my-3 sm:mt-[25px]"></div>
 
       {/* 网络信息 */}
       <div className="flex items-center justify-between text-secondary px-4 sm:px-[52px]">
         <span className="text-xs sm:text-[12px]">Network</span>
         <div className="flex items-center gap-[2px]">
-          <Image src={"/eth.svg"} width={14} height={14} alt="eth" className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]" />
+          <Image src={"/bsc.svg"} width={14} height={14} alt="eth" className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]" />
           <p className="text-primary text-[10px] sm:text-desc font-500">{network}</p>
         </div>
       </div>

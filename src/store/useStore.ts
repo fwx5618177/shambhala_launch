@@ -24,6 +24,7 @@ export type Product = CardProps & {
   tvl: string;
   network: string;
   startBlock: number;
+  abbrExpireTime: string;
 };
 
 interface StoreState {
@@ -59,11 +60,11 @@ const useStore = create<StoreState>()(
       login: async (walletAddr, text, signature) => {
         try {
           const response = await loginAPI({ walletAddr, text, signature });
-          const { token, user } = response;
+          const { token } = response;
 
           // 更新状态
           set({
-            userInfo: { token, address: user.walletAddr },
+            userInfo: { token },
             isLogin: true,
           });
 

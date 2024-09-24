@@ -25,6 +25,10 @@ i18n.use(initReactI18next).init({
     jp: { common: jpTranslation, terms: jpTerms, privacy: jpPrivacy },
     zh: { common: zhTranslation, terms: zhTerms, privacy: zhPrivacy },
   },
+  detection: {
+    order: ["path", "cookie", "localStorage", "navigator"], // 检测语言顺序，首先通过 URL 路径检测
+    caches: ["cookie"], // 缓存选项
+  },
 });
 
 export default i18n;
