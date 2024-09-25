@@ -29,8 +29,9 @@ import numeral from "numeral";
 import { FaTimes } from "react-icons/fa";
 import { useApproveStake } from "@/hooks/useApproveStake";
 import { useStake } from "@/hooks/useStake";
+import { toSmallestUnit } from "@/utils/toSmallestUnit";
 
-const { USDT_VAULT_ERC20, USDT_ERC20 } = ContractConfig;
+const { USDT_VAULT_ERC20, USDT_ERC20, BSC_USDT } = ContractConfig;
 
 export interface QueryParams {
   abbrId: string;
@@ -268,9 +269,7 @@ const AssetSection = () => {
   };
 
   async function handleInvest() {
-    const inputAmountNumber =
-      numeral(inputValue).multiply(Math.pow(10, USDT_ERC20.decimals)).value() ||
-      0;
+    const inputAmountNumber = toSmallestUnit(inputValue, BSC_USDT.decimals);
     const amount = BigInt(inputAmountNumber);
     const depositLimitNumber = numeral(depositLimit).value() || 0;
     await beforeStakeHandleBsc(inputAmountNumber);

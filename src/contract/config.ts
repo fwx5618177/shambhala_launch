@@ -35,11 +35,11 @@ export const ContractConfig = {
   BSC_USDT: {
     address: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS_BSC,
     abi: BSC_USDT_ABI,
-    decimals: 6,
+    decimals: 18,
   },
   BSC_STAKE: {
     address: process.env.NEXT_PUBLIC_STAKE_ADDRESS_BSC,
     abi: BSC_STAKE_ABI,
-    decimals: 6,
+    decimals: 18,
   },
 } as ContractConfigProps;

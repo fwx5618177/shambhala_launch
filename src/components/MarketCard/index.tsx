@@ -20,8 +20,9 @@ import { handleShowDay } from "@/utils/handleShowDay";
 import numeral from "numeral";
 import { useApproveStake } from "@/hooks/useApproveStake";
 import { useStake } from "@/hooks/useStake";
+import { toSmallestUnit } from "@/utils/toSmallestUnit";
 
-const { USDT_ERC20, USDT_VAULT_ERC20 } = ContractConfig;
+const { USDT_ERC20, USDT_VAULT_ERC20, BSC_USDT } = ContractConfig;
 
 interface MarketCardProps {
   abbrId: string;
@@ -124,10 +125,11 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
   const handleInvest = useCallback(async () => {
     try {
-      const inputAmountNumber =
-        numeral(inputAmount)
-          .multiply(Math.pow(10, USDT_ERC20.decimals))
-          .value() || 0;
+      const inputAmountNumber = toSmallestUnit(inputAmount, BSC_USDT.decimals);
+      // const inputAmountNumber =
+      //   numeral(inputAmount)
+      //     .multiply(Math.pow(10, USDT_ERC20.decimals))
+      //     .value() || 0;
       const amount = BigInt(inputAmountNumber);
       const depositLimitNumber = numeral(depositLimit).value() || 0;
 
