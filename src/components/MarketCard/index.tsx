@@ -12,6 +12,7 @@ import {
   useAccount,
   useBlockNumber,
 } from "wagmi";
+import _ from "lodash";
 import { getContractMsg } from "@/utils/contract";
 import { message } from "@/providers/MessageProvider";
 import { InvestmentItem } from "@/services/investService";
@@ -22,6 +23,7 @@ import { useApproveStake } from "@/hooks/useApproveStake";
 import { useStake } from "@/hooks/useStake";
 import { toSmallestUnit } from "@/utils/toSmallestUnit";
 import { isZero } from "@/utils/math";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 const { USDT_ERC20, USDT_VAULT_ERC20, BSC_USDT } = ContractConfig;
 
@@ -64,6 +66,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const [busy, setBusy] = useState(false);
   const [myInvestings, setMyInvestings] = useState<InvestmentItem[]>([]);
   const { address: accountAddress, isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
   const { purchaseDefi } = usePurchaseDefi();
   const formattedApy = useMemo(() => (Number(apy) / 1000000) * 100, [apy]);
   const { data: blockNumber } = useBlockNumber();
@@ -124,9 +127,9 @@ const MarketCard: React.FC<MarketCardProps> = ({
     ],
   });
 
-  const handleInvest = useCallback(async () => {
+  const handleInvestDebounce = useCallback(async () => {
     if (!isConnected) {
-      message.error("Please connect wallet first!");
+      openConnectModal?.();
       return;
     }
 
@@ -140,8 +143,15 @@ const MarketCard: React.FC<MarketCardProps> = ({
       const amount = BigInt(inputAmountNumber);
       const depositLimitNumber = numeral(depositLimit).value() || 0;
 
-      await beforeStakeHandleBsc(inputAmountNumber);
+      const approveTx = await beforeStakeHandleBsc(inputAmountNumber);
+
+      if (!approveTx) {
+        message.error("Approval failed");
+        return;
+      }
+
       await handleStake(inputAmountNumber);
+
       return;
 
       if (busy) return;
@@ -249,10 +259,13 @@ const MarketCard: React.FC<MarketCardProps> = ({
     isError,
     isSuccess,
     myInvestings,
+    openConnectModal,
     pid,
     purchaseDefi,
     writeContractAsync,
   ]);
+
+  const handleInvest = _.debounce(handleInvestDebounce);
 
   return (
     <div className="w-full max-w-[500px] h-auto p-4 bg-white shadow-lg rounded-lg transition-all duration-300">

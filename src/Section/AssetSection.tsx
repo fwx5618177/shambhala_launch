@@ -12,6 +12,9 @@ import {
   useWaitForTransactionReceipt,
   useAccount,
 } from "wagmi";
+import _ from "lodash";
+
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { ContractConfig } from "@/contract/config";
 import { getContractMsg } from "@/utils/contract";
 
@@ -58,6 +61,7 @@ const AssetSection = () => {
   const [inputValue, setInputValue] = useState<number>(0.0);
   const [step, setStep] = useState<number>(0);
   const { address: accountAddress, isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
   const rate = 1;
   const [busy, setBusy] = useState(false);
   const router = useRouter();
@@ -269,9 +273,9 @@ const AssetSection = () => {
     return { decimals, symbol };
   };
 
-  async function handleInvest() {
+  async function handleInvestDebounce() {
     if (!isConnected) {
-      message.error("Please connect wallet first!");
+      openConnectModal?.();
       return;
     }
 
@@ -283,8 +287,14 @@ const AssetSection = () => {
     const inputAmountNumber = toSmallestUnit(inputValue, BSC_USDT.decimals);
     // const amount = BigInt(inputAmountNumber);
     // const depositLimitNumber = numeral(depositLimit).value() || 0;
-    await beforeStakeHandleBsc(inputAmountNumber);
+    const approveTx = await beforeStakeHandleBsc(inputAmountNumber);
+
+    if (!approveTx) {
+      message.error("Approval failed");
+      return;
+    }
     await handleStake(inputAmountNumber);
+
     return;
 
     if (!isConnected) {
@@ -379,6 +389,8 @@ const AssetSection = () => {
       setStep(0);
     }
   }
+
+  const handleInvest = _.debounce(handleInvestDebounce);
 
   async function handleRedeem() {
     if (busy) return;

@@ -59,14 +59,6 @@ export const useApproveStake = () => {
           }); // 切换到 BSC 链
           return;
         }
-
-        console.log("prepareResult:", {
-          prepareResult,
-          isAllowanceSuccess,
-          inputValue,
-          isSimulateError,
-        });
-
         // if (!isAllowanceSuccess && !inputValue) {
         //   message.error("Allowance not found, please try again.");
         //   return;
@@ -93,8 +85,10 @@ export const useApproveStake = () => {
             `Approve transaction submitted, tx hash: ${approveTx}`
           );
         }
-      } catch (error) {
-        message.error("Approve failed, please try again.");
+
+        return approveTx;
+      } catch (error: any) {
+        message.error(`Approve failed, error: ${error?.message}`);
         console.error("Approve error:", error);
       } finally {
         setIsApproving(false);
@@ -104,8 +98,6 @@ export const useApproveStake = () => {
       switchChainAsync,
       chainId,
       prepareResult,
-      isAllowanceSuccess,
-      isSimulateError,
       writeContractAsync,
       BSC_USDT.abi,
       BSC_USDT.address,
