@@ -71,7 +71,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const formattedApy = useMemo(() => (Number(apy) / 1000000) * 100, [apy]);
   const { data: blockNumber } = useBlockNumber();
 
-  const { beforeStakeHandleBsc } = useApproveStake();
+  const { beforeStakeHandleBsc, isApproving } = useApproveStake();
   const { handleStake } = useStake();
 
   const { data: hash, writeContractAsync } = useWriteContract();
@@ -344,8 +344,12 @@ const MarketCard: React.FC<MarketCardProps> = ({
       />
 
       <div
-        onClick={handleInvest}
+        onClick={isApproving ? () => {} : handleInvest}
         className="w-full h-[40px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover mt-4 sm:mt-0"
+        style={{
+          cursor: isApproving ? "not-allowed" : "pointer",
+          backgroundColor: isApproving ? "#d3d3d3" : "",
+        }}
       >
         {state === 0 ? (
           "Invest"

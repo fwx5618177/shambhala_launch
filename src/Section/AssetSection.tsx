@@ -83,7 +83,7 @@ const AssetSection = () => {
   const [dailyEarn, setDailyEarn] = useState<string>("0");
   const [totalEarn, setTotalEarn] = useState<string>("0");
 
-  const { beforeStakeHandleBsc } = useApproveStake();
+  const { beforeStakeHandleBsc, isApproving } = useApproveStake();
   const { handleStake } = useStake();
 
   // 确保 abbrExpireTime 存在且是有效的字符串
@@ -683,8 +683,12 @@ const AssetSection = () => {
               {/* 操作按钮 */}
               {selectedRedeem == "invite" ? (
                 <div
-                  onClick={() => handleInvest()}
+                  onClick={isApproving ? () => {} : handleInvest}
                   className="w-full h-[48px] flex items-center justify-center bg-primary text-thirdary text-[14px] font-600 rounded-[10px] button-hover capitalize"
+                  style={{
+                    cursor: isApproving ? "not-allowed" : "pointer",
+                    backgroundColor: isApproving ? "#d3d3d3" : "",
+                  }}
                 >
                   {step == 0 ? (
                     "Invest"
@@ -801,8 +805,12 @@ const AssetSection = () => {
 
           {selectedRedeem == "invite" ? (
             <div
-              onClick={() => handleInvest()}
+              onClick={isApproving ? () => {} : handleInvest}
               className="w-full h-[48px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover capitalize"
+              style={{
+                cursor: isApproving ? "not-allowed" : "pointer",
+                backgroundColor: isApproving ? "#d3d3d3" : "",
+              }}
             >
               {step == 0 ? (
                 "Invest"
