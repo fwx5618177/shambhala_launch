@@ -21,6 +21,7 @@ import numeral from "numeral";
 import { useApproveStake } from "@/hooks/useApproveStake";
 import { useStake } from "@/hooks/useStake";
 import { toSmallestUnit } from "@/utils/toSmallestUnit";
+import { isZero } from "@/utils/math";
 
 const { USDT_ERC20, USDT_VAULT_ERC20, BSC_USDT } = ContractConfig;
 
@@ -124,12 +125,18 @@ const MarketCard: React.FC<MarketCardProps> = ({
   });
 
   const handleInvest = useCallback(async () => {
+    if (!isConnected) {
+      message.error("Please connect wallet first!");
+      return;
+    }
+
+    if (isZero(inputAmount)) {
+      message.error("Asset must be greater than zero");
+      return;
+    }
+
     try {
       const inputAmountNumber = toSmallestUnit(inputAmount, BSC_USDT.decimals);
-      // const inputAmountNumber =
-      //   numeral(inputAmount)
-      //     .multiply(Math.pow(10, USDT_ERC20.decimals))
-      //     .value() || 0;
       const amount = BigInt(inputAmountNumber);
       const depositLimitNumber = numeral(depositLimit).value() || 0;
 
@@ -230,11 +237,13 @@ const MarketCard: React.FC<MarketCardProps> = ({
     }
   }, [
     abbrId,
+    beforeStakeHandleBsc,
     busy,
     contractAddress,
     data,
     depositLimit,
     fixedDuration,
+    handleStake,
     inputAmount,
     isConnected,
     isError,

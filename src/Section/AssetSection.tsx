@@ -30,6 +30,7 @@ import { FaTimes } from "react-icons/fa";
 import { useApproveStake } from "@/hooks/useApproveStake";
 import { useStake } from "@/hooks/useStake";
 import { toSmallestUnit } from "@/utils/toSmallestUnit";
+import { isZero } from "@/utils/math";
 
 const { USDT_VAULT_ERC20, USDT_ERC20, BSC_USDT } = ContractConfig;
 
@@ -269,9 +270,19 @@ const AssetSection = () => {
   };
 
   async function handleInvest() {
+    if (!isConnected) {
+      message.error("Please connect wallet first!");
+      return;
+    }
+
+    if (isZero(inputValue)) {
+      message.error("Asset must be greater than zero");
+      return;
+    }
+
     const inputAmountNumber = toSmallestUnit(inputValue, BSC_USDT.decimals);
-    const amount = BigInt(inputAmountNumber);
-    const depositLimitNumber = numeral(depositLimit).value() || 0;
+    // const amount = BigInt(inputAmountNumber);
+    // const depositLimitNumber = numeral(depositLimit).value() || 0;
     await beforeStakeHandleBsc(inputAmountNumber);
     await handleStake(inputAmountNumber);
     return;

@@ -45,12 +45,11 @@ export const useStake = () => {
   const handleStake = useCallback(
     async (stakeAmount: number) => {
       try {
+        message.info("Staking, please wait...");
+
         if (switchChainAsync && chainId !== 56) {
           await switchChainAsync({ chainId: 56 });
-          return;
         }
-
-        console.log("stakeAmount:", stakeAmount, balance, isFetchedBalance);
 
         // 确认余额足够
         if (Number(balance) < stakeAmount) {
@@ -81,7 +80,6 @@ export const useStake = () => {
       switchChainAsync,
       chainId,
       balance,
-      isFetchedBalance,
       writeContractAsync,
       BSC_STAKE.abi,
       BSC_STAKE.address,
