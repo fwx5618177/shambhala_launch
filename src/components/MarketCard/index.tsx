@@ -268,7 +268,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
   const handleInvest = _.debounce(handleInvestDebounce);
 
   return (
-    <div className="w-full max-w-[500px] h-auto p-4 bg-white shadow-lg rounded-lg transition-all duration-300">
+    <div className="w-full max-w-[500px] h-auto p-4 bg-white rounded-lg transition-all duration-300">
       <div className="w-full h-auto text-[8px] rounded-[12px] sm:h-[90px] px-4 py-2 flex flex-row flex-nowrap justify-between items-center mb-[5px] text-primary bg-market-card-bg sm:shadow-card">
         {/* 第一个部分 */}
         <div className="flex items-center w-full sm:w-auto overflow-hidden">
@@ -303,7 +303,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
         {/* 第二部分: TVL 和 Network */}
         <div className="flex items-center justify-around w-full sm:w-auto mt-2 sm:mt-0">
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 pr-[2rem]">
             <p className="text-[16px] sm:text-[22px] text-primary truncate">
               {tvl}
             </p>
@@ -311,12 +311,17 @@ const MarketCard: React.FC<MarketCardProps> = ({
           </div>
 
           {/* 中间的分隔线 */}
-          <div className="h-[40px] w-[1px] bg-[#ededed] hidden sm:block"></div>
+          <div className="h-[40px] w-[2px] bg-[#ededed] hidden sm:block"></div>
 
           {/* 第三部分: Network */}
           <div className="ml-4 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-[2px]">
-              <Image src={"/bsc.svg"} width={16} height={16} alt="bsc" />
+            <div className="flex items-center gap-[2px] max-w-[80px]">
+              <Image
+                src={"/bsc.svg"}
+                width={16}
+                height={16}
+                alt="binance smart chain"
+              />
               <p className="text-primary text-xs sm:text-desc font-500 truncate">
                 {network}
               </p>
@@ -345,7 +350,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
       <div
         onClick={isApproving ? () => {} : handleInvest}
-        className="w-full h-[40px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-600 rounded-[10px] sm:rounded-[20px] button-hover mt-4 sm:mt-0"
+        className="w-full h-[40px] sm:h-[60px] flex items-center justify-center bg-primary text-thirdary text-[14px] sm:text-[16px] font-[600] rounded-[10px] sm:rounded-[20px] button-hover mt-4 sm:mt-0 hover:bg-[#484646]"
         style={{
           cursor: isApproving ? "not-allowed" : "pointer",
           backgroundColor: isApproving ? "#d3d3d3" : "",

@@ -13,7 +13,7 @@ const CardSection = () => {
       abbrCycle: 3,
       maturity: "2023-12-31",
       tvl: "7.67M",
-      network: "bsc",
+      network: "Binance Smart Chain",
       pid: 123,
       contractAddress:
         "0x6e7E9700350467bc645fb2985D6b63972Eb9F9e1" as `0x${string}`,

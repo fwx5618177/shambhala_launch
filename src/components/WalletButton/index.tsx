@@ -11,7 +11,7 @@ import { getSignContent } from "@/services/getSignContent";
 import { message } from "@/providers/MessageProvider";
 import MobileAccountMenu from "../MobileAccountMenu";
 
-const WalletButton: React.FC = () => {
+const WalletButton: React.FC<{ size?: string }> = ({ size = "small" }) => {
   const { t } = useTranslation("common");
   const { updateUserInfo, isLogin, updateIsLogin, login } = useStore();
   const { address, isConnected } = useAccount();
@@ -80,9 +80,11 @@ const WalletButton: React.FC = () => {
   return (
     <div className="relative flex items-center">
       {isConnected ? (
-        <div
-          className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-4 cursor-pointer">
-          <div className="sm:hidden flex items-center" onClick={toggleMobileMenu}>
+        <div className="flex items-center space-x-2 bg-bannerBg text-thirdary px-4 py-2 rounded-full mr-4 cursor-pointer">
+          <div
+            className="sm:hidden flex items-center"
+            onClick={toggleMobileMenu}
+          >
             <Image src="/user-icon.svg" alt="User" width={24} height={24} />
             <span className="text-sm">
               {address?.slice(0, 2)}...{address?.slice(-2)}
@@ -90,8 +92,14 @@ const WalletButton: React.FC = () => {
           </div>
 
           {/* Desktop Menu Button (large screens) */}
-          <div className="hidden sm:flex items-center space-x-2 relative" ref={menuRef}>
-            <div onClick={toggleMenu} className="flex items-center cursor-pointer">
+          <div
+            className="hidden sm:flex items-center space-x-2 relative"
+            ref={menuRef}
+          >
+            <div
+              onClick={toggleMenu}
+              className="flex items-center cursor-pointer"
+            >
               <Image src="/user-icon.svg" alt="User" width={24} height={24} />
               <span className="truncate">
                 {address?.slice(0, 6)}...{address?.slice(-4)}
@@ -111,18 +119,31 @@ const WalletButton: React.FC = () => {
                   <CopyToClipboard text={address || ""} onCopy={handleCopy}>
                     <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-tl-xl rounded-tr-xl">
                       <p className="flex items-center justify-between gap-2">
-                        <span>{address?.slice(0, 6)}...{address?.slice(-4)}</span>
-                        <FaCopy size={18} className="text-black bg-white p-1 rounded-full" />
+                        <span>
+                          {address?.slice(0, 6)}...{address?.slice(-4)}
+                        </span>
+                        <FaCopy
+                          size={18}
+                          className="text-black bg-white p-1 rounded-full"
+                        />
                       </p>
                     </li>
                   </CopyToClipboard>
                   {isCopied && (
-                    <li className="text-center text-green-500">{t("copied")}</li>
+                    <li className="text-center text-green-500">
+                      {t("copied")}
+                    </li>
                   )}
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer" onClick={() => router.push("/portfolio")}>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                    onClick={() => router.push("/portfolio")}
+                  >
                     {t("portfolio")}
                   </li>
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-bl-xl rounded-br-xl" onClick={handleDisconnect}>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer rounded-bl-xl rounded-br-xl"
+                    onClick={handleDisconnect}
+                  >
                     {t("disconnect")}
                   </li>
                 </ul>
@@ -133,7 +154,14 @@ const WalletButton: React.FC = () => {
       ) : (
         <ConnectButton.Custom>
           {({ openConnectModal }) => (
-            <div onClick={openConnectModal} className="bg-white text-black px-3 py-2 rounded-full mr-2 cursor-pointer text-xs sm:text-base whitespace-nowrap">
+            <div
+              onClick={openConnectModal}
+              className={`bg-white text-black rounded-full mr-2 cursor-pointer  sm:text-base whitespace-nowrap ${
+                size === "large"
+                  ? "p-5 text-[1rem] font-[800]"
+                  : "px-3 py-2 text-xs"
+              }`}
+            >
               {t("connect-wallet")}
             </div>
           )}

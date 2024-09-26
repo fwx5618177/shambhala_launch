@@ -22,8 +22,8 @@ const Earn: FC<EarnProps> = ({ col }) => {
           <h2 className="text-xl font-bold mb-4">{t("earn")}</h2>
           <p className="text-desc mt-[21px]">{t("home-instrc")}</p>
           <Link href="/discover">
-            <div className="w-[200px] h-[42px] bg-primary text-thirdary rounded-full mt-[52px] flex items-center justify-center button-hover mx-auto">
-              {t("earn")}
+            <div className="w-[200px] h-[42px] bg-primary text-thirdary rounded-full mt-[52px] flex items-center justify-center button-hover mx-auto active:bg-[#484646] hover:bg-[#484646]">
+              Earn Now
             </div>
           </Link>
         </div>

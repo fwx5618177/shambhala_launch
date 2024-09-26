@@ -43,7 +43,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           : "bg-thirdary mx-2 sm:mx-[20px] my-2 sm:my-[24px]"
       }`}
     >
-      <div className="flex flex-col items-start w-full sm:ml-[29px]">
+      <div className="flex flex-col items-start w-1/2 mr-[12px] sm:ml-[29px]">
         <input
           type="text"
           value={inputValue}
@@ -51,12 +51,15 @@ const InputBalance: FC<InputBalanceProps> = ({
           className="text-base sm:text-coinLg bg-transparent border-none outline-none w-full"
           placeholder="0.00"
         />
-        <p className="text-[10px] sm:text-[12px] text-secondary">
+        <p
+          style={{ overflow: "hidden" }}
+          className="text-[10px] w-full sm:text-[12px] text-secondary"
+        >
           ${calculatedValue.toFixed(2)}
         </p>
       </div>
       {type === "asset" ? (
-        <div className="flex sm:flex-col sm:flex-row gap-2 items-center mt-2 sm:mt-0 w-full sm:w-auto mr-2">
+        <div className="flex w-1/2 sm:flex-col sm:flex-row gap-2 items-center mt-2 sm:mt-0 sm:w-auto mr-2">
           <div
             className={`bg-thirdary rounded-[10px] w-auto h-[40px] sm:h-[50px] flex items-center px-2 sm:px-[12px] whitespace-nowrap w-full sm:w-auto`}
           >
@@ -82,7 +85,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         </div>
       ) : (
         <div
-          className={`bg-market-card-bg rounded-[10px] p-[10px] sm:p-[12px] flex items-center justify-between w-full sm:w-3/4 mr-0 sm:mr-[36px] mt-2 sm:mt-0`}
+          className={`bg-market-card-bg rounded-[10px] p-[10px] sm:p-[12px] flex items-center justify-between w-1/2 sm:w-3/4 mr-0 sm:mr-[36px] mt-2 sm:mt-0`}
         >
           <div className="flex items-center space-x-2 sm:space-x-4 w-full">
             <Image

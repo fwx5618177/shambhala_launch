@@ -14,7 +14,7 @@ const MarketSection = () => {
       abbrCycle: 3,
       maturity: "2023-12-31",
       tvl: "7.67M",
-      network: "bsc",
+      network: "Binance Smart Chain",
       pid: 123,
       contractAddress:
         "0x6e7E9700350467bc645fb2985D6b63972Eb9F9e1" as `0x${string}`,
@@ -28,7 +28,7 @@ const MarketSection = () => {
   return (
     <section className="bg-bg-primary py-16">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-number text-center text-primary font-600 mb-[75px]">
+        <h2 className="text-coinLg sm:text-number text-center text-primary font-600 mb-[75px] whitespace-nowrap">
           {t("discover-yield-markets")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
