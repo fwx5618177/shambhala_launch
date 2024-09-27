@@ -85,7 +85,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         </div>
       ) : (
         <div
-          className={`bg-market-card-bg rounded-[10px] p-[10px] sm:p-[12px] flex items-center justify-between w-1/2 sm:w-3/4 mr-0 sm:mr-[36px] mt-2 sm:mt-0`}
+          className={`bg-market-card-bg rounded-[10px] p-[10px] sm:p-[12px] flex items-center justify-between w-1/2 sm:w-3/4 mr-0 sm:mr-[36px] sm:mt-0`}
         >
           <div className="flex items-center space-x-2 sm:space-x-4 w-full">
             <Image

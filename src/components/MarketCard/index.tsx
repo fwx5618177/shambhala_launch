@@ -269,7 +269,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
   return (
     <div className="w-full max-w-[500px] h-auto p-4 bg-white rounded-lg transition-all duration-300">
-      <div className="w-full h-auto text-[8px] rounded-[12px] sm:h-[90px] px-4 py-2 flex flex-row flex-nowrap justify-between items-center mb-[5px] text-primary bg-market-card-bg sm:shadow-card">
+      <div className="w-full h-auto text-[8px] rounded-[12px] sm:h-[90px] p-2 flex flex-row flex-nowrap justify-between items-center mb-[5px] text-primary bg-market-card-bg sm:shadow-card">
         {/* 第一个部分 */}
         <div className="flex items-center w-full sm:w-auto overflow-hidden">
           <div className="relative mr-2 flex-shrink-0">
@@ -289,7 +289,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
             {/*/>*/}
           </div>
           <div className="ml-[2px] flex items-center gap-2 overflow-hidden">
-            <h3 className="text-[26px] sm:text-coinXl truncate">
+            <h3 className="text-[1.2rem] sm:text-coinXl truncate">
               {formattedApy}
             </h3>
             <div className="flex flex-col truncate">
@@ -303,7 +303,7 @@ const MarketCard: React.FC<MarketCardProps> = ({
 
         {/* 第二部分: TVL 和 Network */}
         <div className="flex items-center justify-around w-full sm:w-auto mt-2 sm:mt-0">
-          <div className="flex flex-col items-center gap-1 pr-[2rem]">
+          <div className="flex flex-col items-center gap-1">
             <p className="text-[16px] sm:text-[22px] text-primary truncate">
               {tvl}
             </p>
