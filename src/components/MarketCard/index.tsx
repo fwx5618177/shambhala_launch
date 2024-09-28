@@ -318,8 +318,8 @@ const MarketCard: React.FC<MarketCardProps> = ({
             <div className="flex items-center gap-[2px] max-w-[80px]">
               <Image
                 src={"/bsc.svg"}
-                width={16}
-                height={16}
+                width={36}
+                height={36}
                 alt="binance smart chain"
               />
               <p className="text-primary text-xs sm:text-desc font-500 truncate">

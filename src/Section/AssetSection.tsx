@@ -507,7 +507,7 @@ const AssetSection = () => {
               <div className="flex flex-col items-start">
                 <span className="mb-2 lg:mb-[17px]">{t("earn")}</span>
                 <div className="flex items-center gap-1 lg:gap-[2px]">
-                  <Image src={"/tether.png"} width={18} height={18} alt="eth" />
+                  <Image src={"/tether.svg"} width={18} height={18} alt="eth" />
                   <p className="font-500">USDT</p>
                 </div>
               </div>
@@ -525,7 +525,7 @@ const AssetSection = () => {
               <div className="flex flex-col items-start">
                 <span className="mb-2 lg:mb-[17px]">{t("network")}</span>
                 <div className="flex items-center gap-1 lg:gap-[5px]">
-                  <Image src={"/bsc.svg"} width={18} height={18} alt="eth" />
+                  <Image src={"/bsc.svg"} width={36} height={36} alt="eth" />
                   <p className="font-500">BSC</p>
                 </div>
               </div>
@@ -622,7 +622,7 @@ const AssetSection = () => {
               </div>
 
               <InputBalance
-                logo={"/tether.png"}
+                logo={"/tether.svg"}
                 coinName={"USDT"}
                 rate={rate}
                 type="asset"
@@ -739,7 +739,7 @@ const AssetSection = () => {
           </div>
 
           <InputBalance
-            logo={"/tether.png"}
+            logo={"/tether.svg"}
             coinName={"USDT"}
             rate={rate}
             type="asset"

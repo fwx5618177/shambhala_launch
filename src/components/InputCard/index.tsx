@@ -105,10 +105,10 @@ const InputCard: React.FC<InputCardProps> = ({
         <div className="flex items-center gap-[2px]">
           <Image
             src={"/bsc.svg"}
-            width={14}
-            height={14}
+            width={36}
+            height={36}
             alt="eth"
-            className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]"
+            className="w-[24px] h-[24px] sm:w-[36px] sm:h-[36px]"
           />
           <p className="text-primary text-[10px] sm:text-desc font-500">
             {network}

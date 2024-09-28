@@ -5,11 +5,11 @@
  */
 export function matchImg(logo: string): string {
   const logosMap: Record<string, string> = {
-    USDT: "/tether.png",
+    USDT: "/tether.svg",
     SOL: "/solana.png",
     AVAX: "/avax.png",
     USDC: "/usdc.png",
   };
 
-  return logosMap[logo] || "/tether.png";
+  return logosMap[logo] || "/tether.svg";
 }
